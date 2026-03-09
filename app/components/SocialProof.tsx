@@ -276,9 +276,6 @@ export default function SocialProof() {
 
       {/* Google Fonts — same fonts as Hero for consistency.
           In production, move this to globals.css so it only loads once. */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:wght@400;500&display=swap');
-      `}</style>
 
     </section>
   )

@@ -100,9 +100,6 @@ export default function Benefits() {
                     ))}
                     </motion.div>
                 </div>
-                <style>{`
-  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:wght@400;500&display=swap');
-                `}</style>
         </section>
     )
 }

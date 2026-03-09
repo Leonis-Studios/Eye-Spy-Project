@@ -552,9 +552,7 @@ export default function Hero() {
           We're keeping it here for now so this component is fully self-contained
           and works without any changes to other files.
       */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:wght@400;500&display=swap');
-      `}</style>
+      
 
     </section>
   )
