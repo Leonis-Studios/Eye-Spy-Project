@@ -7,7 +7,7 @@ import {
   type Variants,
   AnimatePresence,
 } from "framer-motion";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "../config/site";
 
 interface Testimonial {
   quote: string;

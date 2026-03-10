@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "../config/site";
 
 export default function CTA() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -120,12 +120,12 @@ export default function CTA() {
             />
           </button>
           <a
-            href="tel:+15550000000"
+            href={siteConfig.phoneHref}
             className="text-slate-400 hover:text-white text-sm tracking-wide transition-colors duration-200"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             or call{" "}
-            <span className="text-white font-medium">(555) 000-0000</span>
+            <span className="text-white font-medium">{siteConfig.phone}</span>
           </a>
         </motion.div>
       </div>

@@ -8,7 +8,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "../config/site";
 
 interface FAQItem {
   question: string;

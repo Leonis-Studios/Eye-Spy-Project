@@ -25,7 +25,7 @@ import { motion, type Variants } from "framer-motion";
 // These are React components — you use them like <ShieldCheck /> in JSX.
 import { ShieldCheck, ArrowRight, ChevronDown } from "lucide-react";
 
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "../config/site";
 
 // ─── COMPONENT DEFINITION ────────────────────────────────────────────────────
 // This is the Hero component — a function that returns UI (JSX).
@@ -208,9 +208,9 @@ export default function Hero() {
   // This is cleaner than copy-pasting three separate JSX blocks.
   // Each object has a "value" and "label" property we'll reference in the JSX.
   const stats = [
-    { value: "2,400+", label: "Systems Installed" },
-    { value: "15 yrs", label: "In The Field" },
-    { value: "98%", label: "Client Satisfaction" },
+    { value: siteConfig.stats.installs, label: "Systems Installed" },
+    { value: siteConfig.stats.years, label: "In The Field" },
+    { value: siteConfig.stats.satisfaction, label: "Client Satisfaction" },
   ];
 
   // ─── JSX (THE UI) ─────────────────────────────────────────────────────────
@@ -305,7 +305,7 @@ export default function Hero() {
               letterSpacing: "0.18em",
             }}
           >
-            SecurTech
+            {siteConfig.name}
           </span>
         </div>
 
@@ -445,12 +445,12 @@ export default function Hero() {
               href="tel:+15550000000" makes this a phone link.
               On mobile devices, tapping it opens the phone dialer automatically. */}
           <a
-            href="tel:+15550000000"
+            href={siteConfig.phoneHref}
             className="text-slate-400 hover:text-white text-sm tracking-wide transition-colors duration-200"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             or call{" "}
-            <span className="text-white font-medium">(555) 000-0000</span>
+            <span className="text-white font-medium">{siteConfig.phone}</span>
           </a>
         </motion.div>
 
@@ -530,7 +530,7 @@ export default function Hero() {
           So it looks like a glowing line that fades out at both ends.
           This subtly separates the hero from the next section.
       */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00c8ff]/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#00c8ff]/20 to-transparent" />
       {/* ── GOOGLE FONTS ──────────────────────────────────────────────────────
           This loads our two custom fonts from Google Fonts.
           Rajdhani — display/heading font (geometric, technical, sharp)

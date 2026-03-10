@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ShieldCheck, Clock, Wrench, HeadphonesIcon } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "../config/site";
 
 interface Benefit {
   icon: React.ReactNode;

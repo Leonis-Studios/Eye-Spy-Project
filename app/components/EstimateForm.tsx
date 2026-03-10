@@ -3,7 +3,7 @@
 import React, { useRef, useState } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowRight, CheckCircle } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "../config/site";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 // FormData defines the shape of our form state object.
@@ -348,12 +348,11 @@ export default function EstimateForm() {
               <option value="" disabled>
                 Select a service...
               </option>
-              <option value="cameras">CCTV & Camera Systems</option>
-              <option value="alarms">Alarm Systems</option>
-              <option value="access">Access Control</option>
-              <option value="monitoring">24/7 Monitoring</option>
-              <option value="consultation">Security Consultation</option>
-              <option value="other">Other / Not Sure</option>
+              {siteConfig.services.map((service) => (
+                <option key={service.value} value={service.value}>
+                  {service.label}
+                </option>
+              ))}
             </select>
             {errors.serviceType && (
               <p className="text-red-400 text-xs mt-1">{errors.serviceType}</p>

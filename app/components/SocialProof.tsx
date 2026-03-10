@@ -22,7 +22,7 @@ import {
   Clock,
   Award,
 } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "../config/site";
 
 // ─── TYPE DEFINITIONS ─────────────────────────────────────────────────────────
 // TypeScript interfaces define the "shape" of an object — what properties it has
@@ -97,9 +97,21 @@ export default function SocialProof() {
   // icon: <Component /> syntax — JSX inside a JS object. This works because
   // React elements are just objects, so they can be stored in variables/arrays.
   const stats: Stat[] = [
-    { value: "15+", label: "Years in Business", icon: <Clock size={18} /> },
-    { value: "2,400+", label: "Systems Installed", icon: <Users size={18} /> },
-    { value: "4.9★", label: "Average Rating", icon: <Star size={18} /> },
+    {
+      value: siteConfig.stats.years,
+      label: "Years in Business",
+      icon: <Clock size={18} />,
+    },
+    {
+      value: siteConfig.stats.installs,
+      label: "Systems Installed",
+      icon: <Users size={18} />,
+    },
+    {
+      value: siteConfig.stats.rating,
+      label: "Average Rating",
+      icon: <Star size={18} />,
+    },
   ];
 
   // Certifications array — the trust badges shown on the right side.
@@ -218,13 +230,13 @@ export default function SocialProof() {
             The gradient fades in/out at top and bottom — same technique as the
             Hero's bottom divider line but rotated 90 degrees (bg-gradient-to-b).
         */}
-        <div className="hidden lg:block self-stretch w-px mx-16 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
+        <div className="hidden lg:block self-stretch w-px mx-16 bg-linear-to-b from-transparent via-white/10 to-transparent" />
 
         {/* ── RIGHT SIDE: CERTIFICATIONS ──────────────────────────────────────
             Three certification badges stacked vertically.
             "flex-shrink-0" prevents this column from shrinking on desktop.
         */}
-        <div className="flex-shrink-0 flex flex-col gap-4 w-full lg:w-auto">
+        <div className="shrink-0 flex flex-col gap-4 w-full lg:w-auto">
           {/* Section eyebrow label for the certs side */}
           <motion.p
             variants={itemVariants}
@@ -247,7 +259,7 @@ export default function SocialProof() {
               className="group flex items-center gap-4 px-6 py-4 rounded-sm border border-white/5 hover:border-[#00c8ff]/20 hover:bg-[#00c8ff]/5 transition-all duration-300 cursor-default"
             >
               {/* Icon — in a small accent-colored circle */}
-              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#00c8ff]/10 text-[#00c8ff] flex-shrink-0 group-hover:bg-[#00c8ff]/20 transition-colors duration-300">
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#00c8ff]/10 text-[#00c8ff] shrink-0 group-hover:bg-[#00c8ff]/20 transition-colors duration-300">
                 {cert.icon}
               </span>
 
@@ -266,7 +278,7 @@ export default function SocialProof() {
                   "ml-auto" pushes it to the far right of the flex row.
                   "opacity-0 group-hover:opacity-100" — invisible by default,
                   fades in when the parent (group) is hovered. */}
-              <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#00c8ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0" />
+              <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#00c8ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shrink-0" />
             </motion.div>
           ))}
         </div>

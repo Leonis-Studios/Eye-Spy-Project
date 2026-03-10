@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "../config/site";
 
 interface Step {
   step: string;
