@@ -1,6 +1,12 @@
-import Hero from "./components/Hero"
-import SocialProof from "./components/SocialProof"
-import Benefits from "./components/Benefits"
+import Hero from "./components/Hero";
+import SocialProof from "./components/SocialProof";
+import Benefits from "./components/Benefits";
+import Services from "./components/Services";
+import HowItWorks from "./components/HowItWorks";
+import Testimonials from "./components/Testimonials";
+import CTA from "./components/CTA";
+import FAQ from "./components/FAQ";
+import EstimateForm from "./components/EstimateForm";
 
 export default function Home() {
   return (
@@ -8,6 +14,12 @@ export default function Home() {
       <Hero />
       <SocialProof />
       <Benefits />
+      <Services />
+      <HowItWorks />
+      <Testimonials />
+      <CTA />
+      <FAQ />
+      <EstimateForm />
     </main>
-  )
+  );
 }

@@ -4,13 +4,13 @@
 //   - canvas animation (a browser API)
 //   - button click handlers (browser events)
 // Any time you use those things, you need "use client" at the top.
-"use client"
+"use client";
 
 // ─── IMPORTS ─────────────────────────────────────────────────────────────────
 // Importing specific hooks from React.
 // useEffect: runs code AFTER the component appears on screen (good for browser APIs)
 // useRef: gives you a direct reference to a real DOM element (like a canvas or div)
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
 
 // Framer Motion is an animation library.
 // "motion" is a special version of HTML elements (motion.div, motion.h1, etc.)
@@ -18,13 +18,14 @@ import { useEffect, useRef } from "react"
 // Importing the Variants type from Framer Motion.
 // We need this so TypeScript knows exactly what shape our animation object should be.
 // Without it, TypeScript infers the types too loosely and throws errors.
-import { motion, type Variants } from "framer-motion"
+import { motion, type Variants } from "framer-motion";
 
 // Lucide React is an icon library.
 // We're importing three specific icons by name.
 // These are React components — you use them like <ShieldCheck /> in JSX.
-import { ShieldCheck, ArrowRight, ChevronDown } from "lucide-react"
+import { ShieldCheck, ArrowRight, ChevronDown } from "lucide-react";
 
+import { siteConfig } from "@/config/site";
 
 // ─── COMPONENT DEFINITION ────────────────────────────────────────────────────
 // This is the Hero component — a function that returns UI (JSX).
@@ -32,7 +33,6 @@ import { ShieldCheck, ArrowRight, ChevronDown } from "lucide-react"
 // In page.tsx you'd write: import Hero from "./components/Hero"
 // Then use it like an HTML tag: <Hero />
 export default function Hero() {
-
   // ─── REFS ──────────────────────────────────────────────────────────────────
   // useRef creates a reference to a real DOM element.
   // We attach this to the <canvas> element below via ref={canvasRef}.
@@ -40,8 +40,7 @@ export default function Hero() {
   // The <HTMLCanvasElement> part is TypeScript — it tells TypeScript what
   // type of element this ref will point to, so it knows what methods are available.
   // null is the initial value before the canvas exists yet.
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // ─── CANVAS ANIMATION (useEffect) ─────────────────────────────────────────
   // useEffect runs code AFTER the component renders in the browser.
@@ -51,73 +50,75 @@ export default function Hero() {
   // right after the first render. If you put a variable in the array, it would
   // re-run every time that variable changes.
   useEffect(() => {
-
     // Get the actual canvas element from our ref.
     // If it doesn't exist yet for some reason, bail out early.
-    const canvas = canvasRef.current
-    if (!canvas) return
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
     // getContext("2d") gives us the 2D drawing API for the canvas.
     // ctx is the object we use to draw lines, shapes, gradients, etc.
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
     // animFrameId stores the ID of the current animation frame request.
     // We need this so we can cancel the animation when the component unmounts
     // (otherwise it keeps running in the background and causes memory leaks).
-    let animFrameId: number
+    let animFrameId: number;
 
     // offset is a number that increases each frame.
     // We use it to move the scanline downward over time, creating the animation.
-    let offset = 0
+    let offset = 0;
 
     // resize() makes the canvas pixel dimensions match its CSS display size.
     // Without this, the canvas would draw at a different resolution than it displays,
     // making everything look blurry or the wrong size.
     const resize = () => {
-      canvas.width = canvas.offsetWidth   // actual pixel width of the element
-      canvas.height = canvas.offsetHeight // actual pixel height of the element
-    }
-    resize() // run once immediately
+      canvas.width = canvas.offsetWidth; // actual pixel width of the element
+      canvas.height = canvas.offsetHeight; // actual pixel height of the element
+    };
+    resize(); // run once immediately
 
     // Listen for window resize events and re-run resize() when the user
     // resizes their browser window, so the canvas always fits correctly.
-    window.addEventListener("resize", resize)
+    window.addEventListener("resize", resize);
 
     // draw() is our animation loop — it runs every frame (~60fps).
     // Each frame it: clears the canvas, draws the grid, draws the scanline,
     // increments offset, then schedules itself to run again next frame.
     const draw = () => {
-
       // Clear the entire canvas before drawing the next frame.
       // Without this, every frame would draw ON TOP of the previous one.
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // ── Draw the grid lines ──────────────────────────────────────────────
       // strokeStyle sets the color of lines. rgba() = red, green, blue, alpha(opacity).
       // 0.04 alpha means very faint — you barely see it, but it adds texture.
-      ctx.strokeStyle = "rgba(0, 200, 255, 0.04)"
-      ctx.lineWidth = 1
+      ctx.strokeStyle = "rgba(0, 200, 255, 0.04)";
+      ctx.lineWidth = 1;
 
-      const spacing = 48 // pixels between each grid line
+      const spacing = 48; // pixels between each grid line
 
       // Draw vertical lines — loop from left to right across the canvas
       for (let x = 0; x < canvas.width + spacing; x += spacing) {
-        ctx.beginPath()              // start a new line path
-        ctx.moveTo(x, 0)             // start at top
-        ctx.lineTo(x, canvas.height) // draw to bottom
-        ctx.stroke()                 // actually render the line
+        ctx.beginPath(); // start a new line path
+        ctx.moveTo(x, 0); // start at top
+        ctx.lineTo(x, canvas.height); // draw to bottom
+        ctx.stroke(); // actually render the line
       }
 
       // Draw horizontal lines — loop from top to bottom.
       // "offset % spacing" makes the lines shift downward as offset increases,
       // creating the scrolling effect. The modulo (%) keeps it within one spacing
       // cycle so it loops seamlessly.
-      for (let y = -spacing + (offset % spacing); y < canvas.height + spacing; y += spacing) {
-        ctx.beginPath()
-        ctx.moveTo(0, y)             // start at left
-        ctx.lineTo(canvas.width, y)  // draw to right
-        ctx.stroke()
+      for (
+        let y = -spacing + (offset % spacing);
+        y < canvas.height + spacing;
+        y += spacing
+      ) {
+        ctx.beginPath();
+        ctx.moveTo(0, y); // start at left
+        ctx.lineTo(canvas.width, y); // draw to right
+        ctx.stroke();
       }
 
       // ── Draw the scanline (moving glow band) ────────────────────────────
@@ -125,39 +126,39 @@ export default function Hero() {
       // This creates a soft glowing horizontal band that drifts down the screen.
       // "offset % canvas.height" makes the band loop from top to bottom continuously.
       const grad = ctx.createLinearGradient(
-        0, offset % canvas.height - 40,  // gradient starts 40px above the center point
-        0, offset % canvas.height + 40   // gradient ends 40px below the center point
-      )
-      grad.addColorStop(0, "rgba(0, 200, 255, 0)")      // fully transparent at top
-      grad.addColorStop(0.5, "rgba(0, 200, 255, 0.035)") // very faint cyan at center
-      grad.addColorStop(1, "rgba(0, 200, 255, 0)")      // fully transparent at bottom
+        0,
+        (offset % canvas.height) - 40, // gradient starts 40px above the center point
+        0,
+        (offset % canvas.height) + 40, // gradient ends 40px below the center point
+      );
+      grad.addColorStop(0, "rgba(0, 200, 255, 0)"); // fully transparent at top
+      grad.addColorStop(0.5, "rgba(0, 200, 255, 0.035)"); // very faint cyan at center
+      grad.addColorStop(1, "rgba(0, 200, 255, 0)"); // fully transparent at bottom
 
-      ctx.fillStyle = grad
+      ctx.fillStyle = grad;
       // Draw a rectangle spanning the full width, 80px tall, centered on offset position
-      ctx.fillRect(0, offset % canvas.height - 40, canvas.width, 80)
+      ctx.fillRect(0, (offset % canvas.height) - 40, canvas.width, 80);
 
       // Increment offset each frame to move the scanline downward
-      offset += 0.4
+      offset += 0.4;
 
       // requestAnimationFrame tells the browser to call draw() again before the next repaint.
       // This creates the animation loop — runs ~60 times per second.
       // We store the returned ID so we can cancel it in the cleanup function below.
-      animFrameId = requestAnimationFrame(draw)
-    }
+      animFrameId = requestAnimationFrame(draw);
+    };
 
-    draw() // kick off the animation loop
+    draw(); // kick off the animation loop
 
     // ── Cleanup function ────────────────────────────────────────────────────
     // This return function runs when the component is removed from the page.
     // Without cleanup, the animation and event listener would keep running
     // even after the component is gone, wasting memory and causing bugs.
     return () => {
-      cancelAnimationFrame(animFrameId)            // stop the animation loop
-      window.removeEventListener("resize", resize) // remove the resize listener
-    }
-
-  }, []) // empty array = run this effect once, on first render only
-
+      cancelAnimationFrame(animFrameId); // stop the animation loop
+      window.removeEventListener("resize", resize); // remove the resize listener
+    };
+  }, []); // empty array = run this effect once, on first render only
 
   // ─── SCROLL HANDLER ───────────────────────────────────────────────────────
   // When the CTA button is clicked, smoothly scroll to the estimate form.
@@ -166,9 +167,10 @@ export default function Hero() {
   // The ?. is "optional chaining" — if getElementById returns null (element not found),
   // it just does nothing instead of crashing with an error.
   const scrollToForm = () => {
-    document.getElementById("estimate-form")?.scrollIntoView({ behavior: "smooth" })
-  }
-
+    document
+      .getElementById("estimate-form")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
 
   // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────
   // Framer Motion uses "variants" — named animation states you define once
@@ -194,13 +196,12 @@ export default function Hero() {
       opacity: 1,
       y: 0,
       transition: {
-        delay: i * 0.13,                               // element 0: 0ms, element 1: 130ms, etc.
-        duration: 0.65,                                // animation takes 0.65 seconds
+        delay: i * 0.13, // element 0: 0ms, element 1: 130ms, etc.
+        duration: 0.65, // animation takes 0.65 seconds
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number], // typed as a tuple, not number[]
       },
     }),
-  }
-
+  };
 
   // ─── STATIC DATA ──────────────────────────────────────────────────────────
   // Storing the stats in an array so we can loop over them with .map() below.
@@ -209,9 +210,8 @@ export default function Hero() {
   const stats = [
     { value: "2,400+", label: "Systems Installed" },
     { value: "15 yrs", label: "In The Field" },
-    { value: "98%",    label: "Client Satisfaction" },
-  ]
-
+    { value: "98%", label: "Client Satisfaction" },
+  ];
 
   // ─── JSX (THE UI) ─────────────────────────────────────────────────────────
   // Everything inside return() is JSX — looks like HTML but it's JavaScript.
@@ -222,7 +222,6 @@ export default function Hero() {
   //   - Inline styles use objects with camelCase: style={{ backgroundColor: "red" }}
   //   - Comments inside JSX use {/* this syntax */}
   return (
-
     // <section> is the outermost wrapper for the entire hero area.
     // "relative" — establishes a positioning context so children can use absolute positioning.
     // "min-h-screen" — at least 100% of the viewport height (fills the screen).
@@ -231,7 +230,6 @@ export default function Hero() {
     // "flex flex-col justify-center" — centers the main content vertically.
     // "bg-[#050d1a]" — custom dark navy color (square brackets let you use any CSS value).
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#050d1a]">
-
       {/* ── BACKGROUND LAYER 1: Radial glow ──────────────────────────────────
           A decorative div with no visible content — just a background gradient effect.
           "pointer-events-none" — this element won't block any mouse clicks or touch events.
@@ -247,7 +245,6 @@ export default function Hero() {
             "radial-gradient(ellipse 80% 60% at 50% 20%, rgba(0,180,255,0.09) 0%, transparent 70%)",
         }}
       />
-
       {/* ── BACKGROUND LAYER 2: Animated canvas grid ─────────────────────────
           The <canvas> element is where the browser lets you draw with JavaScript.
           ref={canvasRef} links this element to our canvasRef variable above —
@@ -261,7 +258,6 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 w-full h-full"
         aria-hidden
       />
-
       {/* ── BACKGROUND LAYER 3: Accent orb ───────────────────────────────────
           A large blurred circle in the bottom-left corner, partially off-screen.
           "-bottom-32 -left-32" uses negative positioning to push it off the edge.
@@ -277,7 +273,6 @@ export default function Hero() {
           filter: "blur(48px)",
         }}
       />
-
       {/* ── NAVBAR ────────────────────────────────────────────────────────────
           motion.nav is Framer Motion's animated <nav> element.
           Framer Motion adds animation props to any HTML element by prefixing with "motion.":
@@ -298,7 +293,6 @@ export default function Hero() {
       >
         {/* Logo area — icon and company name side by side */}
         <div className="flex items-center gap-2">
-
           {/* ShieldCheck is a Lucide icon — used like any React component.
               size={22} sets width and height. strokeWidth controls line thickness.
               className sets color via Tailwind. text-[#00c8ff] = our accent cyan. */}
@@ -306,7 +300,10 @@ export default function Hero() {
 
           <span
             className="text-white font-semibold tracking-widest text-sm uppercase"
-            style={{ fontFamily: "'Rajdhani', sans-serif", letterSpacing: "0.18em" }}
+            style={{
+              fontFamily: "'Rajdhani', sans-serif",
+              letterSpacing: "0.18em",
+            }}
           >
             SecurTech
           </span>
@@ -325,8 +322,6 @@ export default function Hero() {
           Free Estimate
         </button>
       </motion.nav>
-
-
       {/* ── MAIN CONTENT AREA ─────────────────────────────────────────────────
           This div contains everything the user actually reads.
           "relative z-10" — keeps it above the background layers (z-index 10).
@@ -336,7 +331,6 @@ export default function Hero() {
           "max-w-5xl mx-auto w-full" — caps width at 1024px and centers horizontally.
       */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 pt-24 pb-16 max-w-5xl mx-auto w-full">
-
         {/* ── EYEBROW BADGE ───────────────────────────────────────────────────
             A small label above the headline — common pattern on landing pages.
             Establishes credibility before the user even reads the headline.
@@ -376,7 +370,6 @@ export default function Hero() {
         >
           Security Systems
           <br />
-
           {/* Gradient text technique:
               1. Set a gradient as the background of this span
               2. WebkitBackgroundClip: "text" clips the background to the text shape only
@@ -386,7 +379,8 @@ export default function Hero() {
           <span
             className="relative inline-block"
             style={{
-              background: "linear-gradient(90deg, #00c8ff 0%, #38bdf8 60%, #7dd3fc 100%)",
+              background:
+                "linear-gradient(90deg, #00c8ff 0%, #38bdf8 60%, #7dd3fc 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -409,8 +403,9 @@ export default function Hero() {
           className="text-slate-400 text-lg md:text-xl max-w-2xl leading-relaxed mb-10"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
-          From cameras and access control to full alarm systems — we design, install,
-          and support security solutions that give you real peace of mind.
+          From cameras and access control to full alarm systems — we design,
+          install, and support security solutions that give you real peace of
+          mind.
         </motion.p>
 
         {/* ── CTA BUTTONS ─────────────────────────────────────────────────────
@@ -454,7 +449,8 @@ export default function Hero() {
             className="text-slate-400 hover:text-white text-sm tracking-wide transition-colors duration-200"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            or call <span className="text-white font-medium">(555) 000-0000</span>
+            or call{" "}
+            <span className="text-white font-medium">(555) 000-0000</span>
           </a>
         </motion.div>
 
@@ -479,7 +475,6 @@ export default function Hero() {
               We use s.label as the key since each label is unique. */}
           {stats.map((s) => (
             <div key={s.label} className="flex flex-col items-center gap-1">
-
               {/* {s.value} and {s.label} are JSX expressions — curly braces let you
                   drop JavaScript values into your JSX markup. */}
               <span
@@ -497,10 +492,8 @@ export default function Hero() {
             </div>
           ))}
         </motion.div>
-
-      </div> {/* end main content div */}
-
-
+      </div>{" "}
+      {/* end main content div */}
       {/* ── SCROLL CUE ────────────────────────────────────────────────────────
           A small "Scroll" label + bouncing chevron at the bottom of the section.
           Signals to the user there's more content below.
@@ -527,8 +520,6 @@ export default function Hero() {
         </span>
         <ChevronDown size={14} className="animate-bounce" />
       </motion.div>
-
-
       {/* ── BOTTOM DIVIDER LINE ───────────────────────────────────────────────
           A 1px horizontal line at the very bottom of the section.
           "absolute bottom-0 left-0 right-0" pins it to the bottom edge.
@@ -540,8 +531,6 @@ export default function Hero() {
           This subtly separates the hero from the next section.
       */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00c8ff]/20 to-transparent" />
-
-
       {/* ── GOOGLE FONTS ──────────────────────────────────────────────────────
           This loads our two custom fonts from Google Fonts.
           Rajdhani — display/heading font (geometric, technical, sharp)
@@ -552,8 +541,6 @@ export default function Hero() {
           We're keeping it here for now so this component is fully self-contained
           and works without any changes to other files.
       */}
-      
-
     </section>
-  )
+  );
 }
