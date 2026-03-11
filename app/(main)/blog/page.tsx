@@ -3,7 +3,7 @@
 import React, { useRef, useState } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowRight, Clock, Tag, X } from "lucide-react";
-import { posts, type BlogPost } from "../config/posts"; // Importing posts data from a separate file
+import { posts, type BlogPost } from "../../config/posts"; // Importing posts data from a separate file
 
 // All unique categories — used for the filter buttons
 const categories = [

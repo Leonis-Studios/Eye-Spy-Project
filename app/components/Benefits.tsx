@@ -69,7 +69,7 @@ export default function Benefits() {
     <section
       id="benefits"
       ref={sectionRef}
-      className="relative bg-[#080e1d] py-24 overflow-hidden"
+      className="scroll-mt-20 relative bg-[#080e1d] py-24 overflow-hidden"
     >
       <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#00c8ff]/15 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#00c8ff]/15 to-transparent" />

@@ -10,7 +10,7 @@ import {
   ArrowRight,
   Heart,
 } from "lucide-react";
-import { siteConfig } from "../config/site";
+import { siteConfig } from "../../config/site";
 import type { Metadata } from "next";
 
 // ─── PAGE METADATA ────────────────────────────────────────────────────────────

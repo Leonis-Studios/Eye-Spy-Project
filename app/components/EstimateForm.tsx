@@ -146,7 +146,7 @@ export default function EstimateForm() {
     return (
       <section
         id="estimate-form"
-        className="relative bg-[#050d1a] py-24 overflow-hidden"
+        className="scroll-mt-20 relative bg-[#050d1a] py-24 overflow-hidden"
       >
         <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#00c8ff]/15 to-transparent" />
         <div className="max-w-2xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">

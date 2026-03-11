@@ -3,8 +3,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Clock, Tag, ArrowRight } from "lucide-react";
-import { siteConfig } from "../../config/site";
-import { posts, type BlogPost } from "../../config/posts"; // Importing posts data from a separate file
+import { siteConfig } from "../../../config/site";
+import { posts, type BlogPost } from "../../../config/posts"; // Importing posts data from a separate file
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 // params.slug comes from the folder name in the URL.

@@ -10,7 +10,7 @@ import {
   ArrowRight,
   CheckCircle,
 } from "lucide-react";
-import { siteConfig } from "../config/site";
+import { siteConfig } from "../../config/site";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 interface ContactForm {
