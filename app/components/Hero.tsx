@@ -229,7 +229,7 @@ export default function Hero() {
     //   so they don't create unwanted scrollbars.
     // "flex flex-col justify-center" — centers the main content vertically.
     // "bg-[#050d1a]" — custom dark navy color (square brackets let you use any CSS value).
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#050d1a]">
+    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#050d1a] pt-20">
       {/* ── BACKGROUND LAYER 1: Radial glow ──────────────────────────────────
           A decorative div with no visible content — just a background gradient effect.
           "pointer-events-none" — this element won't block any mouse clicks or touch events.
@@ -273,55 +273,6 @@ export default function Hero() {
           filter: "blur(48px)",
         }}
       />
-      {/* ── NAVBAR ────────────────────────────────────────────────────────────
-          motion.nav is Framer Motion's animated <nav> element.
-          Framer Motion adds animation props to any HTML element by prefixing with "motion.":
-            motion.div, motion.h1, motion.section, etc.
-          initial — the starting state (invisible, shifted 16px upward)
-          animate — the ending state (fully visible, normal position)
-          transition — controls the speed and feel of the animation
-          "absolute top-0 left-0 right-0" — pins to the top of the section.
-          "flex items-center justify-between" — logo on left, button on right.
-          "px-8 md:px-16" — 32px padding on mobile, 64px on md+ screens.
-          "z-20" — sits above background layers (z-index 20).
-      */}
-      <motion.nav
-        initial={{ opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="absolute top-0 left-0 right-0 flex items-center justify-between px-8 md:px-16 py-6 z-20"
-      >
-        {/* Logo area — icon and company name side by side */}
-        <div className="flex items-center gap-2">
-          {/* ShieldCheck is a Lucide icon — used like any React component.
-              size={22} sets width and height. strokeWidth controls line thickness.
-              className sets color via Tailwind. text-[#00c8ff] = our accent cyan. */}
-          <ShieldCheck className="text-[#00c8ff]" size={22} strokeWidth={2.2} />
-
-          <span
-            className="text-white font-semibold tracking-widest text-sm uppercase"
-            style={{
-              fontFamily: "'Rajdhani', sans-serif",
-              letterSpacing: "0.18em",
-            }}
-          >
-            {siteConfig.name}
-          </span>
-        </div>
-
-        {/* Nav CTA button — only visible on tablet and above.
-            "hidden" sets display:none (hidden on all screens by default).
-            "md:flex" overrides that at 768px+ to display:flex (shows on tablet/desktop).
-            This is the mobile-first pattern — hide on small, show on large.
-            onClick={scrollToForm} calls our function when clicked. */}
-        <button
-          onClick={scrollToForm}
-          className="hidden md:flex items-center gap-2 text-xs uppercase tracking-widest text-[#00c8ff] border border-[#00c8ff]/30 px-5 py-2.5 rounded-sm hover:bg-[#00c8ff]/10 transition-colors duration-200"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
-        >
-          Free Estimate
-        </button>
-      </motion.nav>
       {/* ── MAIN CONTENT AREA ─────────────────────────────────────────────────
           This div contains everything the user actually reads.
           "relative z-10" — keeps it above the background layers (z-index 10).
@@ -330,7 +281,7 @@ export default function Hero() {
           "pt-24 pb-16" — top padding clears the navbar; bottom padding adds breathing room.
           "max-w-5xl mx-auto w-full" — caps width at 1024px and centers horizontally.
       */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 pt-24 pb-16 max-w-5xl mx-auto w-full">
+      <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 pt-32 pb-16 max-w-5xl mx-auto w-full">
         {/* ── EYEBROW BADGE ───────────────────────────────────────────────────
             A small label above the headline — common pattern on landing pages.
             Establishes credibility before the user even reads the headline.

@@ -184,7 +184,7 @@ export default function FAQ() {
                     className="overflow-hidden"
                   >
                     <p
-                      className="text-slate-400 text-sm leading-relaxed pb-5"
+                      className="text-slate-400 text-base leading-relaxed pb-5"
                       style={{ fontFamily: "'DM Sans', sans-serif" }}
                     >
                       {faq.answer}

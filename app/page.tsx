@@ -7,6 +7,8 @@ import Testimonials from "./components/Testimonials";
 import CTA from "./components/CTA";
 import FAQ from "./components/FAQ";
 import EstimateForm from "./components/EstimateForm";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (

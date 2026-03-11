@@ -31,7 +31,7 @@ export default function CTA() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#050d1a] py-28 overflow-hidden"
+      className="relative bg-[#050d1a] py-32 overflow-hidden"
     >
       {/* Multi-layer background — stronger glow than other sections
           since this is a high-attention conversion moment */}

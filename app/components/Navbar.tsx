@@ -1,0 +1,186 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ShieldCheck, Menu, X, ArrowRight } from "lucide-react";
+import { siteConfig } from "../config/site";
+
+export default function Navbar() {
+  // ─── SCROLL STATE ──────────────────────────────────────────────────────────
+  // scrolled tracks whether the user has scrolled past 80px.
+  // When true we add a solid background to the navbar.
+  // When false (at the top) it stays transparent over the Hero.
+  const [scrolled, setScrolled] = useState(false);
+
+  // mobileOpen tracks whether the mobile menu is open or closed.
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    // handleScroll runs every time the user scrolls.
+    // window.scrollY is the current vertical scroll position in pixels.
+    // We set scrolled to true once they've scrolled more than 80px.
+    const handleScroll = () => setScrolled(window.scrollY > 80);
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup — remove the listener when the component unmounts
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToForm = () => {
+    setMobileOpen(false);
+    document
+      .getElementById("estimate-form")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <>
+      {/* ── NAVBAR ──────────────────────────────────────────────────────────
+          "fixed top-0 left-0 right-0" — sticks to the top of the viewport
+          as the user scrolls. "fixed" is different from "absolute":
+            absolute — positioned relative to nearest parent
+            fixed — positioned relative to the browser viewport, always visible
+          z-50 keeps it above all page content.
+
+          The background and border change based on the scrolled state.
+          Ternary applies different classes depending on scroll position —
+          transparent at top, solid dark when scrolled.
+      */}
+      <motion.header
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-[#050d1a]/95 backdrop-blur-sm border-b border-white/5"
+            : "bg-transparent border-b border-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-16 flex items-center justify-between h-16 md:h-20">
+          {/* Logo */}
+          <a href="/" className="flex items-center gap-2">
+            <ShieldCheck
+              className="text-[#00c8ff]"
+              size={22}
+              strokeWidth={2.2}
+            />
+            <span
+              className="text-white font-semibold tracking-widest text-sm uppercase"
+              style={{
+                fontFamily: "'Rajdhani', sans-serif",
+                letterSpacing: "0.18em",
+              }}
+            >
+              {siteConfig.name}
+            </span>
+          </a>
+
+          {/* Desktop nav links — hidden on mobile */}
+          <nav className="hidden md:flex items-center gap-8">
+            {siteConfig.navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-slate-300 hover:text-white text-xs uppercase tracking-widest transition-colors duration-200"
+                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Desktop CTA — hidden on mobile */}
+          <div className="hidden md:flex items-center gap-4">
+            <a
+              href={siteConfig.phoneHref}
+              className="text-slate-300 hover:text-white text-sm transition-colors duration-200"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              {siteConfig.phone}
+            </a>
+            <button
+              onClick={scrollToForm}
+              className="group flex items-center gap-2 bg-[#00c8ff] text-[#050d1a] font-bold px-5 py-2.5 rounded-sm text-xs uppercase tracking-widest hover:bg-white transition-colors duration-200"
+              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            >
+              Free Estimate
+              <ArrowRight
+                size={13}
+                className="group-hover:translate-x-0.5 transition-transform duration-200"
+              />
+            </button>
+          </div>
+
+          {/* Mobile menu button — only visible on mobile */}
+          <button
+            onClick={() => setMobileOpen((prev) => !prev)}
+            className="md:hidden text-slate-300 hover:text-white transition-colors duration-200"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          >
+            {/* Show X when open, Menu icon when closed */}
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+      </motion.header>
+
+      {/* ── MOBILE MENU ───────────────────────────────────────────────────────
+          AnimatePresence allows the menu to animate out when closed.
+          Rendered outside the header so it can overlay the full screen.
+          "fixed inset-0 z-40" covers the entire viewport.
+          pt-20 pushes content below the navbar height.
+      */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-[#050d1a]/98 backdrop-blur-sm flex flex-col pt-20 px-6 md:hidden"
+          >
+            {/* Mobile nav links */}
+            <nav className="flex flex-col gap-1 mt-8">
+              {siteConfig.navLinks.map((link, i) => (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.06 }}
+                  className="text-slate-300 hover:text-white text-2xl font-bold py-3 border-b border-white/5 transition-colors duration-200"
+                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+            </nav>
+
+            {/* Mobile CTA area */}
+            <div className="mt-10 flex flex-col gap-4">
+              <button
+                onClick={scrollToForm}
+                className="group flex items-center justify-center gap-2 bg-[#00c8ff] text-[#050d1a] font-bold px-6 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
+                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              >
+                Get a Free Estimate
+                <ArrowRight
+                  size={14}
+                  className="group-hover:translate-x-0.5 transition-transform duration-200"
+                />
+              </button>
+              <a
+                href={siteConfig.phoneHref}
+                className="text-center text-slate-300 hover:text-white text-sm transition-colors duration-200"
+                style={{ fontFamily: "'DM Sans', sans-serif" }}
+              >
+                or call {siteConfig.phone}
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

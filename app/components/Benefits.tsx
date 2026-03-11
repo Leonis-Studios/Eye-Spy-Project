@@ -67,8 +67,9 @@ export default function Benefits() {
 
   return (
     <section
+      id="benefits"
       ref={sectionRef}
-      className="relative bg-[#080e1d] py-28 overflow-hidden"
+      className="relative bg-[#080e1d] py-24 overflow-hidden"
     >
       <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#00c8ff]/15 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#00c8ff]/15 to-transparent" />
@@ -111,7 +112,7 @@ export default function Benefits() {
                   {benefit.title}
                 </h3>
                 <p
-                  className="text-slate-400 text-sm leading-relaxed"
+                  className="text-slate-400 text-base leading-relaxed"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
                   {benefit.description}

@@ -131,7 +131,7 @@ export default function SocialProof() {
     // section dividers without being heavy-handed.
     <section
       ref={sectionRef}
-      className="relative bg-[#070f1e] border-y border-white/5 overflow-hidden py-14"
+      className="relative bg-[#070f1e] border-y border-white/5 overflow-hidden py-24"
     >
       {/* ── BACKGROUND ACCENT ─────────────────────────────────────────────────
           A faint cyan glow on the right side — mirrors the Hero's left-side orb.
