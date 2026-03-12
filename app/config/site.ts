@@ -5,8 +5,14 @@
 // Never hardcode this information directly in components.
 
 export const siteConfig = {
+  brand: {
+    logo: "/logopng.png",
+    logoAlt: "EyeSpy Surveillance and Communication",
+    accent: "#EF6B4D",
+    accentHover: "#ffffff",
+  },
   // ─── BRAND ───────────────────────────────────────────────────────────────
-  name: "SecurTech",
+  name: "EyeSpy Surveillance and Communication",
   tagline: "Security Systems Built to Protect.",
   description:
     "Licensed security system installation for homes and businesses. Cameras, alarms, access control. Get a free estimate today.",
@@ -68,7 +74,7 @@ export const siteConfig = {
   // ─── SEO ─────────────────────────────────────────────────────────────────
   // Used in layout.tsx metadata
   seo: {
-    title: "SecurTech | Security System Installation",
+    title: "EyeSpy Surveillance | Security System Installation",
     description:
       "Licensed security system installation for homes and businesses in [City]. Cameras, alarms, access control. Get a free estimate today.",
     keywords:

@@ -1,16 +1,10 @@
 "use client";
 
 import React from "react";
-import {
-  ShieldCheck,
-  Phone,
-  Mail,
-  MapPin,
-  Facebook,
-  Instagram,
-  Star,
-} from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Instagram, Star } from "lucide-react";
 import { siteConfig } from "../config/site";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -22,13 +16,13 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#030912] overflow-hidden">
       {/* Top divider */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#00c8ff]/20 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/20 to-transparent" />
 
       {/* Subtle background glow */}
       <div
         className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-64 opacity-10"
         style={{
-          background: "radial-gradient(ellipse, #00c8ff 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, #EF6B4D 0%, transparent 70%)",
           filter: "blur(40px)",
         }}
         aria-hidden
@@ -40,22 +34,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* ── COLUMN 1: Brand ─────────────────────────────────────────── */}
           <div className="lg:col-span-1">
-            <a href="/" className="flex items-center gap-2 mb-4">
-              <ShieldCheck
-                className="text-[#00c8ff]"
-                size={20}
-                strokeWidth={2.2}
+            <Link href="/" className="flex items-center gap-2 mb-4">
+              <Image
+                src={siteConfig.brand.logo}
+                alt={siteConfig.brand.logoAlt}
+                width={200}
+                height={60}
+                className="h-12 w-auto object-contain"
+                priority
               />
-              <span
-                className="text-white font-semibold tracking-widest text-sm uppercase"
-                style={{
-                  fontFamily: "'Rajdhani', sans-serif",
-                  letterSpacing: "0.18em",
-                }}
-              >
-                {siteConfig.name}
-              </span>
-            </a>
+            </Link>
             <p
               className="text-slate-500 text-sm leading-relaxed mb-6"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
@@ -72,7 +60,7 @@ export default function Footer() {
                 // target="_blank" opens in a new tab.
                 // rel="noopener noreferrer" is a security best practice —
                 // prevents the new tab from accessing the original page via window.opener.
-                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-[#00c8ff] hover:border-[#00c8ff]/30 transition-all duration-200"
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-[#EF6B4D] hover:border-[#EF6B4D]/30 transition-all duration-200"
                 aria-label="Facebook"
               >
                 <Facebook size={14} />
@@ -81,7 +69,7 @@ export default function Footer() {
                 href={siteConfig.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-[#00c8ff] hover:border-[#00c8ff]/30 transition-all duration-200"
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-[#EF6B4D] hover:border-[#EF6B4D]/30 transition-all duration-200"
                 aria-label="Instagram"
               >
                 <Instagram size={14} />
@@ -90,7 +78,7 @@ export default function Footer() {
                 href={siteConfig.social.google}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-[#00c8ff] hover:border-[#00c8ff]/30 transition-all duration-200"
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-[#EF6B4D] hover:border-[#EF6B4D]/30 transition-all duration-200"
                 aria-label="Google Reviews"
               >
                 <Star size={14} />
@@ -132,13 +120,13 @@ export default function Footer() {
             <ul className="flex flex-col gap-3">
               {siteConfig.services.map((service) => (
                 <li key={service.value}>
-                  <a
+                  <Link
                     href="/#services"
                     className="text-slate-500 hover:text-white text-sm transition-colors duration-200"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
                     {service.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -160,7 +148,7 @@ export default function Footer() {
                 >
                   <Phone
                     size={14}
-                    className="mt-0.5 shrink-0 text-[#00c8ff]/50 group-hover:text-[#00c8ff] transition-colors duration-200"
+                    className="mt-0.5 shrink-0 text-[#EF6B4D]/50 group-hover:text-[#EF6B4D] transition-colors duration-200"
                   />
                   <span
                     className="text-sm"
@@ -177,7 +165,7 @@ export default function Footer() {
                 >
                   <Mail
                     size={14}
-                    className="mt-0.5 shrink-0 text-[#00c8ff]/50 group-hover:text-[#00c8ff] transition-colors duration-200"
+                    className="mt-0.5 shrink-0 text-[#EF6B4D]/50 group-hover:text-[#EF6B4D] transition-colors duration-200"
                   />
                   <span
                     className="text-sm"
@@ -191,7 +179,7 @@ export default function Footer() {
                 <div className="flex items-start gap-3 text-slate-500">
                   <MapPin
                     size={14}
-                    className="mt-0.5 shrink-0 text-[#00c8ff]/50"
+                    className="mt-0.5 shrink-0 text-[#EF6B4D]/50"
                   />
                   <span
                     className="text-sm leading-relaxed"

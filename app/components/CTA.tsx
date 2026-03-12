@@ -45,14 +45,14 @@ export default function CTA() {
       />
 
       {/* Accent lines — top and bottom */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#00c8ff]/25 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#00c8ff]/25 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/25 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/25 to-transparent" />
 
       {/* Corner accents — purely decorative geometric detail */}
-      <div className="absolute top-6 left-6 w-8 h-8 border-l border-t border-[#00c8ff]/20" />
-      <div className="absolute top-6 right-6 w-8 h-8 border-r border-t border-[#00c8ff]/20" />
-      <div className="absolute bottom-6 left-6 w-8 h-8 border-l border-b border-[#00c8ff]/20" />
-      <div className="absolute bottom-6 right-6 w-8 h-8 border-r border-b border-[#00c8ff]/20" />
+      <div className="absolute top-6 left-6 w-8 h-8 border-l border-t border-[#EF6B4D]/20" />
+      <div className="absolute top-6 right-6 w-8 h-8 border-r border-t border-[#EF6B4D]/20" />
+      <div className="absolute bottom-6 left-6 w-8 h-8 border-l border-b border-[#EF6B4D]/20" />
+      <div className="absolute bottom-6 right-6 w-8 h-8 border-r border-b border-[#EF6B4D]/20" />
 
       {/* Main content — centered */}
       <div className="relative max-w-4xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
@@ -61,7 +61,7 @@ export default function CTA() {
           variants={variants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="text-[#00c8ff] text-xs uppercase tracking-widest mb-6"
+          className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-6"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           Get Started Today
@@ -80,7 +80,7 @@ export default function CTA() {
           <span
             style={{
               background:
-                "linear-gradient(90deg, #00c8ff 0%, #38bdf8 60%, #7dd3fc 100%)",
+                "linear-gradient(90deg, #EF6B4D 0%, #38bdf8 60%, #7dd3fc 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -110,7 +110,7 @@ export default function CTA() {
         >
           <button
             onClick={scrollToForm}
-            className="group flex items-center gap-3 bg-[#00c8ff] text-[#050d1a] font-bold px-10 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
+            className="group flex items-center gap-3 bg-[#EF6B4D] text-[#050d1a] font-bold px-10 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Get a Free Estimate

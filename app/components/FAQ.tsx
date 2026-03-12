@@ -88,13 +88,13 @@ export default function FAQ() {
       ref={sectionRef}
       className="relative bg-[#080e1d] py-24 overflow-hidden"
     >
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#00c8ff]/15 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
 
       <div className="max-w-3xl mx-auto px-6 md:px-16">
         {/* Heading */}
         <div className="mb-14 flex flex-col items-center text-center">
           <p
-            className="text-[#00c8ff] text-xs uppercase tracking-widest mb-4"
+            className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-4"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Common Questions
@@ -148,7 +148,7 @@ export default function FAQ() {
                 <span
                   className={`shrink-0 transition-colors duration-200 ${
                     openIndex === i
-                      ? "text-[#00c8ff]"
+                      ? "text-[#EF6B4D]"
                       : "text-slate-500 group-hover:text-slate-300"
                   }`}
                 >

@@ -52,7 +52,7 @@ export const tip = (title: string, text: string): ReactNode =>
       "p",
       {
         style: {
-          color: "#00c8ff",
+          color: "#EF6B4D",
           fontSize: "0.75rem",
           fontWeight: 700,
           textTransform: "uppercase",

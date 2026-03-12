@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShieldCheck, Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { siteConfig } from "../config/site";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
   // ─── SCROLL STATE ──────────────────────────────────────────────────────────
@@ -57,24 +59,18 @@ export default function Navbar() {
             : "bg-transparent border-b border-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-16 flex items-center justify-between h-16 md:h-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-16 flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2">
-            <ShieldCheck
-              className="text-[#00c8ff]"
-              size={22}
-              strokeWidth={2.2}
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src={siteConfig.brand.logo}
+              alt={siteConfig.brand.logoAlt}
+              width={200}
+              height={60}
+              className="h-14 w-auto object-contain"
+              priority
             />
-            <span
-              className="text-white font-semibold tracking-widest text-sm uppercase"
-              style={{
-                fontFamily: "'Rajdhani', sans-serif",
-                letterSpacing: "0.18em",
-              }}
-            >
-              {siteConfig.name}
-            </span>
-          </a>
+          </Link>
 
           {/* Desktop nav links — hidden on mobile */}
           <nav className="hidden md:flex items-center gap-8">
@@ -101,7 +97,7 @@ export default function Navbar() {
             </a>
             <button
               onClick={scrollToForm}
-              className="group flex items-center gap-2 bg-[#00c8ff] text-[#050d1a] font-bold px-5 py-2.5 rounded-sm text-xs uppercase tracking-widest hover:bg-white transition-colors duration-200"
+              className="group flex items-center gap-2 bg-[#EF6B4D] text-[#050d1a] font-bold px-5 py-2.5 rounded-sm text-xs uppercase tracking-widest hover:bg-white transition-colors duration-200"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
               Free Estimate
@@ -161,7 +157,7 @@ export default function Navbar() {
             <div className="mt-10 flex flex-col gap-4">
               <button
                 onClick={scrollToForm}
-                className="group flex items-center justify-center gap-2 bg-[#00c8ff] text-[#050d1a] font-bold px-6 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
+                className="group flex items-center justify-center gap-2 bg-[#EF6B4D] text-[#050d1a] font-bold px-6 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
                 Get a Free Estimate

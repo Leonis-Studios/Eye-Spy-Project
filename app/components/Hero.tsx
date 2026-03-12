@@ -242,7 +242,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 50% 20%, rgba(0,180,255,0.09) 0%, transparent 70%)",
+            "radial-gradient(ellipse 80% 60% at 50% 20%, rgba(0,180,255,0.04) 0%, transparent 70%)",
         }}
       />
       {/* ── BACKGROUND LAYER 2: Animated canvas grid ─────────────────────────
@@ -267,9 +267,9 @@ export default function Hero() {
           Combined with the other layers, this adds warmth and depth to the corner.
       */}
       <div
-        className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 rounded-full opacity-20"
+        className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 rounded-full opacity-15"
         style={{
-          background: "radial-gradient(circle, #00c8ff 0%, transparent 70%)",
+          background: "radial-gradient(circle, #EF6B4D 0%, transparent 70%)",
           filter: "blur(48px)",
         }}
       />
@@ -281,7 +281,7 @@ export default function Hero() {
           "pt-24 pb-16" — top padding clears the navbar; bottom padding adds breathing room.
           "max-w-5xl mx-auto w-full" — caps width at 1024px and centers horizontally.
       */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 pt-32 pb-16 max-w-5xl mx-auto w-full">
+      <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 pt-24 pb-16 max-w-5xl mx-auto w-full">
         {/* ── EYEBROW BADGE ───────────────────────────────────────────────────
             A small label above the headline — common pattern on landing pages.
             Establishes credibility before the user even reads the headline.
@@ -296,12 +296,12 @@ export default function Hero() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-[#00c8ff]/25 bg-[#00c8ff]/5 text-[#00c8ff] text-xs uppercase tracking-widest"
+          className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-[#EF6B4D]/25 bg-[#EF6B4D]/5 text-[#EF6B4D] text-xs uppercase tracking-widest"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           {/* Pulsing dot — w-1.5 h-1.5 = 6x6px circle, animate-pulse is a
               Tailwind built-in that repeatedly fades opacity in and out. */}
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00c8ff] animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#EF6B4D] animate-pulse" />
           Licensed & Insured · Residential & Commercial
         </motion.div>
 
@@ -331,7 +331,7 @@ export default function Hero() {
             className="relative inline-block"
             style={{
               background:
-                "linear-gradient(90deg, #00c8ff 0%, #38bdf8 60%, #7dd3fc 100%)",
+                "linear-gradient(90deg, #EF6B4D 0%, #f08060 60%, #f4a080 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -378,7 +378,7 @@ export default function Hero() {
               transition-colors duration-200 = smooth 200ms color transition. */}
           <button
             onClick={scrollToForm}
-            className="group flex items-center gap-3 bg-[#00c8ff] text-[#050d1a] font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
+            className="group flex items-center gap-3 bg-[#EF6B4D] text-[#050d1a] font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Get a Free Estimate
@@ -475,13 +475,13 @@ export default function Hero() {
           A 1px horizontal line at the very bottom of the section.
           "absolute bottom-0 left-0 right-0" pins it to the bottom edge.
           "h-px" = height of 1 pixel.
-          "bg-gradient-to-r from-transparent via-[#00c8ff]/20 to-transparent"
+          "bg-gradient-to-r from-transparent via-[#EF6B4D]/20 to-transparent"
           creates a gradient that goes:
             transparent → faint cyan (20% opacity) → transparent
           So it looks like a glowing line that fades out at both ends.
           This subtly separates the hero from the next section.
       */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#00c8ff]/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/20 to-transparent" />
       {/* ── GOOGLE FONTS ──────────────────────────────────────────────────────
           This loads our two custom fonts from Google Fonts.
           Rajdhani — display/heading font (geometric, technical, sharp)

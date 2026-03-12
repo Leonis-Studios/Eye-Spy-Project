@@ -142,7 +142,7 @@ export default function SocialProof() {
       <div
         className="pointer-events-none absolute -right-40 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full opacity-10"
         style={{
-          background: "radial-gradient(circle, #00c8ff 0%, transparent 70%)",
+          background: "radial-gradient(circle, #EF6B4D 0%, transparent 70%)",
           filter: "blur(60px)",
         }}
         aria-hidden
@@ -181,7 +181,7 @@ export default function SocialProof() {
           {/* Section eyebrow label — small uppercase text above the stats */}
           <motion.p
             variants={itemVariants}
-            className="text-[#00c8ff] text-xs uppercase tracking-widest mb-6 text-center lg:text-left"
+            className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-6 text-center lg:text-left"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Trusted by homeowners & businesses across the region
@@ -200,7 +200,7 @@ export default function SocialProof() {
                 className="group bg-[#070f1e] hover:bg-[#0a1628] transition-colors duration-300 px-6 py-8 flex flex-col items-center gap-3"
               >
                 {/* Icon — shown in accent color, fades slightly on hover */}
-                <span className="text-[#00c8ff] opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="text-[#EF6B4D] opacity-70 group-hover:opacity-100 transition-opacity duration-300">
                   {stat.icon}
                 </span>
 
@@ -240,7 +240,7 @@ export default function SocialProof() {
           {/* Section eyebrow label for the certs side */}
           <motion.p
             variants={itemVariants}
-            className="text-[#00c8ff] text-xs uppercase tracking-widest mb-2 text-center lg:text-left"
+            className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-2 text-center lg:text-left"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Credentials
@@ -253,13 +253,13 @@ export default function SocialProof() {
               variants={itemVariants}
               // Each cert is a horizontal row: icon on left, label on right.
               // "border border-white/5" — very subtle border around each badge.
-              // "hover:border-[#00c8ff]/20 hover:bg-[#00c8ff]/5" — on hover,
+              // "hover:border-[#EF6B4D]/20 hover:bg-[#EF6B4D]/5" — on hover,
               // the border and background shift to a faint cyan tint.
               // transition-all duration-300 — smoothly animates ALL changing properties.
-              className="group flex items-center gap-4 px-6 py-4 rounded-sm border border-white/5 hover:border-[#00c8ff]/20 hover:bg-[#00c8ff]/5 transition-all duration-300 cursor-default"
+              className="group flex items-center gap-4 px-6 py-4 rounded-sm border border-white/5 hover:border-[#EF6B4D]/20 hover:bg-[#EF6B4D]/5 transition-all duration-300 cursor-default"
             >
               {/* Icon — in a small accent-colored circle */}
-              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#00c8ff]/10 text-[#00c8ff] shrink-0 group-hover:bg-[#00c8ff]/20 transition-colors duration-300">
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#EF6B4D]/10 text-[#EF6B4D] shrink-0 group-hover:bg-[#EF6B4D]/20 transition-colors duration-300">
                 {cert.icon}
               </span>
 
@@ -278,7 +278,7 @@ export default function SocialProof() {
                   "ml-auto" pushes it to the far right of the flex row.
                   "opacity-0 group-hover:opacity-100" — invisible by default,
                   fades in when the parent (group) is hovered. */}
-              <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#00c8ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shrink-0" />
+              <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#EF6B4D] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shrink-0" />
             </motion.div>
           ))}
         </div>
