@@ -7,12 +7,12 @@
 export const siteConfig = {
   brand: {
     logo: "/logopng.png",
-    logoAlt: "EyeSpy Surveillance and Communication",
+    logoAlt: "EyeSpy Cabling",
     accent: "#EF6B4D",
     accentHover: "#ffffff",
   },
   // ─── BRAND ───────────────────────────────────────────────────────────────
-  name: "EyeSpy Surveillance and Communication",
+  name: "EyeSpy Cabling",
   tagline: "Security Systems Built to Protect.",
   description:
     "Licensed security system installation for homes and businesses. Cameras, alarms, access control. Get a free estimate today.",
@@ -38,7 +38,7 @@ export const siteConfig = {
   // Used in Hero and SocialProof sections
   stats: {
     installs: "2,400+",
-    years: "15+",
+    years: "50+",
     rating: "4.9★",
     satisfaction: "98%",
   },
