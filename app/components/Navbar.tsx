@@ -4,10 +4,11 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { siteConfig } from "../config/site";
+import { type SiteSettings } from "../lib/types";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Navbar() {
+export default function Navbar({ settings }: { settings: SiteSettings }) {
   // ─── SCROLL STATE ──────────────────────────────────────────────────────────
   // scrolled tracks whether the user has scrolled past 80px.
   // When true we add a solid background to the navbar.
@@ -93,7 +94,7 @@ export default function Navbar() {
               className="text-slate-300 hover:text-white text-sm transition-colors duration-200"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
-              {siteConfig.phone}
+              {settings.phone}
             </a>
             <button
               onClick={scrollToForm}
@@ -171,7 +172,7 @@ export default function Navbar() {
                 className="text-center text-slate-300 hover:text-white text-sm transition-colors duration-200"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
-                or call {siteConfig.phone}
+                or call {settings.phone}
               </a>
             </div>
           </motion.div>

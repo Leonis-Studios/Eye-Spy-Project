@@ -8,47 +8,9 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
-import { siteConfig } from "../config/site";
+import { type FaqItem } from "../lib/types";
 
-interface FAQItem {
-  question: string;
-  answer: string;
-}
-
-const faqs: FAQItem[] = [
-  {
-    question: "How long does a typical installation take?",
-    answer:
-      "Most residential installations are completed in a single day. Larger commercial projects may take 2–3 days depending on the scope. We'll give you a clear timeline during your free estimate.",
-  },
-  {
-    question: "Do I need to be home during the installation?",
-    answer:
-      "Yes, we ask that an adult be present during the installation so we can walk you through the system and answer any questions on the spot.",
-  },
-  {
-    question: "What areas do you service?",
-    answer:
-      "We currently service the greater [City] area and surrounding communities within a 50-mile radius. Contact us to confirm your location.",
-  },
-  {
-    question: "Do your systems require a monthly monitoring contract?",
-    answer:
-      "No. We install the hardware and you choose whether to add monitoring. We work with several monitoring providers and can recommend options, but there's no obligation.",
-  },
-  {
-    question: "What warranty do you offer?",
-    answer:
-      "All installations come with a 1-year labor warranty. Equipment warranties vary by manufacturer, typically 2–5 years. We'll provide full warranty documentation after installation.",
-  },
-  {
-    question: "Can you work with my existing system?",
-    answer:
-      "In many cases yes — we can assess your existing setup during the site survey and advise whether it can be expanded or upgraded rather than replaced entirely.",
-  },
-];
-
-export default function FAQ() {
+export default function FAQ({ items }: { items: FaqItem[] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
@@ -114,12 +76,12 @@ export default function FAQ() {
           animate={isInView ? "visible" : "hidden"}
           className="flex flex-col"
         >
-          {faqs.map((faq, i) => (
+          {items.map((faq, i) => (
             <motion.div
               key={faq.question}
               variants={itemVariants}
               // Bottom border on each item except the last one
-              className={`border-b ${i === faqs.length - 1 ? "border-transparent" : "border-white/5"}`}
+              className={`border-b ${i === items.length - 1 ? "border-transparent" : "border-white/5"}`}
             >
               {/* Question row — clicking this toggles the answer */}
               <button

@@ -22,7 +22,7 @@ import {
   Clock,
   Award,
 } from "lucide-react";
-import { siteConfig } from "../config/site";
+import { type SiteSettings } from "../lib/types";
 
 // ─── TYPE DEFINITIONS ─────────────────────────────────────────────────────────
 // TypeScript interfaces define the "shape" of an object — what properties it has
@@ -44,7 +44,7 @@ interface Cert {
 }
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
-export default function SocialProof() {
+export default function SocialProof({ settings }: { settings: SiteSettings }) {
   // ─── REF FOR SCROLL DETECTION ──────────────────────────────────────────────
   // We attach this ref to the <section> element below.
   // useInView then watches that element and tells us when it's visible on screen.
@@ -98,17 +98,17 @@ export default function SocialProof() {
   // React elements are just objects, so they can be stored in variables/arrays.
   const stats: Stat[] = [
     {
-      value: siteConfig.stats.years,
+      value: settings.stats.years,
       label: "Years in Business",
       icon: <Clock size={18} />,
     },
     {
-      value: siteConfig.stats.installs,
+      value: settings.stats.installs,
       label: "Systems Installed",
       icon: <Users size={18} />,
     },
     {
-      value: siteConfig.stats.rating,
+      value: settings.stats.rating,
       label: "Average Rating",
       icon: <Star size={18} />,
     },

@@ -4,8 +4,9 @@ import React, { useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { siteConfig } from "../config/site";
+import { type SiteSettings } from "../lib/types";
 
-export default function CTA() {
+export default function CTA({ settings }: { settings: SiteSettings }) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
 
@@ -125,7 +126,7 @@ export default function CTA() {
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             or call{" "}
-            <span className="text-white font-medium">{siteConfig.phone}</span>
+            <span className="text-white font-medium">{settings.phone}</span>
           </a>
         </motion.div>
       </div>

@@ -26,13 +26,14 @@ import { motion, type Variants } from "framer-motion";
 import { ShieldCheck, ArrowRight, ChevronDown } from "lucide-react";
 
 import { siteConfig } from "../config/site";
+import { type SiteSettings } from "../lib/types";
 
 // ─── COMPONENT DEFINITION ────────────────────────────────────────────────────
 // This is the Hero component — a function that returns UI (JSX).
 // "export default" means other files can import this component.
 // In page.tsx you'd write: import Hero from "./components/Hero"
 // Then use it like an HTML tag: <Hero />
-export default function Hero() {
+export default function Hero({ settings }: { settings: SiteSettings }) {
   // ─── REFS ──────────────────────────────────────────────────────────────────
   // useRef creates a reference to a real DOM element.
   // We attach this to the <canvas> element below via ref={canvasRef}.
@@ -208,9 +209,9 @@ export default function Hero() {
   // This is cleaner than copy-pasting three separate JSX blocks.
   // Each object has a "value" and "label" property we'll reference in the JSX.
   const stats = [
-    { value: siteConfig.stats.installs, label: "Systems Installed" },
-    { value: siteConfig.stats.years, label: "In The Field" },
-    { value: siteConfig.stats.satisfaction, label: "Client Satisfaction" },
+    { value: settings.stats.installs, label: "Systems Installed" },
+    { value: settings.stats.years, label: "In The Field" },
+    { value: settings.stats.satisfaction, label: "Client Satisfaction" },
   ];
 
   // ─── JSX (THE UI) ─────────────────────────────────────────────────────────
@@ -401,7 +402,7 @@ export default function Hero() {
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             or call{" "}
-            <span className="text-white font-medium">{siteConfig.phone}</span>
+            <span className="text-white font-medium">{settings.phone}</span>
           </a>
         </motion.div>
 

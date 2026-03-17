@@ -7,40 +7,13 @@ import {
   type Variants,
   AnimatePresence,
 } from "framer-motion";
-import { siteConfig } from "../config/site";
+import { type Testimonial } from "../lib/types";
 
-interface Testimonial {
-  quote: string;
-  name: string;
-  location: string;
-  rating: number;
-}
-
-const testimonials: Testimonial[] = [
-  {
-    quote:
-      "The team was professional and efficient. Our cameras were installed in a single afternoon and the quality is outstanding. I can monitor everything from my phone.",
-    name: "James R.",
-    location: "Homeowner",
-    rating: 5,
-  },
-  {
-    quote:
-      "We had SecurTech install a full access control system across our warehouse. The process was seamless and they walked us through everything. Highly recommend.",
-    name: "Maria T.",
-    location: "Business Owner",
-    rating: 5,
-  },
-  {
-    quote:
-      "Quick response, fair pricing, and they cleaned up after themselves. The alarm system has already caught one attempted break-in. Worth every penny.",
-    name: "David K.",
-    location: "Homeowner",
-    rating: 5,
-  },
-];
-
-export default function Testimonials() {
+export default function Testimonials({
+  testimonials,
+}: {
+  testimonials: Testimonial[];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 

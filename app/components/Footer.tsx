@@ -3,10 +3,11 @@
 import React from "react";
 import { Phone, Mail, MapPin, Facebook, Instagram, Star } from "lucide-react";
 import { siteConfig } from "../config/site";
+import { type SiteSettings } from "../lib/types";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Footer() {
+export default function Footer({ settings }: { settings: SiteSettings }) {
   const currentYear = new Date().getFullYear();
   // new Date() creates a JavaScript Date object for right now.
   // .getFullYear() extracts the 4-digit year.
@@ -48,13 +49,13 @@ export default function Footer() {
               className="text-slate-500 text-sm leading-relaxed mb-6"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
-              {siteConfig.description}
+              {settings.description}
             </p>
 
             {/* Social links */}
             <div className="flex items-center gap-3">
               <a
-                href={siteConfig.social.facebook}
+                href={settings.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 // target="_blank" opens in a new tab.
@@ -66,7 +67,7 @@ export default function Footer() {
                 <Facebook size={14} />
               </a>
               <a
-                href={siteConfig.social.instagram}
+                href={settings.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-[#EF6B4D] hover:border-[#EF6B4D]/30 transition-all duration-200"
@@ -75,7 +76,7 @@ export default function Footer() {
                 <Instagram size={14} />
               </a>
               <a
-                href={siteConfig.social.google}
+                href={settings.social.google}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-[#EF6B4D] hover:border-[#EF6B4D]/30 transition-all duration-200"
@@ -154,7 +155,7 @@ export default function Footer() {
                     className="text-sm"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
-                    {siteConfig.phone}
+                    {settings.phone}
                   </span>
                 </a>
               </li>
@@ -171,7 +172,7 @@ export default function Footer() {
                     className="text-sm"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
-                    {siteConfig.email}
+                    {settings.email}
                   </span>
                 </a>
               </li>
@@ -185,7 +186,7 @@ export default function Footer() {
                     className="text-sm leading-relaxed"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
-                    {siteConfig.address}
+                    {settings.address}
                   </span>
                 </div>
               </li>
@@ -194,9 +195,9 @@ export default function Footer() {
                   className="text-slate-600 text-xs leading-relaxed"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  <p>{siteConfig.hours.weekdays}</p>
-                  <p>{siteConfig.hours.saturday}</p>
-                  <p>{siteConfig.hours.sunday}</p>
+                  <p>{settings.hours.weekdays}</p>
+                  <p>{settings.hours.saturday}</p>
+                  <p>{settings.hours.sunday}</p>
                 </div>
               </li>
             </ul>
@@ -211,14 +212,14 @@ export default function Footer() {
             className="text-slate-600 text-xs"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            © {currentYear} {siteConfig.name}. All rights reserved.
+            © {currentYear} {settings.siteName}. All rights reserved.
           </p>
 
           <p
             className="text-slate-600 text-xs"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            {siteConfig.serviceArea}
+            {settings.serviceArea}
           </p>
         </div>
       </div>

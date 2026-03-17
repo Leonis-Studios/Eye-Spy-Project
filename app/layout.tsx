@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { siteConfig } from "./config/site";
+import { getSiteSettings } from "./lib/getSiteSettings";
 
 export const metadata: Metadata = {
   title: siteConfig.seo.title,
@@ -22,11 +23,13 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.seo.url),
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await getSiteSettings();
+
   return (
     <html lang="en">
       <head>
@@ -36,11 +39,11 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              name: siteConfig.name,
-              description: siteConfig.description,
+              name: settings.siteName,
+              description: settings.description,
               url: siteConfig.seo.url,
-              telephone: siteConfig.phone,
-              email: siteConfig.email,
+              telephone: settings.phone,
+              email: settings.email,
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "123 Main St",
@@ -75,9 +78,9 @@ export default function RootLayout({
                 reviewCount: "124",
               },
               sameAs: [
-                siteConfig.social.facebook,
-                siteConfig.social.instagram,
-                siteConfig.social.google,
+                settings.social.facebook,
+                settings.social.instagram,
+                settings.social.google,
               ],
             }),
           }}

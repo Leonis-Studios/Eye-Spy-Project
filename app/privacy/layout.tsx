@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { siteConfig } from "../config/site";
+import { getSiteSettings } from "../lib/getSiteSettings";
 
-export const metadata: Metadata = {
-  title: `Privacy Policy | ${siteConfig.name}`,
-  description: `Privacy policy for ${siteConfig.name}. Learn how we collect, use, and protect your personal information.`,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  return {
+    title: `Privacy Policy | ${settings.siteName}`,
+    description: `Privacy policy for ${settings.siteName}. Learn how we collect, use, and protect your personal information.`,
+  };
+}
 
 export default function PrivacyLayout({
   children,
