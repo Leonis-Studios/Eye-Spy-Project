@@ -13,7 +13,7 @@ import {
   Users,
 } from "lucide-react";
 import { siteConfig } from "../../config/site";
-import { type SiteSettings } from "../../lib/types";
+import { type SiteSettings, type Testimonial } from "../../lib/types";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,34 +28,7 @@ interface FormData {
 
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
-// ─── DATA ─────────────────────────────────────────────────────────────────────
-const testimonials = [
-  {
-    quote:
-      "The team was professional and had our cameras installed in a single afternoon. Couldn't be happier with the result.",
-    name: "James R.",
-    location: "Homeowner",
-  },
-  {
-    quote:
-      "Finally feel safe at night. They walked us through every option and didn't try to oversell us anything we didn't need.",
-    name: "Maria T.",
-    location: "Homeowner",
-  },
-  {
-    quote:
-      "Got three quotes. SecurTech was the most professional and their price was fair. Highly recommend.",
-    name: "David K.",
-    location: "Business Owner",
-  },
-];
-
-const trustBadges = [
-  { icon: <BadgeCheck size={16} />, label: "Licensed & Insured" },
-  { icon: <Clock size={16} />, label: "15+ Years Experience" },
-  { icon: <Star size={16} />, label: "4.9★ Google Rated" },
-  { icon: <Users size={16} />, label: "2,400+ Installs" },
-];
+// ─── STATIC DATA ──────────────────────────────────────────────────────────────
 
 const includes = [
   "Free on-site property survey",
@@ -66,7 +39,7 @@ const includes = [
 
 // ─── LANDING PAGE HEADER ──────────────────────────────────────────────────────
 // Intentionally minimal — no nav links, phone number only
-function LandingHeader({ phone }: { phone: string }) {
+function LandingHeader({ settings }: { settings: SiteSettings }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#050d1a]/95 backdrop-blur-sm border-b border-white/5">
       <div className="max-w-6xl mx-auto px-6 md:px-16 h-16 flex items-center justify-between">
@@ -86,7 +59,7 @@ function LandingHeader({ phone }: { phone: string }) {
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           <Phone size={14} className="text-[#EF6B4D]" />
-          {phone}
+          {settings.phone}
         </a>
       </div>
     </header>
@@ -95,7 +68,7 @@ function LandingHeader({ phone }: { phone: string }) {
 
 // ─── LANDING PAGE FOOTER ──────────────────────────────────────────────────────
 // Minimal — logo, privacy policy, copyright only
-function LandingFooter({ siteName }: { siteName: string }) {
+function LandingFooter({ settings }: { settings: SiteSettings }) {
   return (
     <footer className="border-t border-white/5 py-6 bg-[#030912]">
       <div className="max-w-6xl mx-auto px-6 md:px-16 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -105,7 +78,7 @@ function LandingFooter({ siteName }: { siteName: string }) {
             className="text-white text-xs font-semibold tracking-widest uppercase"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
-            {siteName}
+            {settings.siteName}
           </span>
         </Link>
         <div className="flex items-center gap-6">
@@ -120,7 +93,7 @@ function LandingFooter({ siteName }: { siteName: string }) {
             className="text-slate-600 text-xs"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            © {new Date().getFullYear()} {siteName}. All rights reserved.
+            © {new Date().getFullYear()} {settings.siteName}. All rights reserved.
           </span>
         </div>
       </div>
@@ -367,9 +340,18 @@ function EstimateForm() {
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 export default function SecuritySystemsClient({
   settings,
+  testimonials,
 }: {
   settings: SiteSettings;
+  testimonials: Testimonial[];
 }) {
+  const trustBadges = [
+    { icon: <BadgeCheck size={16} />, label: "Licensed & Insured" },
+    { icon: <Clock size={16} />, label: `${settings.stats.years} Experience` },
+    { icon: <Star size={16} />, label: `${settings.stats.rating} Google Rated` },
+    { icon: <Users size={16} />, label: `${settings.stats.installs} Installs` },
+  ];
+
   const fadeUp: Variants = {
     hidden: { opacity: 0, y: 24 },
     visible: (i: number) => ({
@@ -385,7 +367,7 @@ export default function SecuritySystemsClient({
 
   return (
     <>
-      <LandingHeader phone={settings.phone} />
+      <LandingHeader settings={settings} />
 
       <main className="bg-[#050d1a] pt-16">
         {/* ── HERO + FORM ───────────────────────────────────────────────── */}
@@ -585,7 +567,15 @@ export default function SecuritySystemsClient({
             >
               What Customers Say
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div
+              className={
+                testimonials.length === 1
+                  ? "grid grid-cols-1 gap-6 max-w-lg mx-auto"
+                  : testimonials.length === 2
+                    ? "grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto"
+                    : "grid grid-cols-1 md:grid-cols-3 gap-6"
+              }
+            >
               {testimonials.map((t) => (
                 <div
                   key={t.name}
@@ -680,7 +670,7 @@ export default function SecuritySystemsClient({
         </section>
       </main>
 
-      <LandingFooter siteName={settings.siteName} />
+      <LandingFooter settings={settings} />
     </>
   );
 }
