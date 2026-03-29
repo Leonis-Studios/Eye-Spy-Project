@@ -449,7 +449,7 @@ export default function AreaLandingClient({
                 <span
                   style={{
                     background:
-                      "linear-gradient(90deg, #EF6B4D 0%, #38bdf8 60%, #7dd3fc 100%)",
+                      "linear-gradient(90deg, #EF6B4D 0%, #f08060 60%, #f4a080 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                   }}

@@ -60,6 +60,12 @@ export interface TeamMember {
   photo?: any;
 }
 
+// ─── SERVICE ──────────────────────────────────────────────────────────────────
+export interface Service {
+  label: string;
+  value: string;
+}
+
 // ─── SERVICE AREA ─────────────────────────────────────────────────────────────
 export interface ServiceArea {
   name: string;

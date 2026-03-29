@@ -13,7 +13,7 @@ import {
   Users,
 } from "lucide-react";
 import { siteConfig } from "../../config/site";
-import { type SiteSettings, type Testimonial } from "../../lib/types";
+import { type SiteSettings, type Testimonial, type Service } from "../../lib/types";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -31,14 +31,13 @@ type FormErrors = Partial<Record<keyof FormData, string>>;
 // ─── STATIC DATA ──────────────────────────────────────────────────────────────
 
 const includes = [
-  "Free on-site property survey",
-  "Written quote with no hidden fees",
-  "Same-week availability",
-  "No obligation — ever",
+  "Free on-site cabling assessment",
+  "Cat6 / Cat6A structured cabling",
+  "Tidy cable management & labelling",
+  "Certified low-voltage technicians",
 ];
 
 // ─── LANDING PAGE HEADER ──────────────────────────────────────────────────────
-// Intentionally minimal — no nav links, phone number only
 function LandingHeader({ settings }: { settings: SiteSettings }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#050d1a]/95 backdrop-blur-sm border-b border-white/5">
@@ -67,7 +66,6 @@ function LandingHeader({ settings }: { settings: SiteSettings }) {
 }
 
 // ─── LANDING PAGE FOOTER ──────────────────────────────────────────────────────
-// Minimal — logo, privacy policy, copyright only
 function LandingFooter({ settings }: { settings: SiteSettings }) {
   return (
     <footer className="border-t border-white/5 py-6 bg-[#030912]">
@@ -102,7 +100,7 @@ function LandingFooter({ settings }: { settings: SiteSettings }) {
 }
 
 // ─── ESTIMATE FORM ────────────────────────────────────────────────────────────
-function EstimateForm() {
+function EstimateForm({ services }: { services: Service[] }) {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phone: "",
@@ -166,7 +164,7 @@ function EstimateForm() {
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           Thanks {formData.name.split(" ")[0]} — we&apos;ll be in touch within 1
-          business day to schedule your free estimate.
+          business day to schedule your free cabling assessment.
         </p>
       </div>
     );
@@ -286,7 +284,7 @@ function EstimateForm() {
           <option value="" disabled>
             Select a service...
           </option>
-          {siteConfig.services.map((s) => (
+          {services.map((s) => (
             <option key={s.value} value={s.value}>
               {s.label}
             </option>
@@ -338,12 +336,14 @@ function EstimateForm() {
 }
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
-export default function SecuritySystemsClient({
+export default function CablingClient({
   settings,
   testimonials,
+  services,
 }: {
   settings: SiteSettings;
   testimonials: Testimonial[];
+  services: Service[];
 }) {
   const trustBadges = [
     { icon: <BadgeCheck size={16} />, label: "Licensed & Insured" },
@@ -371,9 +371,6 @@ export default function SecuritySystemsClient({
 
       <main className="bg-[#050d1a] pt-16">
         {/* ── HERO + FORM ───────────────────────────────────────────────── */}
-        {/* Two column layout — headline left, form right.
-            This keeps the form above the fold on desktop
-            which is critical for ad landing page conversion. */}
         <section className="relative min-h-screen flex items-center overflow-hidden">
           <div
             className="pointer-events-none absolute inset-0"
@@ -400,7 +397,7 @@ export default function SecuritySystemsClient({
                 Licensed & Insured · {settings.serviceArea}
               </motion.p>
 
-              {/* Headline — mirrors Google ad copy */}
+              {/* Headline */}
               <motion.h1
                 custom={1}
                 variants={fadeUp}
@@ -409,7 +406,7 @@ export default function SecuritySystemsClient({
                 className="text-5xl md:text-6xl font-bold text-white leading-tight"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
-                Get a Free Security System Estimate
+                Professional Cabling Installation
                 <br />
                 <span
                   style={{
@@ -419,7 +416,7 @@ export default function SecuritySystemsClient({
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  Today.
+                  Done Right.
                 </span>
               </motion.h1>
 
@@ -432,9 +429,9 @@ export default function SecuritySystemsClient({
                 className="text-slate-400 text-lg leading-relaxed max-w-lg"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
-                We'll survey your property, recommend exactly what you need, and
-                give you a written quote with no hidden fees. No pressure. No
-                obligation.
+                We design and install structured low-voltage cabling for
+                cameras, networks, and access control — clean runs, proper
+                terminations, and a written quote with no hidden fees.
               </motion.p>
 
               {/* What's included list */}
@@ -487,8 +484,6 @@ export default function SecuritySystemsClient({
             </div>
 
             {/* Right — form card */}
-            {/* The form is in a card with a visible border to make it
-                stand out from the background as its own distinct element */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -513,7 +508,7 @@ export default function SecuritySystemsClient({
                   We'll respond within 1 business day.
                 </p>
               </div>
-              <EstimateForm />
+              <EstimateForm services={services} />
             </motion.div>
           </div>
         </section>
@@ -581,7 +576,6 @@ export default function SecuritySystemsClient({
                   key={t.name}
                   className="p-6 rounded-sm border border-white/5 bg-[#070f1e] flex flex-col gap-4"
                 >
-                  {/* Stars */}
                   <div className="flex gap-1">
                     {[...Array(5)].map((_, i) => (
                       <Star
@@ -618,7 +612,6 @@ export default function SecuritySystemsClient({
         </section>
 
         {/* ── BOTTOM CTA ────────────────────────────────────────────────── */}
-        {/* Repeat the form at the bottom for visitors who scrolled past the hero */}
         <section className="relative bg-[#070f1e] py-20 overflow-hidden">
           <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
           <div className="absolute top-6 left-6 w-8 h-8 border-l border-t border-[#EF6B4D]/20" />
@@ -644,8 +637,8 @@ export default function SecuritySystemsClient({
                 className="text-slate-400 leading-relaxed"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
-                Prefer to speak with someone before filling out a form? Give us
-                a call and we'll answer any questions you have.
+                Not sure what cabling you need? Give us a call and we'll walk
+                you through it — no obligation.
               </p>
               <a
                 href={siteConfig.phoneHref}
@@ -664,7 +657,7 @@ export default function SecuritySystemsClient({
               >
                 Or Request Your Free Estimate Online
               </h3>
-              <EstimateForm />
+              <EstimateForm services={services} />
             </div>
           </div>
         </section>

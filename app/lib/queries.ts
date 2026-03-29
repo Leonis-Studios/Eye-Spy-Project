@@ -69,6 +69,14 @@ export const teamQuery = `
   }
 `;
 
+// ─── SERVICES ─────────────────────────────────────────────────────────────────
+export const servicesQuery = `
+  *[_type == "service"] | order(order asc){
+    label,
+    value
+  }
+`;
+
 // ─── SERVICE AREAS ────────────────────────────────────────────────────────────
 export const allAreasQuery = `
   *[_type == "serviceArea"]{

@@ -1,5 +1,5 @@
 import { createClient } from "@sanity/client";
-import imageUrlBuilder from "@sanity/image-url";
+import { createImageUrlBuilder } from "@sanity/image-url";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 // ─── CLIENT ───────────────────────────────────────────────────────────────────
@@ -20,7 +20,7 @@ export const client = createClient({
 // Sanity stores images in its own cloud storage.
 // This builder generates optimized image URLs from Sanity image references.
 // Usage: urlFor(image).width(800).url()
-const builder = imageUrlBuilder(client);
+const builder = createImageUrlBuilder(client);
 
 export function urlFor(source: SanityImageSource) {
   return builder.image(source);

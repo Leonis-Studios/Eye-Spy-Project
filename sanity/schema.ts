@@ -4,6 +4,7 @@ import { testimonial } from "./schema/testimonial";
 import { faqItem } from "./schema/faqItem";
 import { teamMember } from "./schema/teamMember";
 import { serviceArea } from "./schema/serviceArea";
+import { service } from "./schema/service";
 
 export const schemaTypes = [
   siteSettings,
@@ -12,4 +13,5 @@ export const schemaTypes = [
   faqItem,
   teamMember,
   serviceArea,
+  service,
 ];
