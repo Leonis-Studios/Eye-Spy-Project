@@ -1,6 +1,6 @@
 import { createClient } from "@sanity/client";
 import { createImageUrlBuilder } from "@sanity/image-url";
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { Image } from "sanity";
 
 // ─── CLIENT ───────────────────────────────────────────────────────────────────
 // This is the connection between Next.js and Sanity.
@@ -22,7 +22,7 @@ export const client = createClient({
 // Usage: urlFor(image).width(800).url()
 const builder = createImageUrlBuilder(client);
 
-export function urlFor(source: SanityImageSource) {
+export function urlFor(source: Image) {
   return builder.image(source);
 }
 
