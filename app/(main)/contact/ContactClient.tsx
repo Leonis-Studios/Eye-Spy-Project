@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import {
   Phone,
@@ -10,6 +10,7 @@ import {
   ArrowRight,
   CheckCircle,
 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { siteConfig } from "@/app/config/site";
 import { type SiteSettings } from "@/app/lib/types";
 
@@ -18,6 +19,7 @@ interface ContactForm {
   name: string;
   email: string;
   phone: string;
+  service: string;
   message: string;
 }
 
@@ -34,18 +36,26 @@ export default function ContactClient({
   const formInView = useInView(formRef, { once: true, amount: 0.1 });
   const infoInView = useInView(infoRef, { once: true, amount: 0.2 });
 
+  const searchParams = useSearchParams();
+
   const [formData, setFormData] = useState<ContactForm>({
     name: "",
     email: "",
     phone: "",
+    service: "",
     message: "",
   });
+
+  useEffect(() => {
+    const s = searchParams.get("service");
+    if (s) setFormData((prev) => ({ ...prev, service: s }));
+  }, [searchParams]);
   const [errors, setErrors] = useState<ContactErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -322,6 +332,34 @@ export default function ContactClient({
                         style={{ fontFamily: "'DM Sans', sans-serif" }}
                       />
                     </div>
+                  </motion.div>
+
+                  <motion.div variants={itemVariants}>
+                    <label
+                      htmlFor="service"
+                      className={labelClass}
+                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    >
+                      Service of Interest{" "}
+                      <span className="text-slate-600 normal-case tracking-normal">
+                        (optional)
+                      </span>
+                    </label>
+                    <select
+                      id="service"
+                      name="service"
+                      value={formData.service}
+                      onChange={handleChange}
+                      className={`${inputClass} border-white/5`}
+                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    >
+                      <option value="">Select a service...</option>
+                      {siteConfig.services.map((s) => (
+                        <option key={s.value} value={s.value}>
+                          {s.label}
+                        </option>
+                      ))}
+                    </select>
                   </motion.div>
 
                   <motion.div variants={itemVariants}>

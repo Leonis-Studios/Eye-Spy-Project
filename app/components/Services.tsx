@@ -3,12 +3,15 @@
 import React, { useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import { Cctv, CableCar, Heater, NavigationOff } from "lucide-react";
+import Link from "next/link";
 import { siteConfig } from "../config/site";
 
 interface Service {
   icon: React.ReactNode;
   title: string;
   description: string;
+  badge: string;
+  slug: string;
 }
 
 export default function Services() {
@@ -44,24 +47,32 @@ export default function Services() {
       title: "Surveillance Systems",
       description:
         "State-of-the-art CCTV solutions for comprehensive security coverage.",
+      badge: "CCTV",
+      slug: "cameras",
     },
     {
       icon: <CableCar size={22} />,
       title: "Alarm Systems",
       description:
         "State-of-the-art alarm solutions for comprehensive security coverage.",
+      badge: "Alarms",
+      slug: "alarms",
     },
     {
       icon: <Heater size={22} />,
       title: "Heating Systems",
       description:
         "Energy-efficient heating solutions for residential and commercial properties.",
+      badge: "Heating",
+      slug: "other",
     },
     {
       icon: <NavigationOff size={22} />,
       title: "Security Consulting",
       description:
         "Expert advice and strategies for comprehensive security management.",
+      badge: "Consulting",
+      slug: "consultation",
     },
   ];
 
@@ -101,6 +112,13 @@ export default function Services() {
           {services.map((service) => (
             <motion.div key={service.title} variants={itemVariants}>
               <div className="group p-8 rounded-sm border border-white/5 hover:border-[#EF6B4D]/20 bg-[#0a1628] hover:bg-[#0a1628]/80 transition-all duration-300 h-full">
+                <Link
+                  href={`/contact?service=${service.slug}`}
+                  className="inline-block text-[#EF6B4D] text-xs uppercase tracking-widest bg-[#EF6B4D]/10 px-2.5 py-0.5 rounded-sm mb-4 hover:underline hover:opacity-80 transition-opacity duration-200"
+                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                >
+                  {service.badge}
+                </Link>
                 <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#EF6B4D]/10 text-[#EF6B4D] mb-4 group-hover:bg-[#EF6B4D]/20 transition-colors duration-300">
                   {service.icon}
                 </span>
