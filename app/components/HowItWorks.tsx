@@ -64,11 +64,11 @@ export default function HowItWorks() {
       ref={sectionRef}
       className="scroll-mt-20 realtive bg-[#050d1a] py-24 overflow-hidden"
     >
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#68d8d6]/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#68d8d6]/20 to-transparent" />
       <div className="max-w-6xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
         <p
-          className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-4"
+          className="text-[#9ceaef] text-xs uppercase tracking-widest mb-4"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           The Process
@@ -86,7 +86,7 @@ export default function HowItWorks() {
           Our simple 3-step process to get you up and running quickly.
         </p>
         <div className="relative mt-16">
-          <div className="hidden md:block absolute top-8 left-1/4 right-1/4 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/30 to-transparent" />
+          <div className="hidden md:block absolute top-8 left-1/4 right-1/4 h-px bg-linear-to-r from-transparent via-[#087ca7]/30 to-transparent" />
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -101,7 +101,7 @@ export default function HowItWorks() {
               >
                 <div>
                   <span
-                    className="text-7xl font-bold text-[#EF6B4D]/10 mb-4 block"
+                    className="text-7xl font-bold text-[#087ca7]/15 mb-4 block"
                     style={{ fontFamily: "'Rajdhani', sans-serif" }}
                   >
                     {step.step}

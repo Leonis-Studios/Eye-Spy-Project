@@ -62,12 +62,12 @@ export default function Testimonials({
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,200,255,0.04) 0%, transparent 70%)",
+            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(8, 124, 167, 0.05) 0%, transparent 70%)",
         }}
         aria-hidden
       />
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#68d8d6]/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#68d8d6]/20 to-transparent" />
 
       <motion.div
         variants={sectionVariants}
@@ -76,7 +76,7 @@ export default function Testimonials({
         className="relative max-w-4xl mx-auto px-6 md:px-16 flex flex-col items-center text-center"
       >
         <p
-          className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-12"
+          className="text-[#9ceaef] text-xs uppercase tracking-widest mb-12"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           What Our Clients Say
@@ -97,7 +97,7 @@ export default function Testimonials({
               className="flex flex-col items-center"
             >
               <span
-                className="text-8xl text-[#EF6B4D]/10 leading-none mb-2 select-none"
+                className="text-8xl text-[#087ca7]/10 leading-none mb-2 select-none"
                 style={{ fontFamily: "Georgia, serif" }}
                 aria-hidden
               >
@@ -114,7 +114,7 @@ export default function Testimonials({
               <div className="flex items-center gap-1 mb-4">
                 {Array.from({ length: testimonials[active].rating }).map(
                   (_, i) => (
-                    <span key={i} className="text-[#EF6B4D] text-lg">
+                    <span key={i} className="text-[#FA8334] text-lg">
                       ★
                     </span>
                   ),
@@ -147,7 +147,7 @@ export default function Testimonials({
               onClick={() => setActive(i)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 i === active
-                  ? "w-8 bg-[#EF6B4D]"
+                  ? "w-8 bg-[#FA8334]"
                   : "w-2 bg-white/20 hover:bg-white/40"
               }`}
               aria-label={`View testimonial ${i + 1}`}
@@ -166,7 +166,7 @@ export default function Testimonials({
                 prev === 0 ? testimonials.length - 1 : prev - 1,
               )
             }
-            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-[#EF6B4D]/40 hover:text-[#EF6B4D] transition-all duration-200"
+            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-[#68d8d6]/40 hover:text-[#68d8d6] transition-all duration-200"
             aria-label="Previous testimonial"
           >
             ←
@@ -177,7 +177,7 @@ export default function Testimonials({
                 prev === testimonials.length - 1 ? 0 : prev + 1,
               )
             }
-            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-[#EF6B4D]/40 hover:text-[#EF6B4D] transition-all duration-200"
+            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-[#68d8d6]/40 hover:text-[#68d8d6] transition-all duration-200"
             aria-label="Next testimonial"
           >
             →

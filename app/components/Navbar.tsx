@@ -98,7 +98,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
             </a>
             <button
               onClick={scrollToForm}
-              className="group flex items-center gap-2 bg-[#EF6B4D] text-[#050d1a] font-bold px-5 py-2.5 rounded-sm text-xs uppercase tracking-widest hover:bg-white transition-colors duration-200"
+              className="group flex items-center gap-2 bg-[#FA8334] text-[#050d1a] font-bold px-5 py-2.5 rounded-sm text-xs uppercase tracking-widest hover:bg-white transition-colors duration-200"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
               Free Estimate
@@ -158,7 +158,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
             <div className="mt-10 flex flex-col gap-4">
               <button
                 onClick={scrollToForm}
-                className="group flex items-center justify-center gap-2 bg-[#EF6B4D] text-[#050d1a] font-bold px-6 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
+                className="group flex items-center justify-center gap-2 bg-[#FA8334] text-[#050d1a] font-bold px-6 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
                 Get a Free Estimate

@@ -94,7 +94,7 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
       // ── Draw the grid lines ──────────────────────────────────────────────
       // strokeStyle sets the color of lines. rgba() = red, green, blue, alpha(opacity).
       // 0.04 alpha means very faint — you barely see it, but it adds texture.
-      ctx.strokeStyle = "rgba(0, 200, 255, 0.04)";
+      ctx.strokeStyle = "rgba(104, 216, 214, 0.05)";
       ctx.lineWidth = 1;
 
       const spacing = 48; // pixels between each grid line
@@ -132,9 +132,9 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
         0,
         (offset % canvas.height) + 40, // gradient ends 40px below the center point
       );
-      grad.addColorStop(0, "rgba(0, 200, 255, 0)"); // fully transparent at top
-      grad.addColorStop(0.5, "rgba(0, 200, 255, 0.035)"); // very faint cyan at center
-      grad.addColorStop(1, "rgba(0, 200, 255, 0)"); // fully transparent at bottom
+      grad.addColorStop(0, "rgba(104, 216, 214, 0)"); // fully transparent at top
+      grad.addColorStop(0.5, "rgba(104, 216, 214, 0.04)"); // very faint teal at center
+      grad.addColorStop(1, "rgba(104, 216, 214, 0)"); // fully transparent at bottom
 
       ctx.fillStyle = grad;
       // Draw a rectangle spanning the full width, 80px tall, centered on offset position
@@ -243,7 +243,7 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 50% 20%, rgba(0,180,255,0.04) 0%, transparent 70%)",
+            "radial-gradient(ellipse 80% 60% at 50% 20%, rgba(8, 124, 167, 0.06) 0%, transparent 70%)",
         }}
       />
       {/* ── BACKGROUND LAYER 2: Animated canvas grid ─────────────────────────
@@ -270,7 +270,7 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
       <div
         className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 rounded-full opacity-15"
         style={{
-          background: "radial-gradient(circle, #EF6B4D 0%, transparent 70%)",
+          background: "radial-gradient(circle, #087ca7 0%, transparent 70%)",
           filter: "blur(48px)",
         }}
       />
@@ -297,12 +297,12 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-[#EF6B4D]/25 bg-[#EF6B4D]/5 text-[#EF6B4D] text-xs uppercase tracking-widest"
+          className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-[#087ca7]/30 bg-[#087ca7]/8 text-[#9ceaef] text-xs uppercase tracking-widest"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           {/* Pulsing dot — w-1.5 h-1.5 = 6x6px circle, animate-pulse is a
               Tailwind built-in that repeatedly fades opacity in and out. */}
-          <span className="w-1.5 h-1.5 rounded-full bg-[#EF6B4D] animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#9ceaef] animate-pulse" />
           Licensed & Insured · Residential & Commercial
         </motion.div>
 
@@ -332,7 +332,7 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
             className="relative inline-block"
             style={{
               background:
-                "linear-gradient(90deg, #EF6B4D 0%, #f08060 60%, #f4a080 100%)",
+                "linear-gradient(90deg, #087ca7 0%, #68d8d6 70%, #fa8334 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -379,7 +379,7 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
               transition-colors duration-200 = smooth 200ms color transition. */}
           <button
             onClick={scrollToForm}
-            className="group flex items-center gap-3 bg-[#EF6B4D] text-[#050d1a] font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
+            className="group flex items-center gap-3 bg-[#FA8334] text-[#050d1a] font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Get a Free Estimate
@@ -482,7 +482,7 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
           So it looks like a glowing line that fades out at both ends.
           This subtly separates the hero from the next section.
       */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#68d8d6]/20 to-transparent" />
       {/* ── GOOGLE FONTS ──────────────────────────────────────────────────────
           This loads our two custom fonts from Google Fonts.
           Rajdhani — display/heading font (geometric, technical, sharp)
