@@ -79,7 +79,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-slate-300 hover:text-white text-xs uppercase tracking-widest transition-colors duration-200"
+                className="text-slate-300 hover:text-white text-sm uppercase tracking-widest transition-colors duration-200"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
                 {link.label}
