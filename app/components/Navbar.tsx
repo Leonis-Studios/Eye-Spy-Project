@@ -56,7 +56,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-[#050d1a]/95 backdrop-blur-sm border-b border-white/5"
+            ? "bg-brand-base/95 backdrop-blur-sm border-b border-white/5"
             : "bg-transparent border-b border-transparent"
         }`}
       >
@@ -98,7 +98,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
             </a>
             <button
               onClick={scrollToForm}
-              className="group flex items-center gap-2 bg-[#EF6B4D] text-[#050d1a] font-bold px-5 py-2.5 rounded-sm text-xs uppercase tracking-widest hover:bg-white transition-colors duration-200"
+              className="group flex items-center gap-2 bg-brand-accent text-brand-base font-bold px-5 py-2.5 rounded-sm text-xs uppercase tracking-widest hover:bg-white transition-colors duration-200"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
               Free Estimate
@@ -134,7 +134,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-[#050d1a]/98 backdrop-blur-sm flex flex-col pt-20 px-6 md:hidden"
+            className="fixed inset-0 z-40 bg-brand-base/98 backdrop-blur-sm flex flex-col pt-20 px-6 md:hidden"
           >
             {/* Mobile nav links */}
             <nav className="flex flex-col gap-1 mt-8">
@@ -158,7 +158,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
             <div className="mt-10 flex flex-col gap-4">
               <button
                 onClick={scrollToForm}
-                className="group flex items-center justify-center gap-2 bg-[#EF6B4D] text-[#050d1a] font-bold px-6 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
+                className="group flex items-center justify-center gap-2 bg-brand-accent text-brand-base font-bold px-6 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
                 Get a Free Estimate

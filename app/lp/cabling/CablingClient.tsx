@@ -40,7 +40,7 @@ const includes = [
 // ─── LANDING PAGE HEADER ──────────────────────────────────────────────────────
 function LandingHeader({ settings }: { settings: SiteSettings }) {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#050d1a]/95 backdrop-blur-sm border-b border-white/5">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-brand-base/95 backdrop-blur-sm border-b border-white/5">
       <div className="max-w-6xl mx-auto px-6 md:px-16 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image
@@ -54,10 +54,10 @@ function LandingHeader({ settings }: { settings: SiteSettings }) {
         </Link>
         <a
           href={siteConfig.phoneHref}
-          className="flex items-center gap-2 text-white font-bold text-sm hover:text-[#EF6B4D] transition-colors duration-200"
+          className="flex items-center gap-2 text-white font-bold text-sm hover:text-brand-accent transition-colors duration-200"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
-          <Phone size={14} className="text-[#EF6B4D]" />
+          <Phone size={14} className="text-brand-accent" />
           {settings.phone}
         </a>
       </div>
@@ -68,10 +68,10 @@ function LandingHeader({ settings }: { settings: SiteSettings }) {
 // ─── LANDING PAGE FOOTER ──────────────────────────────────────────────────────
 function LandingFooter({ settings }: { settings: SiteSettings }) {
   return (
-    <footer className="border-t border-white/5 py-6 bg-[#030912]">
+    <footer className="border-t border-white/5 py-6 bg-brand-deep">
       <div className="max-w-6xl mx-auto px-6 md:px-16 flex flex-col sm:flex-row items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2">
-          <ShieldCheck className="text-[#EF6B4D]" size={16} strokeWidth={2.2} />
+          <ShieldCheck className="text-brand-accent" size={16} strokeWidth={2.2} />
           <span
             className="text-white text-xs font-semibold tracking-widest uppercase"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
@@ -146,13 +146,13 @@ function EstimateForm({ services }: { services: Service[] }) {
     setIsSubmitted(true);
   };
 
-  const inputClass = `w-full bg-[#050d1a] border px-4 py-3 rounded-sm text-white text-sm outline-none transition-colors duration-200 placeholder:text-slate-600 focus:border-[#EF6B4D]/50`;
+  const inputClass = `w-full bg-brand-base border px-4 py-3 rounded-sm text-white text-sm outline-none transition-colors duration-200 placeholder:text-slate-600 focus:border-brand-accent/50`;
   const labelClass = `block text-xs uppercase tracking-widest text-slate-400 mb-2`;
 
   if (isSubmitted) {
     return (
       <div className="flex flex-col items-center text-center py-10 gap-4">
-        <CheckCircle className="text-[#EF6B4D]" size={44} />
+        <CheckCircle className="text-brand-accent" size={44} />
         <h3
           className="text-2xl font-bold text-white"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
@@ -298,7 +298,7 @@ function EstimateForm({ services }: { services: Service[] }) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="group flex items-center justify-center gap-3 bg-[#EF6B4D] text-[#050d1a] font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+        className="group flex items-center justify-center gap-3 bg-brand-accent text-brand-base font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
         style={{ fontFamily: "'Rajdhani', sans-serif" }}
       >
         {isSubmitting ? (
@@ -308,7 +308,7 @@ function EstimateForm({ services }: { services: Service[] }) {
               {[0, 1, 2].map((i) => (
                 <span
                   key={i}
-                  className="w-1 h-1 rounded-full bg-[#050d1a] animate-bounce"
+                  className="w-1 h-1 rounded-full bg-brand-base animate-bounce"
                   style={{ animationDelay: `${i * 0.15}s` }}
                 />
               ))}
@@ -369,7 +369,7 @@ export default function CablingClient({
     <>
       <LandingHeader settings={settings} />
 
-      <main className="bg-[#050d1a] pt-16">
+      <main className="bg-brand-base pt-16">
         {/* ── HERO + FORM ───────────────────────────────────────────────── */}
         <section className="relative min-h-screen flex items-center overflow-hidden">
           <div
@@ -380,7 +380,7 @@ export default function CablingClient({
             }}
             aria-hidden
           />
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
           <div className="relative max-w-6xl mx-auto px-6 md:px-16 py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
             {/* Left — headline and trust signals */}
@@ -391,7 +391,7 @@ export default function CablingClient({
                 variants={fadeUp}
                 initial="hidden"
                 animate="visible"
-                className="text-[#EF6B4D] text-xs uppercase tracking-widest"
+                className="text-brand-accent text-xs uppercase tracking-widest"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
                 Licensed & Insured · {settings.serviceArea}
@@ -411,7 +411,7 @@ export default function CablingClient({
                 <span
                   style={{
                     background:
-                      "linear-gradient(90deg, #EF6B4D 0%, #f08060 60%, #f4a080 100%)",
+                      "linear-gradient(90deg, var(--brand-accent) 0%, var(--brand-accent-light) 60%, var(--brand-accent-lighter) 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                   }}
@@ -446,7 +446,7 @@ export default function CablingClient({
                   <li key={item} className="flex items-center gap-3">
                     <CheckCircle
                       size={16}
-                      className="text-[#EF6B4D] shrink-0"
+                      className="text-brand-accent shrink-0"
                     />
                     <span
                       className="text-slate-300 text-sm"
@@ -471,7 +471,7 @@ export default function CablingClient({
                     key={badge.label}
                     className="flex items-center gap-2 px-3 py-2 rounded-sm border border-white/10 bg-white/5"
                   >
-                    <span className="text-[#EF6B4D]">{badge.icon}</span>
+                    <span className="text-brand-accent">{badge.icon}</span>
                     <span
                       className="text-slate-300 text-xs"
                       style={{ fontFamily: "'Rajdhani', sans-serif" }}
@@ -492,7 +492,7 @@ export default function CablingClient({
                 delay: 0.3,
                 ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
               }}
-              className="bg-[#070f1e] border border-white/10 rounded-sm p-8"
+              className="bg-brand-surface border border-white/10 rounded-sm p-8"
             >
               <div className="mb-6">
                 <h2
@@ -514,9 +514,9 @@ export default function CablingClient({
         </section>
 
         {/* ── TRUST BAR ─────────────────────────────────────────────────── */}
-        <section className="relative bg-[#070f1e] py-12 overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+        <section className="relative bg-brand-surface py-12 overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
           <div className="max-w-6xl mx-auto px-6 md:px-16">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               {[
@@ -551,13 +551,13 @@ export default function CablingClient({
         </section>
 
         {/* ── TESTIMONIALS ──────────────────────────────────────────────── */}
-        <section className="relative bg-[#050d1a] py-20 overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+        <section className="relative bg-brand-base py-20 overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
           <div className="max-w-6xl mx-auto px-6 md:px-16">
             <p
-              className="text-[#EF6B4D] text-xs uppercase tracking-widest text-center mb-10"
+              className="text-brand-accent text-xs uppercase tracking-widest text-center mb-10"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
               What Customers Say
@@ -574,14 +574,14 @@ export default function CablingClient({
               {testimonials.map((t) => (
                 <div
                   key={t.name}
-                  className="p-6 rounded-sm border border-white/5 bg-[#070f1e] flex flex-col gap-4"
+                  className="p-6 rounded-sm border border-white/5 bg-brand-surface flex flex-col gap-4"
                 >
                   <div className="flex gap-1">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
                         size={12}
-                        className="text-[#EF6B4D] fill-[#EF6B4D]"
+                        className="text-brand-accent fill-brand-accent"
                       />
                     ))}
                   </div>
@@ -612,17 +612,17 @@ export default function CablingClient({
         </section>
 
         {/* ── BOTTOM CTA ────────────────────────────────────────────────── */}
-        <section className="relative bg-[#070f1e] py-20 overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
-          <div className="absolute top-6 left-6 w-8 h-8 border-l border-t border-[#EF6B4D]/20" />
-          <div className="absolute top-6 right-6 w-8 h-8 border-r border-t border-[#EF6B4D]/20" />
-          <div className="absolute bottom-6 left-6 w-8 h-8 border-l border-b border-[#EF6B4D]/20" />
-          <div className="absolute bottom-6 right-6 w-8 h-8 border-r border-b border-[#EF6B4D]/20" />
+        <section className="relative bg-brand-surface py-20 overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+          <div className="absolute top-6 left-6 w-8 h-8 border-l border-t border-brand-accent/20" />
+          <div className="absolute top-6 right-6 w-8 h-8 border-r border-t border-brand-accent/20" />
+          <div className="absolute bottom-6 left-6 w-8 h-8 border-l border-b border-brand-accent/20" />
+          <div className="absolute bottom-6 right-6 w-8 h-8 border-r border-b border-brand-accent/20" />
 
           <div className="max-w-2xl mx-auto px-6 md:px-16">
             <div className="text-center mb-10">
               <p
-                className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-4"
+                className="text-brand-accent text-xs uppercase tracking-widest mb-4"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
                 Still Have Questions?
@@ -642,7 +642,7 @@ export default function CablingClient({
               </p>
               <a
                 href={siteConfig.phoneHref}
-                className="inline-flex items-center gap-2 mt-6 text-[#EF6B4D] font-bold text-lg hover:text-white transition-colors duration-200"
+                className="inline-flex items-center gap-2 mt-6 text-brand-accent font-bold text-lg hover:text-white transition-colors duration-200"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
                 <Phone size={18} />
@@ -650,7 +650,7 @@ export default function CablingClient({
               </a>
             </div>
 
-            <div className="bg-[#050d1a] border border-white/10 rounded-sm p-8">
+            <div className="bg-brand-base border border-white/10 rounded-sm p-8">
               <h3
                 className="text-xl font-bold text-white mb-6"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}

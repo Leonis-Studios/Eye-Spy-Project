@@ -15,15 +15,15 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
   // every year without anyone touching the code.
 
   return (
-    <footer className="relative bg-[#030912] overflow-hidden">
+    <footer className="relative bg-brand-deep overflow-hidden">
       {/* Top divider */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/20 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/20 to-transparent" />
 
       {/* Subtle background glow */}
       <div
         className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-64 opacity-10"
         style={{
-          background: "radial-gradient(ellipse, #EF6B4D 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, var(--brand-accent) 0%, transparent 70%)",
           filter: "blur(40px)",
         }}
         aria-hidden
@@ -61,7 +61,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                 // target="_blank" opens in a new tab.
                 // rel="noopener noreferrer" is a security best practice —
                 // prevents the new tab from accessing the original page via window.opener.
-                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-[#EF6B4D] hover:border-[#EF6B4D]/30 transition-all duration-200"
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-brand-accent hover:border-brand-accent/30 transition-all duration-200"
                 aria-label="Facebook"
               >
                 <Facebook size={14} />
@@ -70,7 +70,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                 href={settings.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-[#EF6B4D] hover:border-[#EF6B4D]/30 transition-all duration-200"
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-brand-accent hover:border-brand-accent/30 transition-all duration-200"
                 aria-label="Instagram"
               >
                 <Instagram size={14} />
@@ -79,7 +79,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                 href={settings.social.google}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-[#EF6B4D] hover:border-[#EF6B4D]/30 transition-all duration-200"
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-brand-accent hover:border-brand-accent/30 transition-all duration-200"
                 aria-label="Google Reviews"
               >
                 <Star size={14} />
@@ -149,7 +149,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                 >
                   <Phone
                     size={14}
-                    className="mt-0.5 shrink-0 text-[#EF6B4D]/50 group-hover:text-[#EF6B4D] transition-colors duration-200"
+                    className="mt-0.5 shrink-0 text-brand-accent/50 group-hover:text-brand-accent transition-colors duration-200"
                   />
                   <span
                     className="text-sm"
@@ -166,7 +166,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                 >
                   <Mail
                     size={14}
-                    className="mt-0.5 shrink-0 text-[#EF6B4D]/50 group-hover:text-[#EF6B4D] transition-colors duration-200"
+                    className="mt-0.5 shrink-0 text-brand-accent/50 group-hover:text-brand-accent transition-colors duration-200"
                   />
                   <span
                     className="text-sm"
@@ -180,7 +180,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                 <div className="flex items-start gap-3 text-slate-500">
                   <MapPin
                     size={14}
-                    className="mt-0.5 shrink-0 text-[#EF6B4D]/50"
+                    className="mt-0.5 shrink-0 text-brand-accent/50"
                   />
                   <span
                     className="text-sm leading-relaxed"

@@ -127,7 +127,7 @@ We will respond to all privacy-related inquiries within 30 days.`,
   };
 
   return (
-    <main className="bg-[#050d1a]">
+    <main className="bg-brand-base">
       {/* ── HEADER ──────────────────────────────────────────────────────── */}
       <section className="relative pt-40 pb-16 overflow-hidden">
         <div
@@ -138,8 +138,8 @@ We will respond to all privacy-related inquiries within 30 days.`,
           }}
           aria-hidden
         />
-        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
         <div className="relative max-w-3xl mx-auto px-6 md:px-16">
           <motion.p
@@ -147,7 +147,7 @@ We will respond to all privacy-related inquiries within 30 days.`,
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-4"
+            className="text-brand-accent text-xs uppercase tracking-widest mb-4"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Legal
@@ -191,10 +191,10 @@ We will respond to all privacy-related inquiries within 30 days.`,
       {/* ── POLICY SECTIONS ─────────────────────────────────────────────── */}
       <section
         ref={contentRef}
-        className="relative bg-[#070f1e] py-16 overflow-hidden"
+        className="relative bg-brand-surface py-16 overflow-hidden"
       >
-        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
         <motion.div
           variants={containerVariants}
@@ -211,7 +211,7 @@ We will respond to all privacy-related inquiries within 30 days.`,
               {/* Section number + title */}
               <div className="flex items-start gap-4">
                 <span
-                  className="text-[#EF6B4D]/40 text-xs font-bold mt-1 shrink-0"
+                  className="text-brand-accent/40 text-xs font-bold mt-1 shrink-0"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
                   {String(i + 1).padStart(2, "0")}
@@ -225,7 +225,7 @@ We will respond to all privacy-related inquiries within 30 days.`,
               </div>
 
               {/* Divider */}
-              <div className="h-px bg-linear-to-r from-[#EF6B4D]/10 to-transparent" />
+              <div className="h-px bg-linear-to-r from-brand-accent/10 to-transparent" />
 
               {/* Content — whitespace-pre-line preserves line breaks in the strings */}
               <p
@@ -240,8 +240,8 @@ We will respond to all privacy-related inquiries within 30 days.`,
       </section>
 
       {/* ── DISCLAIMER ──────────────────────────────────────────────────── */}
-      <section className="relative bg-[#050d1a] py-12 overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+      <section className="relative bg-brand-base py-12 overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
         <div className="max-w-3xl mx-auto px-6 md:px-16">
           <p
             className="text-slate-600 text-xs leading-relaxed"

@@ -11,6 +11,7 @@
 // useEffect: runs code AFTER the component appears on screen (good for browser APIs)
 // useRef: gives you a direct reference to a real DOM element (like a canvas or div)
 import { useEffect, useRef } from "react";
+import { brandColors, rgba } from "../config/colors";
 
 // Framer Motion is an animation library.
 // "motion" is a special version of HTML elements (motion.div, motion.h1, etc.)
@@ -94,7 +95,7 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
       // ── Draw the grid lines ──────────────────────────────────────────────
       // strokeStyle sets the color of lines. rgba() = red, green, blue, alpha(opacity).
       // 0.04 alpha means very faint — you barely see it, but it adds texture.
-      ctx.strokeStyle = "rgba(0, 200, 255, 0.04)";
+      ctx.strokeStyle = rgba(brandColors.glowCyan, 0.04);
       ctx.lineWidth = 1;
 
       const spacing = 48; // pixels between each grid line
@@ -132,9 +133,9 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
         0,
         (offset % canvas.height) + 40, // gradient ends 40px below the center point
       );
-      grad.addColorStop(0, "rgba(0, 200, 255, 0)"); // fully transparent at top
-      grad.addColorStop(0.5, "rgba(0, 200, 255, 0.035)"); // very faint cyan at center
-      grad.addColorStop(1, "rgba(0, 200, 255, 0)"); // fully transparent at bottom
+      grad.addColorStop(0, rgba(brandColors.glowCyan, 0)); // fully transparent at top
+      grad.addColorStop(0.5, rgba(brandColors.glowCyan, 0.035)); // very faint cyan at center
+      grad.addColorStop(1, rgba(brandColors.glowCyan, 0)); // fully transparent at bottom
 
       ctx.fillStyle = grad;
       // Draw a rectangle spanning the full width, 80px tall, centered on offset position
@@ -229,8 +230,8 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
     // "overflow-hidden" — clips children that extend beyond the edges (like the blurred orb)
     //   so they don't create unwanted scrollbars.
     // "flex flex-col justify-center" — centers the main content vertically.
-    // "bg-[#050d1a]" — custom dark navy color (square brackets let you use any CSS value).
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#050d1a] pt-20">
+    // "bg-brand-base" — custom dark navy color (square brackets let you use any CSS value).
+    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-brand-base pt-20">
       {/* ── BACKGROUND LAYER 1: Radial glow ──────────────────────────────────
           A decorative div with no visible content — just a background gradient effect.
           "pointer-events-none" — this element won't block any mouse clicks or touch events.
@@ -270,7 +271,7 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
       <div
         className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 rounded-full opacity-15"
         style={{
-          background: "radial-gradient(circle, #EF6B4D 0%, transparent 70%)",
+          background: "radial-gradient(circle, var(--brand-accent) 0%, transparent 70%)",
           filter: "blur(48px)",
         }}
       />
@@ -297,12 +298,12 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-[#EF6B4D]/25 bg-[#EF6B4D]/5 text-[#EF6B4D] text-xs uppercase tracking-widest"
+          className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-brand-accent/25 bg-brand-accent/5 text-brand-accent text-xs uppercase tracking-widest"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           {/* Pulsing dot — w-1.5 h-1.5 = 6x6px circle, animate-pulse is a
               Tailwind built-in that repeatedly fades opacity in and out. */}
-          <span className="w-1.5 h-1.5 rounded-full bg-[#EF6B4D] animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse" />
           Licensed & Insured · Residential & Commercial
         </motion.div>
 
@@ -332,7 +333,7 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
             className="relative inline-block"
             style={{
               background:
-                "linear-gradient(90deg, #EF6B4D 0%, #f08060 60%, #f4a080 100%)",
+                "linear-gradient(90deg, var(--brand-accent) 0%, var(--brand-accent-light) 60%, var(--brand-accent-lighter) 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -379,7 +380,7 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
               transition-colors duration-200 = smooth 200ms color transition. */}
           <button
             onClick={scrollToForm}
-            className="group flex items-center gap-3 bg-[#EF6B4D] text-[#050d1a] font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
+            className="group flex items-center gap-3 bg-brand-accent text-brand-base font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Get a Free Estimate
@@ -476,13 +477,13 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
           A 1px horizontal line at the very bottom of the section.
           "absolute bottom-0 left-0 right-0" pins it to the bottom edge.
           "h-px" = height of 1 pixel.
-          "bg-gradient-to-r from-transparent via-[#EF6B4D]/20 to-transparent"
+          "bg-gradient-to-r from-transparent via-brand-accent/20 to-transparent"
           creates a gradient that goes:
             transparent → faint cyan (20% opacity) → transparent
           So it looks like a glowing line that fades out at both ends.
           This subtly separates the hero from the next section.
       */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/20 to-transparent" />
       {/* ── GOOGLE FONTS ──────────────────────────────────────────────────────
           This loads our two custom fonts from Google Fonts.
           Rajdhani — display/heading font (geometric, technical, sharp)

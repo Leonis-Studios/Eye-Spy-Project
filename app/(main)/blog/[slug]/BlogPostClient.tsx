@@ -14,7 +14,7 @@ export default function BlogPostClient({
   relatedPosts: BlogPost[];
 }) {
   return (
-    <main className="bg-[#050d1a]">
+    <main className="bg-brand-base">
       {/* ── ARTICLE HEADER ────────────────────────────────────────────────── */}
       <section className="relative pt-40 pb-16 overflow-hidden">
         <div
@@ -25,8 +25,8 @@ export default function BlogPostClient({
           }}
           aria-hidden
         />
-        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
         <div className="relative max-w-3xl mx-auto px-6 md:px-16">
           {/* Back link */}
@@ -49,7 +49,7 @@ export default function BlogPostClient({
             className="flex flex-wrap items-center gap-4 mb-6"
           >
             <span
-              className="flex items-center gap-2 text-[#EF6B4D] text-xs uppercase tracking-widest"
+              className="flex items-center gap-2 text-brand-accent text-xs uppercase tracking-widest"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
               <Tag size={11} /> {post.category}
@@ -97,9 +97,9 @@ export default function BlogPostClient({
       </section>
 
       {/* ── ARTICLE BODY ──────────────────────────────────────────────────── */}
-      <section className="relative bg-[#070f1e] py-16 overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+      <section className="relative bg-brand-surface py-16 overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -128,7 +128,7 @@ export default function BlogPostClient({
               margin-bottom: 0;
             }
             .article-body a {
-              color: #EF6B4D;
+              color: var(--brand-accent);
               text-decoration: underline;
             }
           `}</style>
@@ -139,16 +139,16 @@ export default function BlogPostClient({
       </section>
 
       {/* ── CTA ───────────────────────────────────────────────────────────── */}
-      <section className="relative bg-[#050d1a] py-20 overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
-        <div className="absolute top-6 left-6 w-8 h-8 border-l border-t border-[#EF6B4D]/20" />
-        <div className="absolute top-6 right-6 w-8 h-8 border-r border-t border-[#EF6B4D]/20" />
-        <div className="absolute bottom-6 left-6 w-8 h-8 border-l border-b border-[#EF6B4D]/20" />
-        <div className="absolute bottom-6 right-6 w-8 h-8 border-r border-b border-[#EF6B4D]/20" />
+      <section className="relative bg-brand-base py-20 overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+        <div className="absolute top-6 left-6 w-8 h-8 border-l border-t border-brand-accent/20" />
+        <div className="absolute top-6 right-6 w-8 h-8 border-r border-t border-brand-accent/20" />
+        <div className="absolute bottom-6 left-6 w-8 h-8 border-l border-b border-brand-accent/20" />
+        <div className="absolute bottom-6 right-6 w-8 h-8 border-r border-b border-brand-accent/20" />
 
         <div className="max-w-2xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
           <p
-            className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-4"
+            className="text-brand-accent text-xs uppercase tracking-widest mb-4"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Ready to Take Action?
@@ -168,7 +168,7 @@ export default function BlogPostClient({
           </p>
           <a
             href="/#estimate-form"
-            className="group flex items-center gap-3 bg-[#EF6B4D] text-[#050d1a] font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
+            className="group flex items-center gap-3 bg-brand-accent text-brand-base font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Request Free Estimate
@@ -182,8 +182,8 @@ export default function BlogPostClient({
 
       {/* ── RELATED POSTS ─────────────────────────────────────────────────── */}
       {relatedPosts.length > 0 && (
-        <section className="relative bg-[#070f1e] py-20 overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+        <section className="relative bg-brand-surface py-20 overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
           <div className="max-w-6xl mx-auto px-6 md:px-16">
             <h2
               className="text-2xl font-bold text-white mb-8"
@@ -196,16 +196,16 @@ export default function BlogPostClient({
                 <a
                   key={related.slug}
                   href={`/blog/${related.slug}`}
-                  className="group p-6 rounded-sm border border-white/5 hover:border-[#EF6B4D]/20 bg-[#0a1628] transition-all duration-300"
+                  className="group p-6 rounded-sm border border-white/5 hover:border-brand-accent/20 bg-brand-card transition-all duration-300"
                 >
                   <span
-                    className="text-[#EF6B4D]/70 text-xs uppercase tracking-widest mb-3 block"
+                    className="text-brand-accent/70 text-xs uppercase tracking-widest mb-3 block"
                     style={{ fontFamily: "'Rajdhani', sans-serif" }}
                   >
                     {related.category}
                   </span>
                   <h3
-                    className="text-lg font-bold text-white group-hover:text-[#EF6B4D] transition-colors duration-200 mb-2"
+                    className="text-lg font-bold text-white group-hover:text-brand-accent transition-colors duration-200 mb-2"
                     style={{ fontFamily: "'Rajdhani', sans-serif" }}
                   >
                     {related.title}

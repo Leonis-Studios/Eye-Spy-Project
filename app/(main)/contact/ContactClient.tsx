@@ -119,7 +119,7 @@ export default function ContactClient({
     },
   };
 
-  const inputClass = `w-full bg-[#0a1628] border px-4 py-3 rounded-sm text-white text-sm outline-none transition-colors duration-200 placeholder:text-slate-600 focus:border-[#EF6B4D]/50`;
+  const inputClass = `w-full bg-brand-card border px-4 py-3 rounded-sm text-white text-sm outline-none transition-colors duration-200 placeholder:text-slate-600 focus:border-brand-accent/50`;
   const labelClass = `block text-xs uppercase tracking-widest text-slate-400 mb-2`;
 
   // Contact info items — icon, label, value, and optional href
@@ -151,7 +151,7 @@ export default function ContactClient({
   ];
 
   return (
-    <main className="bg-[#050d1a]">
+    <main className="bg-brand-base">
       {/* ── HERO BANNER ───────────────────────────────────────────────────── */}
       <section className="relative pt-40 pb-24 overflow-hidden">
         <div
@@ -162,8 +162,8 @@ export default function ContactClient({
           }}
           aria-hidden
         />
-        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
         <div className="relative max-w-4xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
           <motion.p
@@ -171,7 +171,7 @@ export default function ContactClient({
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-6"
+            className="text-brand-accent text-xs uppercase tracking-widest mb-6"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Get In Touch
@@ -189,7 +189,7 @@ export default function ContactClient({
             <span
               style={{
                 background:
-                  "linear-gradient(90deg, #EF6B4D 0%, #f08060 60%, #f4a080 100%)",
+                  "linear-gradient(90deg, var(--brand-accent) 0%, var(--brand-accent-light) 60%, var(--brand-accent-lighter) 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -212,9 +212,9 @@ export default function ContactClient({
       </section>
 
       {/* ── MAIN CONTENT: FORM + INFO ──────────────────────────────────────── */}
-      <section className="relative bg-[#070f1e] py-24 overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+      <section className="relative bg-brand-surface py-24 overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
         <div className="max-w-6xl mx-auto px-6 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* ── LEFT: CONTACT FORM ──────────────────────────────────────── */}
@@ -238,7 +238,7 @@ export default function ContactClient({
                   animate={{ opacity: 1, y: 0 }}
                   className="flex flex-col items-start gap-4 py-12"
                 >
-                  <CheckCircle className="text-[#EF6B4D]" size={40} />
+                  <CheckCircle className="text-brand-accent" size={40} />
                   <h3
                     className="text-2xl font-bold text-white"
                     style={{ fontFamily: "'Rajdhani', sans-serif" }}
@@ -391,7 +391,7 @@ export default function ContactClient({
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="group flex items-center gap-3 bg-[#EF6B4D] text-[#050d1a] font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="group flex items-center gap-3 bg-brand-accent text-brand-base font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
                       style={{ fontFamily: "'Rajdhani', sans-serif" }}
                     >
                       {isSubmitting ? (
@@ -401,7 +401,7 @@ export default function ContactClient({
                             {[0, 1, 2].map((i) => (
                               <span
                                 key={i}
-                                className="w-1 h-1 rounded-full bg-[#050d1a] animate-bounce"
+                                className="w-1 h-1 rounded-full bg-brand-base animate-bounce"
                                 style={{ animationDelay: `${i * 0.15}s` }}
                               />
                             ))}
@@ -443,9 +443,9 @@ export default function ContactClient({
                 <motion.div
                   key={item.label}
                   variants={itemVariants}
-                  className="flex items-start gap-4 p-5 rounded-sm border border-white/5 bg-[#0a1628]"
+                  className="flex items-start gap-4 p-5 rounded-sm border border-white/5 bg-brand-card"
                 >
-                  <span className="shrink-0 w-10 h-10 rounded-full bg-[#EF6B4D]/10 text-[#EF6B4D] flex items-center justify-center">
+                  <span className="shrink-0 w-10 h-10 rounded-full bg-brand-accent/10 text-brand-accent flex items-center justify-center">
                     {item.icon}
                   </span>
                   <div>
@@ -458,7 +458,7 @@ export default function ContactClient({
                     {item.href ? (
                       <a
                         href={item.href}
-                        className="text-white hover:text-[#EF6B4D] transition-colors duration-200 text-sm"
+                        className="text-white hover:text-brand-accent transition-colors duration-200 text-sm"
                         style={{ fontFamily: "'DM Sans', sans-serif" }}
                       >
                         {item.value}
@@ -478,10 +478,10 @@ export default function ContactClient({
               {/* Service area note */}
               <motion.div
                 variants={itemVariants}
-                className="p-5 rounded-sm border border-[#EF6B4D]/10 bg-[#EF6B4D]/5 mt-2"
+                className="p-5 rounded-sm border border-brand-accent/10 bg-brand-accent/5 mt-2"
               >
                 <p
-                  className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-2"
+                  className="text-brand-accent text-xs uppercase tracking-widest mb-2"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
                   Service Area

@@ -56,7 +56,7 @@ export default function Testimonials({
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#070f1e] py-24 overflow-hidden"
+      className="relative bg-brand-surface py-24 overflow-hidden"
     >
       <div
         className="pointer-events-none absolute inset-0"
@@ -66,8 +66,8 @@ export default function Testimonials({
         }}
         aria-hidden
       />
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
       <motion.div
         variants={sectionVariants}
@@ -76,7 +76,7 @@ export default function Testimonials({
         className="relative max-w-4xl mx-auto px-6 md:px-16 flex flex-col items-center text-center"
       >
         <p
-          className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-12"
+          className="text-brand-accent text-xs uppercase tracking-widest mb-12"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           What Our Clients Say
@@ -97,7 +97,7 @@ export default function Testimonials({
               className="flex flex-col items-center"
             >
               <span
-                className="text-8xl text-[#EF6B4D]/10 leading-none mb-2 select-none"
+                className="text-8xl text-brand-accent/10 leading-none mb-2 select-none"
                 style={{ fontFamily: "Georgia, serif" }}
                 aria-hidden
               >
@@ -114,7 +114,7 @@ export default function Testimonials({
               <div className="flex items-center gap-1 mb-4">
                 {Array.from({ length: testimonials[active].rating }).map(
                   (_, i) => (
-                    <span key={i} className="text-[#EF6B4D] text-lg">
+                    <span key={i} className="text-brand-accent text-lg">
                       ★
                     </span>
                   ),
@@ -147,7 +147,7 @@ export default function Testimonials({
               onClick={() => setActive(i)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 i === active
-                  ? "w-8 bg-[#EF6B4D]"
+                  ? "w-8 bg-brand-accent"
                   : "w-2 bg-white/20 hover:bg-white/40"
               }`}
               aria-label={`View testimonial ${i + 1}`}
@@ -166,7 +166,7 @@ export default function Testimonials({
                 prev === 0 ? testimonials.length - 1 : prev - 1,
               )
             }
-            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-[#EF6B4D]/40 hover:text-[#EF6B4D] transition-all duration-200"
+            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-brand-accent/40 hover:text-brand-accent transition-all duration-200"
             aria-label="Previous testimonial"
           >
             ←
@@ -177,7 +177,7 @@ export default function Testimonials({
                 prev === testimonials.length - 1 ? 0 : prev + 1,
               )
             }
-            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-[#EF6B4D]/40 hover:text-[#EF6B4D] transition-all duration-200"
+            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-brand-accent/40 hover:text-brand-accent transition-all duration-200"
             aria-label="Next testimonial"
           >
             →

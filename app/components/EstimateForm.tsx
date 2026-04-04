@@ -136,8 +136,8 @@ export default function EstimateForm() {
   // Reusable class strings — defined once so we don't repeat them on every input.
   // This is a common pattern when many elements share the same styles.
   const inputClass =
-    `w-full bg-[#0a1628] border px-4 py-3 rounded-sm text-white text-sm outline-none transition-colors duration-200 placeholder:text-slate-600` +
-    ` focus:border-[#EF6B4D]/50`;
+    `w-full bg-brand-card border px-4 py-3 rounded-sm text-white text-sm outline-none transition-colors duration-200 placeholder:text-slate-600` +
+    ` focus:border-brand-accent/50`;
   const labelClass = `block text-xs uppercase tracking-widest text-slate-400 mb-2`;
 
   // ─── SUCCESS STATE ───────────────────────────────────────────────────────────
@@ -146,11 +146,11 @@ export default function EstimateForm() {
     return (
       <section
         id="estimate-form"
-        className="scroll-mt-20 relative bg-[#050d1a] py-24 overflow-hidden"
+        className="scroll-mt-20 relative bg-brand-base py-24 overflow-hidden"
       >
-        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
         <div className="max-w-2xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
-          <CheckCircle className="text-[#EF6B4D] mb-6" size={48} />
+          <CheckCircle className="text-brand-accent mb-6" size={48} />
           <h2
             className="text-4xl font-bold text-white mb-4"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
@@ -175,10 +175,10 @@ export default function EstimateForm() {
     <section
       id="estimate-form"
       ref={sectionRef}
-      className="relative bg-[#050d1a] py-24 overflow-hidden"
+      className="relative bg-brand-base py-24 overflow-hidden"
     >
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
       <div
         className="pointer-events-none absolute inset-0"
@@ -198,7 +198,7 @@ export default function EstimateForm() {
         {/* Heading */}
         <div className="flex flex-col items-center text-center mb-12">
           <p
-            className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-4"
+            className="text-brand-accent text-xs uppercase tracking-widest mb-4"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             No Obligation
@@ -388,7 +388,7 @@ export default function EstimateForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="group flex items-center justify-center gap-3 bg-[#EF6B4D] text-[#050d1a] font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+            className="group flex items-center justify-center gap-3 bg-brand-accent text-brand-base font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             {isSubmitting ? (
@@ -399,7 +399,7 @@ export default function EstimateForm() {
                   {[0, 1, 2].map((i) => (
                     <span
                       key={i}
-                      className="w-1 h-1 rounded-full bg-[#050d1a] animate-bounce"
+                      className="w-1 h-1 rounded-full bg-brand-base animate-bounce"
                       style={{ animationDelay: `${i * 0.15}s` }}
                     />
                   ))}

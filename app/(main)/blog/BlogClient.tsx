@@ -85,7 +85,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
   };
 
   return (
-    <main className="bg-[#050d1a]">
+    <main className="bg-brand-base">
       {/* ── HERO BANNER ───────────────────────────────────────────────────── */}
       <section className="relative pt-40 pb-24 overflow-hidden">
         <div
@@ -96,8 +96,8 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
           }}
           aria-hidden
         />
-        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
         <div className="relative max-w-4xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
           <motion.p
@@ -105,7 +105,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="text-[#EF6B4D] text-xs uppercase tracking-widest mb-6"
+            className="text-brand-accent text-xs uppercase tracking-widest mb-6"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Security Insights
@@ -123,7 +123,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
             <span
               style={{
                 background:
-                  "linear-gradient(90deg, #EF6B4D 0%, #f08060 60%, #f4a080 100%)",
+                  "linear-gradient(90deg, var(--brand-accent) 0%, var(--brand-accent-light) 60%, var(--brand-accent-lighter) 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -148,10 +148,10 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
       {/* ── POSTS ─────────────────────────────────────────────────────────── */}
       <section
         ref={postsRef}
-        className="relative bg-[#070f1e] py-24 overflow-hidden"
+        className="relative bg-brand-surface py-24 overflow-hidden"
       >
-        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#EF6B4D]/15 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
         <div className="max-w-6xl mx-auto px-6 md:px-16">
           <div className="relative mb-6">
@@ -160,7 +160,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search articles..."
-              className="w-full md:w-80 bg-[#0a1628] border border-white/5 focus:border-[#EF6B4D]/50 px-4 py-3 rounded-sm text-white text-sm outline-none transition-colors duration-200 placeholder:text-slate-600"
+              className="w-full md:w-80 bg-brand-card border border-white/5 focus:border-brand-accent/50 px-4 py-3 rounded-sm text-white text-sm outline-none transition-colors duration-200 placeholder:text-slate-600"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             />
             {searchQuery && (
@@ -180,8 +180,8 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-4 py-2 rounded-sm text-xs uppercase tracking-widest transition-all duration-200 ${
                   activeCategory === cat
-                    ? "bg-[#EF6B4D] text-[#050d1a] font-bold"
-                    : "border border-white/10 text-slate-400 hover:border-[#EF6B4D]/30 hover:text-white"
+                    ? "bg-brand-accent text-brand-base font-bold"
+                    : "border border-white/10 text-slate-400 hover:border-brand-accent/30 hover:text-white"
                 }`}
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
@@ -202,13 +202,13 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
                 duration: 0.6,
                 ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
               }}
-              className="group block p-8 md:p-10 rounded-sm border border-white/5 hover:border-[#EF6B4D]/20 bg-[#0a1628] hover:bg-[#0a1628]/80 transition-all duration-300 mb-6"
+              className="group block p-8 md:p-10 rounded-sm border border-white/5 hover:border-brand-accent/20 bg-brand-card hover:bg-brand-card/80 transition-all duration-300 mb-6"
             >
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-4">
                     <span
-                      className="px-3 py-1 rounded-full bg-[#EF6B4D]/10 text-[#EF6B4D] text-xs uppercase tracking-widest"
+                      className="px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-xs uppercase tracking-widest"
                       style={{ fontFamily: "'Rajdhani', sans-serif" }}
                     >
                       Featured
@@ -221,7 +221,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
                     </span>
                   </div>
                   <h2
-                    className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-[#EF6B4D] transition-colors duration-200"
+                    className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-brand-accent transition-colors duration-200"
                     style={{ fontFamily: "'Rajdhani', sans-serif" }}
                   >
                     {posts[0].title}
@@ -239,7 +239,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
                     <span>{posts[0].date}</span>
                   </div>
                 </div>
-                <div className="shrink-0 flex items-center justify-center w-12 h-12 rounded-full border border-white/10 group-hover:border-[#EF6B4D]/30 group-hover:text-[#EF6B4D] text-slate-500 transition-all duration-200">
+                <div className="shrink-0 flex items-center justify-center w-12 h-12 rounded-full border border-white/10 group-hover:border-brand-accent/30 group-hover:text-brand-accent text-slate-500 transition-all duration-200">
                   <ArrowRight
                     size={18}
                     className="group-hover:translate-x-0.5 transition-transform duration-200"
@@ -261,13 +261,13 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
                 key={post.slug}
                 href={`/blog/${post.slug}`}
                 variants={itemVariants}
-                className="group flex flex-col p-6 rounded-sm border border-white/5 hover:border-[#EF6B4D]/20 bg-[#0a1628] hover:bg-[#0a1628]/80 transition-all duration-300"
+                className="group flex flex-col p-6 rounded-sm border border-white/5 hover:border-brand-accent/20 bg-brand-card hover:bg-brand-card/80 transition-all duration-300"
               >
                 {/* Category tag */}
                 <div className="flex items-center gap-2 mb-4">
-                  <Tag size={11} className="text-[#EF6B4D]/60" />
+                  <Tag size={11} className="text-brand-accent/60" />
                   <span
-                    className="text-[#EF6B4D]/80 text-xs uppercase tracking-widest"
+                    className="text-brand-accent/80 text-xs uppercase tracking-widest"
                     style={{ fontFamily: "'Rajdhani', sans-serif" }}
                   >
                     {post.category}
@@ -275,7 +275,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
                 </div>
 
                 <h3
-                  className="text-lg font-bold text-white mb-3 group-hover:text-[#EF6B4D] transition-colors duration-200 leading-snug"
+                  className="text-lg font-bold text-white mb-3 group-hover:text-brand-accent transition-colors duration-200 leading-snug"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
                   {post.title}
@@ -314,7 +314,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
             <div className="flex justify-center mt-6">
               <button
                 onClick={() => setVisibleCount((prev) => prev + 6)}
-                className="border border-white/10 hover:border-[#EF6B4D]/30 text-slate-400 hover:text-white px-8 py-3 rounded-sm text-xs uppercase tracking-widest transition-all duration-200"
+                className="border border-white/10 hover:border-brand-accent/30 text-slate-400 hover:text-white px-8 py-3 rounded-sm text-xs uppercase tracking-widest transition-all duration-200"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
                 Load More Articles

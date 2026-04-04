@@ -6,6 +6,14 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* ── Brand palette ─────────────────────────────────────── */
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-light: var(--brand-accent-light);
+  --color-brand-accent-lighter: var(--brand-accent-lighter);
+  --color-brand-deep: var(--brand-bg-deep);
+  --color-brand-base: var(--brand-bg-base);
+  --color-brand-surface: var(--brand-bg-surface);
+  --color-brand-card: var(--brand-bg-card);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
@@ -49,6 +57,15 @@
 }
 
 :root {
+  /* ── Brand Colors (change these to update the entire site) ── */
+  --brand-accent: #EF6B4D;
+  --brand-accent-light: #f08060;
+  --brand-accent-lighter: #f4a080;
+  --brand-bg-deep: #030912;
+  --brand-bg-base: #050d1a;
+  --brand-bg-surface: #070f1e;
+  --brand-bg-card: #0a1628;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
