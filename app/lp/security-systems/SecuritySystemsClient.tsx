@@ -12,7 +12,7 @@ import {
   Clock,
   Users,
 } from "lucide-react";
-import { siteConfig } from "../../config/site";
+import { siteConfig, FALLBACK_SERVICES } from "../../config/site";
 import { type SiteSettings, type Testimonial } from "../../lib/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -286,9 +286,9 @@ function EstimateForm() {
           <option value="" disabled>
             Select a service...
           </option>
-          {siteConfig.services.map((s) => (
-            <option key={s.value} value={s.value}>
-              {s.label}
+          {FALLBACK_SERVICES.map((s) => (
+            <option key={s._id} value={s.slug}>
+              {s.title}
             </option>
           ))}
         </select>

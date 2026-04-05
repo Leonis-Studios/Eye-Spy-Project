@@ -27,14 +27,20 @@ import { motion, type Variants } from "framer-motion";
 import { ShieldCheck, ArrowRight, ChevronDown } from "lucide-react";
 
 import { siteConfig } from "../config/site";
-import { type SiteSettings } from "../lib/types";
+import { type SiteSettings, type Service } from "../lib/types";
 
 // ─── COMPONENT DEFINITION ────────────────────────────────────────────────────
 // This is the Hero component — a function that returns UI (JSX).
 // "export default" means other files can import this component.
 // In page.tsx you'd write: import Hero from "./components/Hero"
 // Then use it like an HTML tag: <Hero />
-export default function Hero({ settings }: { settings: SiteSettings }) {
+export default function Hero({
+  settings,
+  services = [],
+}: {
+  settings: SiteSettings;
+  services?: Service[];
+}) {
   // ─── REFS ──────────────────────────────────────────────────────────────────
   // useRef creates a reference to a real DOM element.
   // We attach this to the <canvas> element below via ref={canvasRef}.
@@ -214,13 +220,9 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
   };
 
   // ─── FEATURED SERVICES ─────────────────────────────────────────────────────
-  // Three services displayed below the CTA — clicking one scrolls to the
-  // estimate form with that service pre-selected in the dropdown.
-  const featuredServices = [
-    { value: "cabling", label: "Data & Voice Cabling" },
-    { value: "cameras", label: "CCTV & Cameras" },
-    { value: "alarms", label: "Alarm Systems" },
-  ];
+  // First 3 services from Sanity — clicking one scrolls to the estimate form
+  // with that service pre-selected in the dropdown.
+  const featuredServices = services.slice(0, 3);
 
   // ─── JSX (THE UI) ─────────────────────────────────────────────────────────
   // Everything inside return() is JSX — looks like HTML but it's JavaScript.
@@ -423,19 +425,19 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mt-30 flex flex-col sm:flex-row items-center gap-4 w-full max-w-2xl justify-center"
+          className="mt-16 flex flex-col sm:flex-row items-center gap-4 w-full max-w-2xl justify-center"
         >
           {featuredServices.map((service) => (
             <button
-              key={service.value}
-              onClick={() => scrollToFormWithService(service.value)}
+              key={service._id}
+              onClick={() => scrollToFormWithService(service.slug)}
               className="group flex items-center gap-2 px-5 py-3 rounded-sm border border-brand-accent/20 bg-brand-accent/5 hover:bg-brand-accent/10 hover:border-brand-accent/40 transition-all duration-200 cursor-pointer"
             >
               <span
                 className="text-sm text-brand-accent uppercase tracking-widest font-semibold"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
-                {service.label}
+                {service.title}
               </span>
               <ArrowRight
                 size={14}

@@ -3,7 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowRight, CheckCircle } from "lucide-react";
-import { siteConfig } from "../config/site";
+import { type Service } from "../lib/types";
+import { FALLBACK_SERVICES } from "../config/site";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 // FormData defines the shape of our form state object.
@@ -26,7 +27,13 @@ interface FormData {
 //   Partial<...> = all of those keys are optional
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
-export default function EstimateForm() {
+export default function EstimateForm({
+  services = FALLBACK_SERVICES,
+  initialService = "",
+}: {
+  services?: Service[];
+  initialService?: string;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
@@ -38,7 +45,7 @@ export default function EstimateForm() {
     phone: "",
     email: "",
     address: "",
-    serviceType: "",
+    serviceType: initialService,
     message: "",
   });
 
@@ -360,9 +367,9 @@ export default function EstimateForm() {
               <option value="" disabled>
                 Select a service...
               </option>
-              {siteConfig.services.map((service) => (
-                <option key={service.value} value={service.value}>
-                  {service.label}
+              {services.map((service) => (
+                <option key={service._id} value={service.slug}>
+                  {service.title}
                 </option>
               ))}
             </select>

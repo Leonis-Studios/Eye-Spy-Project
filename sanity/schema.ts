@@ -5,6 +5,7 @@ import { faqItem } from "./schema/faqItem";
 import { teamMember } from "./schema/teamMember";
 import { serviceArea } from "./schema/serviceArea";
 import { service } from "./schema/service";
+import { servicePage } from "./schema/servicePage";
 
 export const schemaTypes = [
   siteSettings,
@@ -14,4 +15,5 @@ export const schemaTypes = [
   teamMember,
   serviceArea,
   service,
+  servicePage,
 ];

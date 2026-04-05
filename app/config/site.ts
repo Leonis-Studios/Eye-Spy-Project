@@ -1,3 +1,18 @@
+import type { Service } from "../lib/types";
+
+// ─── FALLBACK SERVICES ────────────────────────────────────────────────────────
+// Used ONLY when Sanity returns an empty array (e.g. no servicePage documents yet).
+// Sanity servicePage documents are the primary source of truth.
+// Slugs here must match the slugs used in Sanity exactly.
+export const FALLBACK_SERVICES: Service[] = [
+  { _id: "fallback-cameras",      title: "CCTV & Camera Systems",               slug: "cameras",      order: 1 },
+  { _id: "fallback-alarms",       title: "Alarm Systems",                        slug: "alarms",       order: 2 },
+  { _id: "fallback-access",       title: "Access Control",                       slug: "access",       order: 3 },
+  { _id: "fallback-cabling",      title: "Data & Voice Cabling Infrastructure",  slug: "cabling",      order: 4 },
+  { _id: "fallback-consultation", title: "Security Consultation",                slug: "consultation", order: 5 },
+  { _id: "fallback-other",        title: "Other / Not Sure",                     slug: "other",        order: 6 },
+];
+
 // ─── SITE CONFIG ─────────────────────────────────────────────────────────────
 // This is the single source of truth for all client-facing content.
 // When anything changes — phone number, address, services, social links —
@@ -57,7 +72,7 @@ export const siteConfig = {
   // ─── NAVIGATION ──────────────────────────────────────────────────────────
   // Used in Navbar and Footer
   navLinks: [
-    { label: "Services", href: "/#services" },
+    { label: "Services", href: "/services" },
     { label: "How It Works", href: "/#how-it-works" },
     { label: "About", href: "/about" },
     { label: "Blog", href: "/blog" },
@@ -74,7 +89,7 @@ export const siteConfig = {
   // ─── SEO ─────────────────────────────────────────────────────────────────
   // Used in layout.tsx metadata
   seo: {
-    title: "EyeSpy Surveillance | Security System Installation",
+    title: "EyeSpy Cabliing | Security System Installation",
     description:
       "Licensed security system installation for homes and businesses in [City]. Cameras, alarms, access control. Get a free estimate today.",
     keywords:

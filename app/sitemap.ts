@@ -1,9 +1,15 @@
 import { MetadataRoute } from "next";
 import { posts } from "./config/posts";
 import { siteConfig } from "./config/site";
+import { sanityFetch } from "./lib/sanity";
+import { allServicePageSlugsQuery } from "./lib/queries";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.seo.url;
+
+  const servicePageSlugs = await sanityFetch<{ slug: string }[]>(
+    allServicePageSlugsQuery
+  );
 
   // Static pages
   const staticPages = [
@@ -23,6 +29,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
       changeFrequency: "weekly" as const,
     },
+    {
+      url: `${baseUrl}/services`,
+      priority: 0.85,
+      changeFrequency: "monthly" as const,
+    },
   ];
 
   // Dynamic blog posts
@@ -32,5 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
   }));
 
-  return [...staticPages, ...blogPages];
+  // Dynamic service pages
+  const servicePages = servicePageSlugs.map(({ slug }) => ({
+    url: `${baseUrl}/services/${slug}`,
+    priority: 0.8,
+    changeFrequency: "monthly" as const,
+  }));
+
+  return [...staticPages, ...blogPages, ...servicePages];
 }

@@ -62,8 +62,12 @@ export interface TeamMember {
 
 // ─── SERVICE ──────────────────────────────────────────────────────────────────
 export interface Service {
-  label: string;
-  value: string;
+  _id: string;
+  title: string;
+  slug: string;
+  shortDescription?: string;
+  icon?: string;
+  order?: number;
 }
 
 // ─── SERVICE AREA ─────────────────────────────────────────────────────────────
@@ -73,4 +77,17 @@ export interface ServiceArea {
   region: string;
   description: string;
   nearbyAreas: string[];
+}
+
+// ─── SERVICE PAGE ─────────────────────────────────────────────────────────────
+export interface ServicePage {
+  slug: string;
+  title: string;
+  shortDescription?: string;
+  longDescription?: any[]; // Sanity block content — matches BlogPost.content convention
+  icon?: string;
+  images?: { asset: any; alt?: string }[];
+  features?: string[];
+  metaTitle?: string;
+  metaDescription?: string;
 }

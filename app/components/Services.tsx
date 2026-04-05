@@ -2,29 +2,20 @@
 
 import React, { useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
-import { Cctv, CableCar, Heater, NavigationOff } from "lucide-react";
 import Link from "next/link";
-import { siteConfig } from "../config/site";
+import { type Service } from "@/app/lib/types";
 
-interface Service {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  badge: string;
-  slug: string;
-}
-
-export default function Services() {
+export default function Services({ services }: { services: Service[] }) {
   const sectionRef = useRef<HTMLElement>(null);
 
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
   const containerVariants: Variants = {
-    hidden: {}, // container itself doesn't animate — just controls children timing
+    hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.1, // each child starts 100ms after the previous
-        delayChildren: 0.1, // wait 100ms before starting the first child
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
       },
     },
   };
@@ -40,41 +31,6 @@ export default function Services() {
       },
     },
   };
-
-  const services: Service[] = [
-    {
-      icon: <Cctv size={22} />,
-      title: "Surveillance Systems",
-      description:
-        "State-of-the-art CCTV solutions for comprehensive security coverage.",
-      badge: "CCTV",
-      slug: "cameras",
-    },
-    {
-      icon: <CableCar size={22} />,
-      title: "Alarm Systems",
-      description:
-        "State-of-the-art alarm solutions for comprehensive security coverage.",
-      badge: "Alarms",
-      slug: "alarms",
-    },
-    {
-      icon: <Heater size={22} />,
-      title: "Heating Systems",
-      description:
-        "Energy-efficient heating solutions for residential and commercial properties.",
-      badge: "Heating",
-      slug: "other",
-    },
-    {
-      icon: <NavigationOff size={22} />,
-      title: "Security Consulting",
-      description:
-        "Expert advice and strategies for comprehensive security management.",
-      badge: "Consulting",
-      slug: "consultation",
-    },
-  ];
 
   return (
     <section
@@ -110,18 +66,20 @@ export default function Services() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12"
         >
           {services.map((service) => (
-            <motion.div key={service.title} variants={itemVariants}>
+            <motion.div key={service._id} variants={itemVariants}>
               <div className="group p-8 rounded-sm border border-white/5 hover:border-brand-accent/20 bg-brand-card hover:bg-brand-card/80 transition-all duration-300 h-full">
                 <Link
-                  href={`/contact?service=${service.slug}`}
+                  href={`/services/${service.slug}`}
                   className="inline-block text-brand-accent text-xs uppercase tracking-widest bg-brand-accent/10 px-2.5 py-0.5 rounded-sm mb-4 hover:underline hover:opacity-80 transition-opacity duration-200"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
-                  {service.badge}
+                  {service.title}
                 </Link>
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-accent/10 text-brand-accent mb-4 group-hover:bg-brand-accent/20 transition-colors duration-300">
-                  {service.icon}
-                </span>
+                {service.icon && (
+                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-accent/10 text-brand-accent mb-4 group-hover:bg-brand-accent/20 transition-colors duration-300 text-xl">
+                    {service.icon}
+                  </span>
+                )}
                 <h3
                   className="text-xl font-bold text-white mb-2"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
@@ -132,7 +90,7 @@ export default function Services() {
                   className="text-slate-400 text-base leading-relaxed"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  {service.description}
+                  {service.shortDescription}
                 </p>
               </div>
             </motion.div>

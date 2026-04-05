@@ -8,28 +8,30 @@ import CTA from "../components/CTA";
 import FAQ from "../components/FAQ";
 import EstimateForm from "../components/EstimateForm";
 import { getSiteSettings } from "../lib/getSiteSettings";
+import { getServices } from "../lib/getServices";
 import { sanityFetch } from "../lib/sanity";
 import { testimonialsQuery, faqQuery } from "../lib/queries";
 import { type Testimonial, type FaqItem } from "../lib/types";
 
 export default async function Home() {
-  const [settings, testimonials, faqItems] = await Promise.all([
+  const [settings, testimonials, faqItems, services] = await Promise.all([
     getSiteSettings(),
     sanityFetch<Testimonial[]>(testimonialsQuery),
     sanityFetch<FaqItem[]>(faqQuery),
+    getServices(),
   ]);
 
   return (
     <main>
-      <Hero settings={settings} />
+      <Hero settings={settings} services={services} />
       <SocialProof settings={settings} />
       <Benefits />
-      <Services />
+      <Services services={services} />
       <HowItWorks />
       <Testimonials testimonials={testimonials} />
       <CTA settings={settings} />
       <FAQ items={faqItems} />
-      <EstimateForm />
+      <EstimateForm services={services} />
     </main>
   );
 }

@@ -77,6 +77,19 @@ export const servicesQuery = `
   }
 `;
 
+// Single source of truth for all service consumers (Hero, Services grid, EstimateForm).
+// Queries servicePage — the canonical service document type.
+export const getAllServicesQuery = `
+  *[_type == "servicePage"] | order(order asc, title asc){
+    _id,
+    title,
+    "slug": slug.current,
+    shortDescription,
+    icon,
+    order
+  }
+`;
+
 // ─── SERVICE AREAS ────────────────────────────────────────────────────────────
 export const allAreasQuery = `
   *[_type == "serviceArea"]{
@@ -95,5 +108,33 @@ export const singleAreaQuery = `
     region,
     description,
     nearbyAreas
+  }
+`;
+
+// ─── SERVICE PAGES ────────────────────────────────────────────────────────────
+export const allServicePageSlugsQuery = `
+  *[_type == "servicePage"]{ "slug": slug.current }
+`;
+
+export const allServicePagesQuery = `
+  *[_type == "servicePage"] | order(title asc){
+    "slug": slug.current,
+    title,
+    shortDescription,
+    icon
+  }
+`;
+
+export const singleServicePageQuery = `
+  *[_type == "servicePage" && slug.current == $slug][0]{
+    "slug": slug.current,
+    title,
+    shortDescription,
+    longDescription,
+    icon,
+    images[]{ asset, alt },
+    features,
+    metaTitle,
+    metaDescription
   }
 `;

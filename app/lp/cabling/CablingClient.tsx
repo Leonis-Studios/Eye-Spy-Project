@@ -285,8 +285,8 @@ function EstimateForm({ services }: { services: Service[] }) {
             Select a service...
           </option>
           {services.map((s) => (
-            <option key={s.value} value={s.value}>
-              {s.label}
+            <option key={s._id} value={s.slug}>
+              {s.title}
             </option>
           ))}
         </select>
