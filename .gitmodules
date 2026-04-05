@@ -1,0 +1,3 @@
+[submodule "team-workflow.templates"]
+	path = team-workflow.templates
+	url = git@github-business:Leonis-Studios/team-workflow-templates.git
