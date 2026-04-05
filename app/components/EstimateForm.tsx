@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { siteConfig } from "../config/site";
@@ -53,6 +53,18 @@ export default function EstimateForm() {
   // Tracks whether the form was successfully submitted.
   // When true, we replace the form with a success message.
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // ─── SERVICE PRE-SELECTION ──────────────────────────────────────────────────
+  // Listens for a custom "select-service" event dispatched by the Hero section.
+  // When a user clicks a service in the Hero, this updates the service dropdown.
+  useEffect(() => {
+    const handleSelectService = (e: Event) => {
+      const service = (e as CustomEvent<string>).detail;
+      setFormData((prev) => ({ ...prev, serviceType: service }));
+    };
+    window.addEventListener("select-service", handleSelectService);
+    return () => window.removeEventListener("select-service", handleSelectService);
+  }, []);
 
   // ─── INPUT HANDLER ──────────────────────────────────────────────────────────
   // A single handler for ALL input fields — we don't need one per field.
@@ -175,7 +187,7 @@ export default function EstimateForm() {
     <section
       id="estimate-form"
       ref={sectionRef}
-      className="relative bg-brand-base py-24 overflow-hidden"
+      className="scroll-mt-24 relative bg-brand-base py-24 overflow-hidden"
     >
       <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />

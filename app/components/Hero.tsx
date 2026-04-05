@@ -174,6 +174,14 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
       ?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Scrolls to the estimate form AND pre-selects a service in the dropdown.
+  const scrollToFormWithService = (serviceValue: string) => {
+    window.dispatchEvent(
+      new CustomEvent("select-service", { detail: serviceValue }),
+    );
+    scrollToForm();
+  };
+
   // ─── ANIMATION VARIANTS ───────────────────────────────────────────────────
   // Framer Motion uses "variants" — named animation states you define once
   // and reuse across multiple elements.
@@ -205,14 +213,13 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
     }),
   };
 
-  // ─── STATIC DATA ──────────────────────────────────────────────────────────
-  // Storing the stats in an array so we can loop over them with .map() below.
-  // This is cleaner than copy-pasting three separate JSX blocks.
-  // Each object has a "value" and "label" property we'll reference in the JSX.
-  const stats = [
-    { value: settings.stats.installs, label: "Systems Installed" },
-    { value: settings.stats.years, label: "In The Field" },
-    { value: settings.stats.satisfaction, label: "Client Satisfaction" },
+  // ─── FEATURED SERVICES ─────────────────────────────────────────────────────
+  // Three services displayed below the CTA — clicking one scrolls to the
+  // estimate form with that service pre-selected in the dropdown.
+  const featuredServices = [
+    { value: "cabling", label: "Data & Voice Cabling" },
+    { value: "cameras", label: "CCTV & Cameras" },
+    { value: "alarms", label: "Alarm Systems" },
   ];
 
   // ─── JSX (THE UI) ─────────────────────────────────────────────────────────
@@ -271,7 +278,8 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
       <div
         className="pointer-events-none absolute -bottom-32 -left-32 w-96 h-96 rounded-full opacity-15"
         style={{
-          background: "radial-gradient(circle, var(--brand-accent) 0%, transparent 70%)",
+          background:
+            "radial-gradient(circle, var(--brand-accent) 0%, transparent 70%)",
           filter: "blur(48px)",
         }}
       />
@@ -407,42 +415,33 @@ export default function Hero({ settings }: { settings: SiteSettings }) {
           </a>
         </motion.div>
 
-        {/* ── STATS ROW ───────────────────────────────────────────────────────
-            custom={4} → delay = 4 * 0.13 = 520ms (animates in last)
-            "grid grid-cols-3" — a 3-column CSS grid.
-            "gap-8 md:gap-16" — 32px gap on mobile, 64px on desktop.
-            "mt-20" — large top margin to visually separate from the buttons.
+        {/* ── FEATURED SERVICES ROW ─────────────────────────────────────────
+            Clicking a service scrolls to the estimate form and pre-selects it.
         */}
         <motion.div
           custom={4}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mt-20 grid grid-cols-3 gap-8 md:gap-16 w-full max-w-xl"
+          className="mt-30 flex flex-col sm:flex-row items-center gap-4 w-full max-w-2xl justify-center"
         >
-          {/* .map() loops over the stats array and returns JSX for each item.
-              Think of it as: "for each stat, give me this piece of UI."
-              The function receives each array item as "s" (we named it that — could be anything).
-              "key" prop is REQUIRED by React when rendering lists.
-              It helps React track which items changed, were added, or removed.
-              We use s.label as the key since each label is unique. */}
-          {stats.map((s) => (
-            <div key={s.label} className="flex flex-col items-center gap-1">
-              {/* {s.value} and {s.label} are JSX expressions — curly braces let you
-                  drop JavaScript values into your JSX markup. */}
+          {featuredServices.map((service) => (
+            <button
+              key={service.value}
+              onClick={() => scrollToFormWithService(service.value)}
+              className="group flex items-center gap-2 px-5 py-3 rounded-sm border border-brand-accent/20 bg-brand-accent/5 hover:bg-brand-accent/10 hover:border-brand-accent/40 transition-all duration-200 cursor-pointer"
+            >
               <span
-                className="text-3xl md:text-4xl font-bold text-white"
+                className="text-sm text-brand-accent uppercase tracking-widest font-semibold"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
-                {s.value}
+                {service.label}
               </span>
-              <span
-                className="text-xs text-slate-500 uppercase tracking-widest text-center"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
-              >
-                {s.label}
-              </span>
-            </div>
+              <ArrowRight
+                size={14}
+                className="text-brand-accent/60 group-hover:translate-x-0.5 transition-transform duration-200"
+              />
+            </button>
           ))}
         </motion.div>
       </div>{" "}

@@ -49,7 +49,7 @@ export const siteConfig = {
     { value: "cameras", label: "CCTV & Camera Systems" },
     { value: "alarms", label: "Alarm Systems" },
     { value: "access", label: "Access Control" },
-    { value: "monitoring", label: "24/7 Monitoring" },
+    { value: "cabling", label: "Data & Voice Cabling Infrastructure" },
     { value: "consultation", label: "Security Consultation" },
     { value: "other", label: "Other / Not Sure" },
   ],

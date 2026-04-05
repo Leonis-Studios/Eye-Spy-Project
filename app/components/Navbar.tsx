@@ -62,7 +62,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-16 flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-2">
             <Image
               src={siteConfig.brand.logo}
               alt={siteConfig.brand.logoAlt}
