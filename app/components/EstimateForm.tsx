@@ -155,9 +155,9 @@ export default function EstimateForm({
   // Reusable class strings — defined once so we don't repeat them on every input.
   // This is a common pattern when many elements share the same styles.
   const inputClass =
-    `w-full bg-brand-card border px-4 py-3 rounded-sm text-white text-sm outline-none transition-colors duration-200 placeholder:text-slate-600` +
+    `w-full bg-brand-card border px-4 py-3 rounded-sm text-text-primary text-sm outline-none transition-colors duration-200 placeholder:text-text-subtle` +
     ` focus:border-brand-accent/50`;
-  const labelClass = `block text-xs uppercase tracking-widest text-slate-400 mb-2`;
+  const labelClass = `block text-xs uppercase tracking-widest text-text-secondary mb-2`;
 
   // ─── SUCCESS STATE ───────────────────────────────────────────────────────────
   // If submitted successfully, replace the entire form with a confirmation message.
@@ -171,13 +171,13 @@ export default function EstimateForm({
         <div className="max-w-2xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
           <CheckCircle className="text-brand-accent mb-6" size={48} />
           <h2
-            className="text-4xl font-bold text-white mb-4"
+            className="text-4xl font-bold text-text-primary mb-4"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Request Received!
           </h2>
           <p
-            className="text-slate-400 text-lg leading-relaxed"
+            className="text-text-secondary text-lg leading-relaxed"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             Thanks {formData.name.split(" ")[0]} — we'll review your request and
@@ -223,13 +223,13 @@ export default function EstimateForm({
             No Obligation
           </p>
           <h2
-            className="text-4xl md:text-5xl font-bold text-white mb-4"
+            className="text-4xl md:text-5xl font-bold text-text-primary mb-4"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Get a Free Estimate
           </h2>
           <p
-            className="text-slate-400 text-lg max-w-xl"
+            className="text-text-secondary text-lg max-w-xl"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             Fill out the form below and we'll get back to you within 1 business
@@ -268,7 +268,7 @@ export default function EstimateForm({
               />
               {/* Conditional error message — only renders if errors.name exists */}
               {errors.name && (
-                <p className="text-red-400 text-xs mt-1">{errors.name}</p>
+                <p className="text-text-error text-xs mt-1">{errors.name}</p>
               )}
             </div>
 
@@ -292,7 +292,7 @@ export default function EstimateForm({
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               />
               {errors.phone && (
-                <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
+                <p className="text-text-error text-xs mt-1">{errors.phone}</p>
               )}
             </div>
           </div>
@@ -317,7 +317,7 @@ export default function EstimateForm({
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             />
             {errors.email && (
-              <p className="text-red-400 text-xs mt-1">{errors.email}</p>
+              <p className="text-text-error text-xs mt-1">{errors.email}</p>
             )}
           </div>
 
@@ -341,7 +341,7 @@ export default function EstimateForm({
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             />
             {errors.address && (
-              <p className="text-red-400 text-xs mt-1">{errors.address}</p>
+              <p className="text-text-error text-xs mt-1">{errors.address}</p>
             )}
           </div>
 
@@ -374,7 +374,7 @@ export default function EstimateForm({
               ))}
             </select>
             {errors.serviceType && (
-              <p className="text-red-400 text-xs mt-1">{errors.serviceType}</p>
+              <p className="text-text-error text-xs mt-1">{errors.serviceType}</p>
             )}
           </div>
 
@@ -386,7 +386,7 @@ export default function EstimateForm({
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
               Additional Details{" "}
-              <span className="text-slate-600 normal-case tracking-normal">
+              <span className="text-text-subtle normal-case tracking-normal">
                 (optional)
               </span>
             </label>
@@ -436,7 +436,7 @@ export default function EstimateForm({
           </button>
 
           <p
-            className="text-slate-600 text-xs text-center"
+            className="text-text-subtle text-xs text-center"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             No spam. No commitment. We'll contact you to schedule a convenient

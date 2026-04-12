@@ -81,13 +81,13 @@ export default function Benefits() {
           Why We're Different
         </p>
         <h2
-          className="text-4xl md:text-6xl font-bold text-white"
+          className="text-4xl md:text-6xl font-bold text-text-primary"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           Why choose SecurTech?
         </h2>
         <p
-          className="text-slate-400 mt-4 text-lg max-w-2xl"
+          className="text-text-secondary mt-4 text-lg max-w-2xl"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           Everything you need from a security company - done right, the first
@@ -106,13 +106,13 @@ export default function Benefits() {
                   {benefit.icon}
                 </span>
                 <h3
-                  className="text-xl font-bold text-white mb-2"
+                  className="text-xl font-bold text-text-primary mb-2"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
                   {benefit.title}
                 </h3>
                 <p
-                  className="text-slate-400 text-base leading-relaxed"
+                  className="text-text-secondary text-base leading-relaxed"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
                   {benefit.description}

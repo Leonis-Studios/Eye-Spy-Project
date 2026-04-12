@@ -73,7 +73,7 @@ export default function CTA({ settings }: { settings: SiteSettings }) {
           variants={variants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6"
+          className="text-4xl md:text-6xl font-bold text-text-primary leading-tight mb-6"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           Ready to Secure
@@ -95,7 +95,7 @@ export default function CTA({ settings }: { settings: SiteSettings }) {
           variants={variants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="text-slate-400 text-lg max-w-xl leading-relaxed mb-10"
+          className="text-text-secondary text-lg max-w-xl leading-relaxed mb-10"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           Get a no-obligation estimate from our team. We'll assess your property
@@ -122,11 +122,11 @@ export default function CTA({ settings }: { settings: SiteSettings }) {
           </button>
           <a
             href={siteConfig.phoneHref}
-            className="text-slate-400 hover:text-white text-sm tracking-wide transition-colors duration-200"
+            className="text-text-secondary hover:text-text-primary text-sm tracking-wide transition-colors duration-200"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             or call{" "}
-            <span className="text-white font-medium">{settings.phone}</span>
+            <span className="text-text-primary font-medium">{settings.phone}</span>
           </a>
         </motion.div>
       </div>

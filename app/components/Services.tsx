@@ -48,13 +48,13 @@ export default function Services({ services }: { services: Service[] }) {
           What We Offer
         </p>
         <h2
-          className="text-4xl md:text-6xl font-bold text-white"
+          className="text-4xl md:text-6xl font-bold text-text-primary"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           Our Services
         </h2>
         <p
-          className="text-slate-400 mt-4 text-lg max-w-2xl"
+          className="text-text-secondary mt-4 text-lg max-w-2xl"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           Everything we install, built to last.
@@ -81,13 +81,13 @@ export default function Services({ services }: { services: Service[] }) {
                   </span>
                 )}
                 <h3
-                  className="text-xl font-bold text-white mb-2"
+                  className="text-xl font-bold text-text-primary mb-2"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
                   {service.title}
                 </h3>
                 <p
-                  className="text-slate-400 text-base leading-relaxed"
+                  className="text-text-secondary text-base leading-relaxed"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
                   {service.shortDescription}

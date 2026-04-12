@@ -206,7 +206,7 @@ export default function SocialProof({ settings }: { settings: SiteSettings }) {
 
                 {/* The big number — the main thing the eye lands on */}
                 <span
-                  className="text-3xl md:text-4xl font-bold text-white"
+                  className="text-3xl md:text-4xl font-bold text-text-primary"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
                   {stat.value}
@@ -214,7 +214,7 @@ export default function SocialProof({ settings }: { settings: SiteSettings }) {
 
                 {/* Label underneath — muted, small */}
                 <span
-                  className="text-xs text-slate-500 uppercase tracking-widest text-center leading-tight"
+                  className="text-xs text-text-muted uppercase tracking-widest text-center leading-tight"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
                   {stat.label}
@@ -265,11 +265,8 @@ export default function SocialProof({ settings }: { settings: SiteSettings }) {
 
               {/* Cert label text */}
               <span
-                className="text-sm text-slate-300 group-hover:text-white transition-colors duration-300 whitespace-nowrap"
-                style={{
-                  fontFamily: "'Rajdhani', sans-serif",
-                  letterSpacing: "0.05em",
-                }}
+                className="text-sm text-text-nav tracking-wider group-hover:text-text-primary transition-colors duration-300 whitespace-nowrap"
+                style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
                 {cert.label}
               </span>

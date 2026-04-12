@@ -16,6 +16,13 @@
   --color-brand-card: var(--brand-bg-card);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  /* ── Brand text colors ──────────────────────────────────── */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-text-nav: var(--text-nav);
+  --color-text-error: var(--text-error);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -65,6 +72,62 @@
   --brand-bg-base: #050d1a;
   --brand-bg-surface: #070f1e;
   --brand-bg-card: #0a1628;
+
+  /* ── Brand Text Colors ──────────────────────────────────────────────────────
+   * Change these values to globally update every text color on the site.
+   * Each variable maps to a Tailwind utility: e.g. --text-primary → text-text-primary
+   *
+   * --text-primary   : Headings (h1/h2/h3), card titles, button labels, phone
+   *                    numbers, testimonial names, form success heading, stat
+   *                    numbers, footer column headings. Anything white/high-contrast.
+   *
+   * --text-secondary : Body copy, section descriptions, card descriptions, form
+   *                    description, FAQ answers, CTA description, footer brand bio.
+   *                    The main readable paragraph color.
+   *
+   * --text-muted     : Stat labels, testimonial locations, social link icons,
+   *                    footer nav/service links, footer contact text, footer address.
+   *                    Supporting info that should recede visually.
+   *
+   * --text-subtle    : Scroll cue label, form "optional" span, form disclaimer,
+   *                    footer business hours, footer copyright and service area.
+   *                    Least prominent — fine print and de-emphasized detail.
+   *
+   * --text-nav       : Navbar links, mobile nav links, mobile phone link, cert
+   *                    badge labels, FAQ question text (inactive), testimonial
+   *                    nav arrows. Interactive elements that highlight on hover.
+   *
+   * --text-error     : Form validation error messages (name, phone, email,
+   *                    address, service type fields). Keep high-visibility.
+   * ─────────────────────────────────────────────────────────────────────────── */
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-subtle: #475569;
+  --text-nav: #cbd5e1;
+  --text-error: #f87171;
+
+  /* ── Font Weight Scale ──────────────────────────────────── */
+  --font-weight-normal: 450;
+  --font-weight-medium: 550;
+  --font-weight-semibold: 650;
+  --font-weight-bold: 750;
+  --font-weight-extrabold: 850;
+
+  /* ── Font Size Reference Scale ──────────────────────────── */
+  --font-size-2xs: 0.6875rem;    /* 11px */
+  --font-size-xs:  0.75rem;      /* 12px */
+  --font-size-sm:  0.875rem;     /* 14px */
+  --font-size-base: 1rem;        /* 16px */
+  --font-size-lg:  1.125rem;     /* 18px */
+  --font-size-xl:  1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;       /* 24px */
+  --font-size-3xl: 1.875rem;     /* 30px */
+  --font-size-4xl: 2.25rem;      /* 36px */
+  --font-size-5xl: 3rem;         /* 48px */
+  --font-size-6xl: 3.75rem;      /* 60px */
+  --font-size-7xl: 4.5rem;       /* 72px */
+  --font-size-8xl: 6rem;         /* 96px */
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -134,12 +197,22 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* ── Slightly increase primary/secondary text sizes ─────── */
+/* Heading sizes (2xl–8xl) and tiny labels (xs) are unchanged */
+@theme {
+  --font-size-sm:   1rem;        /* 16px (was 15px) — nav, buttons, secondary labels */
+  --font-size-base: 1.125rem;    /* 18px (was 17px) — card descriptions, form text */
+  --font-size-lg:   1.25rem;     /* 20px (was 19px) — section descriptions, primary body */
+  --font-size-xl:   1.4375rem;   /* 23px (was 22px) — hero subheading, large body copy */
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+    font-weight: var(--font-weight-medium); /* 500 — slightly heavier base for readability */
   }
   html {
     @apply font-sans;

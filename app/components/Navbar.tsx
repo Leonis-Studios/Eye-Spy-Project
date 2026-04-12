@@ -79,7 +79,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-slate-300 hover:text-white text-sm uppercase tracking-widest transition-colors duration-200"
+                className="text-text-nav hover:text-text-primary text-sm uppercase tracking-widest transition-colors duration-200"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
                 {link.label}
@@ -91,7 +91,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
           <div className="hidden md:flex items-center gap-4">
             <a
               href={siteConfig.phoneHref}
-              className="text-slate-300 hover:text-white text-sm transition-colors duration-200"
+              className="text-text-nav hover:text-text-primary text-sm transition-colors duration-200"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
               {settings.phone}
@@ -112,7 +112,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
           {/* Mobile menu button — only visible on mobile */}
           <button
             onClick={() => setMobileOpen((prev) => !prev)}
-            className="md:hidden text-slate-300 hover:text-white transition-colors duration-200"
+            className="md:hidden text-text-nav hover:text-text-primary transition-colors duration-200"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             {/* Show X when open, Menu icon when closed */}
@@ -146,7 +146,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.06 }}
-                  className="text-slate-300 hover:text-white text-2xl font-bold py-3 border-b border-white/5 transition-colors duration-200"
+                  className="text-text-nav hover:text-text-primary text-2xl font-bold py-3 border-b border-white/5 transition-colors duration-200"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
                   {link.label}
@@ -169,7 +169,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
               </button>
               <a
                 href={siteConfig.phoneHref}
-                className="text-center text-slate-300 hover:text-white text-sm transition-colors duration-200"
+                className="text-center text-text-nav hover:text-text-primary text-sm transition-colors duration-200"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
                 or call {settings.phone}

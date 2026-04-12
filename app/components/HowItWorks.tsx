@@ -74,13 +74,13 @@ export default function HowItWorks() {
           The Process
         </p>
         <h2
-          className="text-4xl md:text-6xl font-bold text-white"
+          className="text-4xl md:text-6xl font-bold text-text-primary"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           How It Works
         </h2>
         <p
-          className="text-slate-400 mt-4 text-lg max-w-2xl"
+          className="text-text-secondary mt-4 text-lg max-w-2xl"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           Our simple 3-step process to get you up and running quickly.
@@ -107,13 +107,13 @@ export default function HowItWorks() {
                     {step.step}
                   </span>
                   <h3
-                    className="text-lg font-bold text-white mb-2"
+                    className="text-lg font-bold text-text-primary mb-2"
                     style={{ fontFamily: "'Rajdhani', sans-serif" }}
                   >
                     {step.title}
                   </h3>
                   <p
-                    className="text-slate-400 text-sm leading-relaxed"
+                    className="text-text-secondary text-sm leading-relaxed"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
                     {step.description}

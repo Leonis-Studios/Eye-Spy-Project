@@ -328,7 +328,7 @@ export default function Hero({
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="text-5xl md:text-7xl font-bold text-white leading-[1.06] tracking-tight mb-6"
+          className="text-5xl md:text-7xl font-bold text-text-primary leading-[1.06] tracking-tight mb-6"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
           Security Systems
@@ -363,7 +363,7 @@ export default function Hero({
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="text-slate-400 text-lg md:text-xl max-w-2xl leading-relaxed mb-10"
+          className="text-text-secondary text-lg md:text-xl max-w-2xl leading-relaxed mb-10"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           From cameras and access control to full alarm systems — we design,
@@ -409,11 +409,11 @@ export default function Hero({
               On mobile devices, tapping it opens the phone dialer automatically. */}
           <a
             href={siteConfig.phoneHref}
-            className="text-slate-400 hover:text-white text-sm tracking-wide transition-colors duration-200"
+            className="text-text-secondary hover:text-text-primary text-sm tracking-wide transition-colors duration-200"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             or call{" "}
-            <span className="text-white font-medium">{settings.phone}</span>
+            <span className="text-text-primary font-medium">{settings.phone}</span>
           </a>
         </motion.div>
 
@@ -464,7 +464,7 @@ export default function Hero({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-slate-600 z-10"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-text-subtle z-10"
       >
         <span
           className="text-[10px] uppercase tracking-widest"

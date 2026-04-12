@@ -46,7 +46,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
               />
             </Link>
             <p
-              className="text-slate-500 text-sm leading-relaxed mb-6"
+              className="text-text-muted text-sm leading-relaxed mb-6"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
               {settings.description}
@@ -61,7 +61,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                 // target="_blank" opens in a new tab.
                 // rel="noopener noreferrer" is a security best practice —
                 // prevents the new tab from accessing the original page via window.opener.
-                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-brand-accent hover:border-brand-accent/30 transition-all duration-200"
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-text-muted hover:text-brand-accent hover:border-brand-accent/30 transition-all duration-200"
                 aria-label="Facebook"
               >
                 <Facebook size={14} />
@@ -70,7 +70,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                 href={settings.social.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-brand-accent hover:border-brand-accent/30 transition-all duration-200"
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-text-muted hover:text-brand-accent hover:border-brand-accent/30 transition-all duration-200"
                 aria-label="Instagram"
               >
                 <Instagram size={14} />
@@ -79,7 +79,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                 href={settings.social.google}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-brand-accent hover:border-brand-accent/30 transition-all duration-200"
+                className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-text-muted hover:text-brand-accent hover:border-brand-accent/30 transition-all duration-200"
                 aria-label="Google Reviews"
               >
                 <Star size={14} />
@@ -90,7 +90,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
           {/* ── COLUMN 2: Navigation ────────────────────────────────────── */}
           <div>
             <h3
-              className="text-white text-xs uppercase tracking-widest mb-6"
+              className="text-text-primary text-xs uppercase tracking-widest mb-6"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
               Navigation
@@ -100,7 +100,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-slate-500 hover:text-white text-sm transition-colors duration-200"
+                    className="text-text-muted hover:text-text-primary text-sm transition-colors duration-200"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
                     {link.label}
@@ -113,7 +113,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
           {/* ── COLUMN 3: Services ──────────────────────────────────────── */}
           <div>
             <h3
-              className="text-white text-xs uppercase tracking-widest mb-6"
+              className="text-text-primary text-xs uppercase tracking-widest mb-6"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
               Services
@@ -123,7 +123,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                 <li key={service.value}>
                   <Link
                     href="/#services"
-                    className="text-slate-500 hover:text-white text-sm transition-colors duration-200"
+                    className="text-text-muted hover:text-text-primary text-sm transition-colors duration-200"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
                     {service.label}
@@ -136,7 +136,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
           {/* ── COLUMN 4: Contact ───────────────────────────────────────── */}
           <div>
             <h3
-              className="text-white text-xs uppercase tracking-widest mb-6"
+              className="text-text-primary text-xs uppercase tracking-widest mb-6"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
               Contact
@@ -145,7 +145,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
               <li>
                 <a
                   href={siteConfig.phoneHref}
-                  className="flex items-start gap-3 text-slate-500 hover:text-white transition-colors duration-200 group"
+                  className="flex items-start gap-3 text-text-muted hover:text-text-primary transition-colors duration-200 group"
                 >
                   <Phone
                     size={14}
@@ -162,7 +162,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
               <li>
                 <a
                   href={siteConfig.emailHref}
-                  className="flex items-start gap-3 text-slate-500 hover:text-white transition-colors duration-200 group"
+                  className="flex items-start gap-3 text-text-muted hover:text-text-primary transition-colors duration-200 group"
                 >
                   <Mail
                     size={14}
@@ -177,7 +177,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                 </a>
               </li>
               <li>
-                <div className="flex items-start gap-3 text-slate-500">
+                <div className="flex items-start gap-3 text-text-muted">
                   <MapPin
                     size={14}
                     className="mt-0.5 shrink-0 text-brand-accent/50"
@@ -192,7 +192,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
               </li>
               <li className="pt-2">
                 <div
-                  className="text-slate-600 text-xs leading-relaxed"
+                  className="text-text-subtle text-xs leading-relaxed"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
                   <p>{settings.hours.weekdays}</p>
@@ -209,14 +209,14 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
       <div className="relative border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 md:px-16 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p
-            className="text-slate-600 text-xs"
+            className="text-text-subtle text-xs"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             © {currentYear} {settings.siteName}. All rights reserved.
           </p>
 
           <p
-            className="text-slate-600 text-xs"
+            className="text-text-subtle text-xs"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             {settings.serviceArea}

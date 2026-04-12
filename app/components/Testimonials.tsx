@@ -105,7 +105,7 @@ export default function Testimonials({
               </span>
 
               <p
-                className="text-white/80 text-xl md:text-2xl leading-relaxed max-w-2xl mb-8"
+                className="text-text-primary/80 text-xl md:text-2xl leading-relaxed max-w-2xl mb-8"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
                 {testimonials[active].quote}
@@ -122,13 +122,13 @@ export default function Testimonials({
               </div>
 
               <p
-                className="text-white font-semibold tracking-wide"
+                className="text-text-primary font-semibold tracking-wide"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
                 {testimonials[active].name}
               </p>
               <p
-                className="text-slate-500 text-sm mt-1"
+                className="text-text-muted text-sm mt-1"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
                 {testimonials[active].location}
@@ -166,7 +166,7 @@ export default function Testimonials({
                 prev === 0 ? testimonials.length - 1 : prev - 1,
               )
             }
-            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-brand-accent/40 hover:text-brand-accent transition-all duration-200"
+            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-text-secondary hover:border-brand-accent/40 hover:text-brand-accent transition-all duration-200"
             aria-label="Previous testimonial"
           >
             ←
@@ -177,7 +177,7 @@ export default function Testimonials({
                 prev === testimonials.length - 1 ? 0 : prev + 1,
               )
             }
-            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-brand-accent/40 hover:text-brand-accent transition-all duration-200"
+            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-text-secondary hover:border-brand-accent/40 hover:text-brand-accent transition-all duration-200"
             aria-label="Next testimonial"
           >
             →

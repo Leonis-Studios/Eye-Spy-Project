@@ -62,7 +62,7 @@ export default function FAQ({ items }: { items: FaqItem[] }) {
             Common Questions
           </p>
           <h2
-            className="text-4xl md:text-5xl font-bold text-white"
+            className="text-4xl md:text-5xl font-bold text-text-primary"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
             Frequently Asked
@@ -92,13 +92,10 @@ export default function FAQ({ items }: { items: FaqItem[] }) {
                   // Ternary — active question is white, inactive is slate
                   className={`text-base font-medium transition-colors duration-200 pr-8 ${
                     openIndex === i
-                      ? "text-white"
-                      : "text-slate-300 group-hover:text-white"
+                      ? "text-text-primary"
+                      : "text-text-nav group-hover:text-text-primary"
                   }`}
-                  style={{
-                    fontFamily: "'Rajdhani', sans-serif",
-                    fontSize: "1.05rem",
-                  }}
+                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
                   {faq.question}
                 </span>
@@ -111,7 +108,7 @@ export default function FAQ({ items }: { items: FaqItem[] }) {
                   className={`shrink-0 transition-colors duration-200 ${
                     openIndex === i
                       ? "text-brand-accent"
-                      : "text-slate-500 group-hover:text-slate-300"
+                      : "text-text-muted group-hover:text-text-nav"
                   }`}
                 >
                   {openIndex === i ? <Minus size={16} /> : <Plus size={16} />}
@@ -146,7 +143,7 @@ export default function FAQ({ items }: { items: FaqItem[] }) {
                     className="overflow-hidden"
                   >
                     <p
-                      className="text-slate-400 text-base leading-relaxed pb-5"
+                      className="text-text-secondary text-base leading-relaxed pb-5"
                       style={{ fontFamily: "'DM Sans', sans-serif" }}
                     >
                       {faq.answer}
