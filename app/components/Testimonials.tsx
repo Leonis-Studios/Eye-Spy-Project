@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   motion,
   useInView,
@@ -17,9 +17,6 @@ export default function Testimonials({
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
-  // useState tracks which testimonial is currently visible.
-  // active = current index (0, 1, or 2), setActive = function to update it.
-  // When setActive is called, React re-renders with the new value.
   const [active, setActive] = useState<number>(0);
 
   const sectionVariants: Variants = {
@@ -34,8 +31,6 @@ export default function Testimonials({
     },
   };
 
-  // quoteVariants has an "exit" state — this only works with AnimatePresence.
-  // exit runs when the element is removed from the DOM before it disappears.
   const quoteVariants: Variants = {
     initial: { opacity: 0, y: 16 },
     animate: {
@@ -58,6 +53,7 @@ export default function Testimonials({
       ref={sectionRef}
       className="relative bg-brand-surface py-24 overflow-hidden"
     >
+      {/* Atmospheric glow */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -66,8 +62,6 @@ export default function Testimonials({
         }}
         aria-hidden
       />
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
       <motion.div
         variants={sectionVariants}
@@ -75,6 +69,13 @@ export default function Testimonials({
         animate={isInView ? "visible" : "hidden"}
         className="relative max-w-4xl mx-auto px-6 md:px-16 flex flex-col items-center text-center"
       >
+        {/* Cable label tag above eyebrow — P-touch aesthetic */}
+        <div className="inline-flex items-center gap-1 mb-4 border border-brand-accent/40 bg-brand-accent/5 px-2 py-0.5 rounded-xs" aria-hidden="true">
+          <span className="text-brand-accent/80 font-mono text-[10px] tracking-widest uppercase">
+            FEED-01 / CLIENT RESPONSE
+          </span>
+        </div>
+
         <p
           className="text-brand-accent text-xs uppercase tracking-widest mb-12"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
@@ -82,10 +83,6 @@ export default function Testimonials({
           What Our Clients Say
         </p>
 
-        {/* AnimatePresence enables exit animations when elements are removed.
-            mode="wait" — waits for the exit animation to finish before playing the enter.
-            key={active} — changing the key tells React this is a new element,
-            which triggers the exit/enter animation cycle when active changes. */}
         <div className="relative w-full min-h-50 flex flex-col items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
@@ -96,13 +93,17 @@ export default function Testimonials({
               exit="exit"
               className="flex flex-col items-center"
             >
-              <span
-                className="text-8xl text-brand-accent/10 leading-none mb-2 select-none"
-                style={{ fontFamily: "Georgia, serif" }}
-                aria-hidden
-              >
-                "
-              </span>
+              {/* RJ45 port symbol replaces the oversized quote glyph */}
+              <div className="mb-4" aria-hidden="true">
+                <svg width="36" height="26" viewBox="0 0 28 20" fill="none">
+                  <rect x="1" y="1" width="26" height="18" rx="1"
+                    stroke="#EF6B4D" strokeOpacity="0.55" strokeWidth="1"/>
+                  {[4, 6.5, 9, 11.5, 14, 16.5, 19, 21.5].map((x, i) => (
+                    <line key={i} x1={x} y1="5" x2={x} y2="15"
+                      stroke="#EF6B4D" strokeOpacity="0.60" strokeWidth="0.8"/>
+                  ))}
+                </svg>
+              </div>
 
               <p
                 className="text-text-primary/80 text-xl md:text-2xl leading-relaxed max-w-2xl mb-8"
@@ -137,28 +138,24 @@ export default function Testimonials({
           </AnimatePresence>
         </div>
 
-        {/* Navigation dots — one per testimonial.
-            Ternary operator applies different styles to the active dot vs inactive:
-            condition ? styleIfTrue : styleIfFalse */}
+        {/* Navigation dots — square junction connectors matching cable vocab */}
         <div className="flex items-center gap-3 mt-10">
           {testimonials.map((_, i) => (
             <button
               key={i}
               onClick={() => setActive(i)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`h-2 transition-all duration-300 ${
                 i === active
-                  ? "w-8 bg-brand-accent"
-                  : "w-2 bg-white/20 hover:bg-white/40"
+                  ? "w-6 bg-brand-accent"
+                  : "w-2 bg-white/20 hover:bg-brand-accent/40"
               }`}
+              style={{ borderRadius: 0 }}
               aria-label={`View testimonial ${i + 1}`}
             />
           ))}
         </div>
 
-        {/* Prev/next arrows — functional state update pattern:
-            setActive((prev) => ...) uses the previous state value directly.
-            Safer than setActive(active - 1) when React batches updates.
-            Wraps around at both ends using a ternary. */}
+        {/* Prev/next — port-housing style: square, accent border */}
         <div className="flex items-center gap-4 mt-6">
           <button
             onClick={() =>
@@ -166,7 +163,8 @@ export default function Testimonials({
                 prev === 0 ? testimonials.length - 1 : prev - 1,
               )
             }
-            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-text-secondary hover:border-brand-accent/40 hover:text-brand-accent transition-all duration-200"
+            className="w-9 h-9 border border-brand-accent/25 flex items-center justify-center text-text-secondary hover:border-brand-accent/50 hover:text-brand-accent transition-all duration-200"
+            style={{ borderRadius: 0 }}
             aria-label="Previous testimonial"
           >
             ←
@@ -177,7 +175,8 @@ export default function Testimonials({
                 prev === testimonials.length - 1 ? 0 : prev + 1,
               )
             }
-            className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-text-secondary hover:border-brand-accent/40 hover:text-brand-accent transition-all duration-200"
+            className="w-9 h-9 border border-brand-accent/25 flex items-center justify-center text-text-secondary hover:border-brand-accent/50 hover:text-brand-accent transition-all duration-200"
+            style={{ borderRadius: 0 }}
             aria-label="Next testimonial"
           >
             →

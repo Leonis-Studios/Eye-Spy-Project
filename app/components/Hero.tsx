@@ -474,17 +474,6 @@ export default function Hero({
         </span>
         <ChevronDown size={14} className="animate-bounce" />
       </motion.div>
-      {/* ── BOTTOM DIVIDER LINE ───────────────────────────────────────────────
-          A 1px horizontal line at the very bottom of the section.
-          "absolute bottom-0 left-0 right-0" pins it to the bottom edge.
-          "h-px" = height of 1 pixel.
-          "bg-gradient-to-r from-transparent via-brand-accent/20 to-transparent"
-          creates a gradient that goes:
-            transparent → faint cyan (20% opacity) → transparent
-          So it looks like a glowing line that fades out at both ends.
-          This subtly separates the hero from the next section.
-      */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/20 to-transparent" />
       {/* ── GOOGLE FONTS ──────────────────────────────────────────────────────
           This loads our two custom fonts from Google Fonts.
           Rajdhani — display/heading font (geometric, technical, sharp)

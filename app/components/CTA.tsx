@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useInView, type Variants } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { siteConfig } from "../config/site";
 import { type SiteSettings } from "../lib/types";
@@ -9,6 +9,7 @@ import { type SiteSettings } from "../lib/types";
 export default function CTA({ settings }: { settings: SiteSettings }) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+  const prefersReducedMotion = useReducedMotion();
 
   const variants: Variants = {
     hidden: { opacity: 0, y: 24 },
@@ -23,6 +24,18 @@ export default function CTA({ settings }: { settings: SiteSettings }) {
     }),
   };
 
+  const cableVariants: Variants = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: {
+      pathLength: 1,
+      opacity: 1,
+      transition: {
+        pathLength: { duration: prefersReducedMotion ? 0 : 0.9, delay: 0.1, ease: "easeInOut" },
+        opacity: { duration: 0.01, delay: 0.1 },
+      },
+    },
+  };
+
   const scrollToForm = () => {
     document
       .getElementById("estimate-form")
@@ -34,8 +47,7 @@ export default function CTA({ settings }: { settings: SiteSettings }) {
       ref={sectionRef}
       className="relative bg-brand-base py-32 overflow-hidden"
     >
-      {/* Multi-layer background — stronger glow than other sections
-          since this is a high-attention conversion moment */}
+      {/* Atmospheric glow */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -45,17 +57,79 @@ export default function CTA({ settings }: { settings: SiteSettings }) {
         aria-hidden
       />
 
-      {/* Accent lines — top and bottom */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/25 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/25 to-transparent" />
+      {/* ── CABLE SVG OVERLAY ──────────────────────────────────────────────────
+          A cable enters from the left, routes to the content box boundary,
+          and a second exits to the right. Desktop only.
+      */}
+      <div className="hidden md:block absolute inset-0 pointer-events-none" aria-hidden="true">
+        <svg width="100%" height="100%" style={{ position: "absolute", inset: 0, overflow: "visible" }}>
+          {/* Left cable — enters from left edge, runs to content center */}
+          <motion.path
+            d="M 0,50% L 18%,50%"
+            stroke="#EF6B4D" strokeOpacity="0.12" strokeWidth="4"
+            fill="none" strokeLinecap="square"
+            variants={cableVariants}
+            initial="hidden" animate={isInView ? "visible" : "hidden"}
+          />
+          <motion.path
+            d="M 0,50% L 18%,50%"
+            stroke="#EF6B4D" strokeOpacity="0.40" strokeWidth="1.5"
+            fill="none" strokeLinecap="square"
+            variants={cableVariants}
+            initial="hidden" animate={isInView ? "visible" : "hidden"}
+          />
+          {/* Right cable */}
+          <motion.path
+            d="M 82%,50% L 100%,50%"
+            stroke="#EF6B4D" strokeOpacity="0.12" strokeWidth="4"
+            fill="none" strokeLinecap="square"
+            variants={cableVariants}
+            initial="hidden" animate={isInView ? "visible" : "hidden"}
+          />
+          <motion.path
+            d="M 82%,50% L 100%,50%"
+            stroke="#EF6B4D" strokeOpacity="0.40" strokeWidth="1.5"
+            fill="none" strokeLinecap="square"
+            variants={cableVariants}
+            initial="hidden" animate={isInView ? "visible" : "hidden"}
+          />
+          {/* Terminus dots */}
+          <motion.circle cx="18%" cy="50%" r="3" fill="#EF6B4D" fillOpacity="0.8"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+            transition={{ duration: 0.2, delay: prefersReducedMotion ? 0 : 1.0 }}
+          />
+          <motion.circle cx="82%" cy="50%" r="3" fill="#EF6B4D" fillOpacity="0.8"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+            transition={{ duration: 0.2, delay: prefersReducedMotion ? 0 : 1.0 }}
+          />
+        </svg>
+      </div>
 
-      {/* Corner accents — purely decorative geometric detail */}
-      <div className="absolute top-6 left-6 w-8 h-8 border-l border-t border-brand-accent/20" />
-      <div className="absolute top-6 right-6 w-8 h-8 border-r border-t border-brand-accent/20" />
-      <div className="absolute bottom-6 left-6 w-8 h-8 border-l border-b border-brand-accent/20" />
-      <div className="absolute bottom-6 right-6 w-8 h-8 border-r border-b border-brand-accent/20" />
+      {/* ── CORNER ACCENTS — port-housing style with cable label tags ──────── */}
+      {/* Top-left */}
+      <div className="absolute top-6 left-6 w-10 h-10 border-l border-t border-brand-accent/40" />
+      <div className="absolute top-6 left-6 mt-1 ml-1">
+        <div className="inline-flex items-center gap-1 border border-brand-accent/40 bg-brand-accent/5 px-1.5 py-px rounded-xs">
+          <span className="text-brand-accent/70 font-mono text-[8px] tracking-widest uppercase">PORT A</span>
+        </div>
+      </div>
 
-      {/* Main content — centered */}
+      {/* Top-right */}
+      <div className="absolute top-6 right-6 w-10 h-10 border-r border-t border-brand-accent/40" />
+      <div className="absolute top-6 right-6 mt-1 mr-1 flex justify-end">
+        <div className="inline-flex items-center gap-1 border border-brand-accent/40 bg-brand-accent/5 px-1.5 py-px rounded-xs">
+          <span className="text-brand-accent/70 font-mono text-[8px] tracking-widest uppercase">PORT B</span>
+        </div>
+      </div>
+
+      {/* Bottom-left */}
+      <div className="absolute bottom-6 left-6 w-10 h-10 border-l border-b border-brand-accent/40" />
+      {/* Bottom-right */}
+      <div className="absolute bottom-6 right-6 w-10 h-10 border-r border-b border-brand-accent/40" />
+
+      {/* Main content */}
       <div className="relative max-w-4xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
         <motion.p
           custom={0}
