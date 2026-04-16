@@ -22,34 +22,44 @@ export default function Services({ services }: { services: Service[] }) {
   // Compute cable paths from card positions — same pattern as Benefits.tsx
   useEffect(() => {
     if (!isInView || !sectionRef.current) return;
-    const sectionRect = sectionRef.current.getBoundingClientRect();
-    const paths = cardRefs.current.map((card, i) => {
-      if (!card) return null;
-      const rect = card.getBoundingClientRect();
-      const relTop   = rect.top   - sectionRect.top;
-      const relLeft  = rect.left  - sectionRect.left;
-      const relRight = rect.right - sectionRect.left;
-      const cardMidY = relTop + rect.height / 2;
-      // Alternate sides: col 0 → left, col 1 → right, col 2 → left, etc.
-      const isLeft = i % 2 === 0;
-      const entryY = cardMidY - 20;
 
-      if (isLeft) {
-        return {
-          d: `M 0,${entryY} L ${relLeft - 20},${entryY} L ${relLeft - 20},${cardMidY} L ${relLeft},${cardMidY}`,
-          termX: relLeft,
-          termY: cardMidY,
-        };
-      } else {
-        const W = sectionRect.width;
-        return {
-          d: `M ${W},${entryY} L ${relRight + 20},${entryY} L ${relRight + 20},${cardMidY} L ${relRight},${cardMidY}`,
-          termX: relRight,
-          termY: cardMidY,
-        };
-      }
-    });
-    setCablePaths(paths.filter(Boolean) as CablePath[]);
+    const computePaths = () => {
+      if (!sectionRef.current) return;
+      const sectionRect = sectionRef.current.getBoundingClientRect();
+      const paths = cardRefs.current.map((card, i) => {
+        if (!card) return null;
+        const rect = card.getBoundingClientRect();
+        const relTop   = rect.top   - sectionRect.top;
+        const relLeft  = rect.left  - sectionRect.left;
+        const relRight = rect.right - sectionRect.left;
+        const cardMidY = relTop + rect.height / 2;
+        // Alternate sides: col 0 → left, col 1 → right, col 2 → left, etc.
+        const isLeft = i % 2 === 0;
+        const entryY = cardMidY - 20;
+
+        if (isLeft) {
+          return {
+            d: `M 0,${entryY} L ${relLeft - 20},${entryY} L ${relLeft - 20},${cardMidY} L ${relLeft},${cardMidY}`,
+            termX: relLeft,
+            termY: cardMidY,
+          };
+        } else {
+          const W = sectionRect.width;
+          return {
+            d: `M ${W},${entryY} L ${relRight + 20},${entryY} L ${relRight + 20},${cardMidY} L ${relRight},${cardMidY}`,
+            termX: relRight,
+            termY: cardMidY,
+          };
+        }
+      });
+      setCablePaths(paths.filter(Boolean) as CablePath[]);
+    };
+
+    computePaths();
+    window.addEventListener("resize", computePaths);
+    return () => {
+      window.removeEventListener("resize", computePaths);
+    };
   }, [isInView]);
 
   const containerVariants: Variants = {
