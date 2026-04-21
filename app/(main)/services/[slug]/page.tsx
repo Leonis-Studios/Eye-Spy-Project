@@ -7,6 +7,8 @@ import {
 } from "@/app/lib/queries";
 import { type ServicePage } from "@/app/lib/types";
 import { getServices } from "@/app/lib/getServices";
+import { siteConfig } from "@/app/config/site";
+import JsonLd from "@/app/components/JsonLd";
 import ServicePageClient from "./ServicePageClient";
 
 export async function generateStaticParams() {
@@ -46,5 +48,54 @@ export default async function ServiceDetailPage({
 
   if (!service) notFound();
 
-  return <ServicePageClient service={service} services={services} />;
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteConfig.seo.url}/services/${slug}#service`,
+    name: service.title,
+    description: service.metaDescription ?? service.shortDescription ?? service.title,
+    url: `${siteConfig.seo.url}/services/${slug}`,
+    serviceType: service.title,
+    provider: {
+      "@type": "LocalBusiness",
+      "@id": `${siteConfig.seo.url}/#business`,
+    },
+    areaServed: {
+      "@type": "City",
+      name: siteConfig.addressCity,
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteConfig.seo.url,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: `${siteConfig.seo.url}/services`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.title,
+        item: `${siteConfig.seo.url}/services/${slug}`,
+      },
+    ],
+  };
+
+  return (
+    <>
+      <JsonLd schema={serviceSchema} />
+      <JsonLd schema={breadcrumbSchema} />
+      <ServicePageClient service={service} services={services} />
+    </>
+  );
 }

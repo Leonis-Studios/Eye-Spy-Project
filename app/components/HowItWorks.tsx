@@ -2,12 +2,8 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
-
-interface Step {
-  step: string;
-  title: string;
-  description: string;
-}
+import { howItWorksSteps } from "../config/howItWorks";
+import type { HowItWorksStep as Step } from "../config/howItWorks";
 
 interface JunctionPoint {
   x: number;
@@ -119,26 +115,7 @@ export default function HowItWorks() {
     }),
   };
 
-  const steps: Step[] = [
-    {
-      step: "01",
-      title: "Request a Free Estimate",
-      description:
-        "Contact us to discuss your project and receive a no-obligation quote.",
-    },
-    {
-      step: "02",
-      title: "We Survey Your Property",
-      description:
-        "Our team will visit your location to assess the scope of the project.",
-    },
-    {
-      step: "03",
-      title: "We Install Your System",
-      description:
-        "Our experts will handle the installation process, ensuring everything is set up correctly.",
-    },
-  ];
+  const steps: Step[] = howItWorksSteps;
 
   return (
     <section

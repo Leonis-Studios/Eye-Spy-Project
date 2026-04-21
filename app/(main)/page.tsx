@@ -8,11 +8,14 @@ import CTA from "../components/CTA";
 import FAQ from "../components/FAQ";
 import EstimateForm from "../components/EstimateForm";
 import CableSeparator from "../components/CableSeparator";
+import JsonLd from "../components/JsonLd";
 import { getSiteSettings } from "../lib/getSiteSettings";
 import { getServices } from "../lib/getServices";
 import { sanityFetch } from "../lib/sanity";
 import { testimonialsQuery, faqQuery } from "../lib/queries";
 import { type Testimonial, type FaqItem } from "../lib/types";
+import { howItWorksSteps } from "../config/howItWorks";
+import { siteConfig } from "../config/site";
 
 export default async function Home() {
   const [settings, testimonials, faqItems, services] = await Promise.all([
@@ -22,8 +25,42 @@ export default async function Home() {
     getServices(),
   ]);
 
+  const faqPageSchema = faqItems.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqItems.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
+      }
+    : null;
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to Get a Security System Installed",
+    description: "Our simple 3-step process to get you up and running quickly.",
+    step: howItWorksSteps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.title,
+      text: s.description,
+    })),
+    provider: {
+      "@type": "LocalBusiness",
+      "@id": `${siteConfig.seo.url}/#business`,
+    },
+  };
+
   return (
     <main className="bg-brand-base">
+      {faqPageSchema && <JsonLd schema={faqPageSchema} />}
+      <JsonLd schema={howToSchema} />
       <Hero settings={settings} services={services} />
       <CableSeparator variant="patch-panel" topColor="#050d1a" bottomColor="#070f1e" />
       <SocialProof settings={settings} />

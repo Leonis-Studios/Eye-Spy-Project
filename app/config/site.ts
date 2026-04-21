@@ -40,6 +40,12 @@ export const siteConfig = {
 
   // ─── LOCATION ────────────────────────────────────────────────────────────
   address: "123 Main St, City, State 00000",
+  // Structured address fields — used by JSON-LD schemas (PostalAddress).
+  // Keep these in sync with the display address above.
+  addressStreet: "123 Main St",
+  addressCity: "City",
+  addressRegion: "State",
+  addressPostal: "00000",
   serviceArea: "Serving the greater [City] area within 50 miles",
 
   // ─── BUSINESS HOURS ──────────────────────────────────────────────────────

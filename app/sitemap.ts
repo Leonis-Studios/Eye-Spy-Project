@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { posts } from "./config/posts";
 import { siteConfig } from "./config/site";
+import { serviceAreas } from "./config/areas";
 import { sanityFetch } from "./lib/sanity";
 import { allServicePageSlugsQuery } from "./lib/queries";
 
@@ -14,26 +15,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
   const staticPages = [
     { url: baseUrl, priority: 1.0, changeFrequency: "monthly" as const },
-    {
-      url: `${baseUrl}/about`,
-      priority: 0.8,
-      changeFrequency: "monthly" as const,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      priority: 0.8,
-      changeFrequency: "monthly" as const,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      priority: 0.9,
-      changeFrequency: "weekly" as const,
-    },
-    {
-      url: `${baseUrl}/services`,
-      priority: 0.85,
-      changeFrequency: "monthly" as const,
-    },
+    { url: `${baseUrl}/about`, priority: 0.8, changeFrequency: "monthly" as const },
+    { url: `${baseUrl}/contact`, priority: 0.8, changeFrequency: "monthly" as const },
+    { url: `${baseUrl}/blog`, priority: 0.9, changeFrequency: "weekly" as const },
+    { url: `${baseUrl}/services`, priority: 0.85, changeFrequency: "monthly" as const },
+    { url: `${baseUrl}/pricing`, priority: 0.75, changeFrequency: "monthly" as const },
   ];
 
   // Dynamic blog posts
@@ -50,5 +36,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "monthly" as const,
   }));
 
-  return [...staticPages, ...blogPages, ...servicePages];
+  // Area landing pages
+  const areaPages = serviceAreas.map((area) => ({
+    url: `${baseUrl}/lp/${area.slug}`,
+    priority: 0.7,
+    changeFrequency: "monthly" as const,
+  }));
+
+  return [...staticPages, ...blogPages, ...servicePages, ...areaPages];
 }
