@@ -26,6 +26,13 @@ export default function Services({ services }: { services: Service[] }) {
     const computePaths = () => {
       if (!sectionRef.current) return;
       const sectionRect = sectionRef.current.getBoundingClientRect();
+      const firstRect = cardRefs.current[0]?.getBoundingClientRect();
+      const colCount = firstRect
+        ? cardRefs.current.filter(
+            (c) => c && Math.abs(c.getBoundingClientRect().top - firstRect.top) < 5
+          ).length
+        : 1;
+
       const paths = cardRefs.current.map((card, i) => {
         if (!card) return null;
         const rect = card.getBoundingClientRect();
@@ -33,11 +40,15 @@ export default function Services({ services }: { services: Service[] }) {
         const relLeft  = rect.left  - sectionRect.left;
         const relRight = rect.right - sectionRect.left;
         const cardMidY = relTop + rect.height / 2;
-        // Alternate sides: col 0 → left, col 1 → right, col 2 → left, etc.
-        const isLeft = i % 2 === 0;
+
+        const col = i % colCount;
+        const isLeftEdge  = col === 0;
+        const isRightEdge = col === colCount - 1;
+        if (!isLeftEdge && !isRightEdge) return null;
+
         const entryY = cardMidY - 20;
 
-        if (isLeft) {
+        if (isLeftEdge) {
           return {
             d: `M 0,${entryY} L ${relLeft - 20},${entryY} L ${relLeft - 20},${cardMidY} L ${relLeft},${cardMidY}`,
             termX: relLeft,
