@@ -2,6 +2,9 @@ export const servicePage = {
   name: "servicePage",
   title: "Service Pages",
   type: "document",
+  groups: [
+    { name: "pricing", title: "Pricing" },
+  ],
   fields: [
     {
       name: "title",
@@ -102,6 +105,44 @@ export const servicePage = {
       title: "Sort Order",
       type: "number",
       description: "Controls display order in grids and dropdowns. Lower = first.",
+    },
+    {
+      name: "priceLabel",
+      title: "Price Label",
+      type: "string",
+      group: "pricing",
+      description: 'Shown on the pricing card. Leave blank to hide this service from the pricing page. Example: "Starting at $499"',
+    },
+    {
+      name: "priceNote",
+      title: "Price Note",
+      type: "string",
+      group: "pricing",
+      description: 'Small clarifying text below the price. Example: "Based on a 4-camera system"',
+    },
+    {
+      name: "pricingHighlights",
+      title: "Pricing Highlights",
+      type: "array",
+      group: "pricing",
+      description: "Bullet points shown on the pricing card. Keep to 4–6 items. These are separate from the general Features list above.",
+      of: [{ type: "string" }],
+    },
+    {
+      name: "pricingCtaLabel",
+      title: "Pricing CTA Button Label",
+      type: "string",
+      group: "pricing",
+      description: "Text on the call-to-action button on the pricing card.",
+      initialValue: "Get a Quote",
+    },
+    {
+      name: "pricingFeatured",
+      title: "Featured (Most Popular)",
+      type: "boolean",
+      group: "pricing",
+      description: 'Mark this service as the recommended option. Adds an accent border and a "Most Popular" badge on the pricing page.',
+      initialValue: false,
     },
   ],
   preview: {

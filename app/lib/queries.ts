@@ -70,13 +70,6 @@ export const teamQuery = `
 `;
 
 // ─── SERVICES ─────────────────────────────────────────────────────────────────
-export const servicesQuery = `
-  *[_type == "service"] | order(order asc){
-    label,
-    value
-  }
-`;
-
 // Single source of truth for all service consumers (Hero, Services grid, EstimateForm).
 // Queries servicePage — the canonical service document type.
 export const getAllServicesQuery = `
@@ -149,21 +142,6 @@ export const pricingPageQuery = `
     pageTitle,
     pageSubtitle,
     introText,
-    pricingCards[]{
-      _key,
-      "service": service->{
-        _id,
-        title,
-        "slug": slug.current,
-        icon,
-        shortDescription
-      },
-      priceLabel,
-      priceNote,
-      highlights,
-      ctaLabel,
-      featured
-    },
     bottomCtaHeading,
     bottomCtaText,
     faqTitle,
@@ -172,5 +150,23 @@ export const pricingPageQuery = `
       question,
       answer
     }
+  }
+`;
+
+// Fetches all servicePage documents that have a priceLabel set.
+// The filter is the toggle: leave priceLabel blank to hide a service from the pricing page.
+export const pricingServicesQuery = `
+  *[_type == "servicePage" && defined(priceLabel) && priceLabel != ""] | order(order asc, title asc){
+    _id,
+    title,
+    "slug": slug.current,
+    icon,
+    shortDescription,
+    priceLabel,
+    priceNote,
+    pricingHighlights,
+    pricingCtaLabel,
+    pricingFeatured,
+    order
   }
 `;

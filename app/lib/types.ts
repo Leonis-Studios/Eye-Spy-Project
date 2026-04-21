@@ -90,27 +90,31 @@ export interface ServicePage {
   features?: string[];
   metaTitle?: string;
   metaDescription?: string;
+  // Pricing fields — optional; only present when priceLabel is set
+  priceLabel?: string;
+  priceNote?: string;
+  pricingHighlights?: string[];
+  pricingCtaLabel?: string;
+  pricingFeatured?: boolean;
+  order?: number;
 }
 
 // ─── PRICING PAGE ─────────────────────────────────────────────────────────────
 
-// Expanded service reference returned by the GROQ -> projection
-export interface PricingServiceRef {
+// Represents a servicePage document with pricing data, as returned by pricingServicesQuery.
+// priceLabel is guaranteed non-empty by the GROQ filter.
+export interface PricingService {
   _id: string;
   title: string;
   slug: string;
   icon?: string;
   shortDescription?: string;
-}
-
-export interface PricingCard {
-  _key: string; // Sanity auto-generates _key for array items
-  service: PricingServiceRef;
   priceLabel: string;
   priceNote?: string;
-  highlights?: string[];
-  ctaLabel?: string;
-  featured?: boolean;
+  pricingHighlights?: string[];
+  pricingCtaLabel?: string;
+  pricingFeatured?: boolean;
+  order?: number;
 }
 
 export interface PricingFaqItem {
@@ -123,7 +127,6 @@ export interface PricingPage {
   pageTitle: string;
   pageSubtitle?: string;
   introText?: string;
-  pricingCards?: PricingCard[];
   bottomCtaHeading?: string;
   bottomCtaText?: string;
   faqTitle?: string;

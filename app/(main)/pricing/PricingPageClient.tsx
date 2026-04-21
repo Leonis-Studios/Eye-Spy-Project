@@ -7,7 +7,7 @@ import Link from "next/link";
 import EstimateForm from "@/app/components/EstimateForm";
 import {
   type PricingPage,
-  type PricingCard,
+  type PricingService,
   type PricingFaqItem,
   type Service,
 } from "@/app/lib/types";
@@ -89,7 +89,7 @@ function PricingCardItem({
   card,
   index,
 }: {
-  card: PricingCard;
+  card: PricingService;
   index: number;
 }) {
   return (
@@ -97,7 +97,7 @@ function PricingCardItem({
       <div
         className={`relative group p-6 rounded-sm border h-full flex flex-col transition-all duration-300
           ${
-            card.featured
+            card.pricingFeatured
               ? "border-brand-accent/40 bg-brand-accent/[0.03] hover:bg-brand-accent/[0.05]"
               : "border-white/5 hover:border-brand-accent/20 bg-brand-card hover:bg-brand-card/80"
           }
@@ -105,7 +105,7 @@ function PricingCardItem({
         `}
       >
         {/* "Most Popular" badge */}
-        {card.featured && (
+        {card.pricingFeatured && (
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
             <div className="inline-flex items-center gap-1 border border-brand-accent/40 bg-brand-base px-3 py-0.5 rounded-sm">
               <span
@@ -128,21 +128,19 @@ function PricingCardItem({
         </div>
 
         {/* Service icon */}
-        {card.service?.icon && (
-          <span className="text-2xl mb-2 block">{card.service.icon}</span>
+        {card.icon && (
+          <span className="text-2xl mb-2 block">{card.icon}</span>
         )}
 
         {/* Service title — links to service detail page */}
-        {card.service && (
-          <Link href={`/services/${card.service.slug}`}>
-            <h3
-              className="text-xl font-bold text-white mb-2 hover:text-brand-accent transition-colors duration-200"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
-            >
-              {card.service.title}
-            </h3>
-          </Link>
-        )}
+        <Link href={`/services/${card.slug}`}>
+          <h3
+            className="text-xl font-bold text-white mb-2 hover:text-brand-accent transition-colors duration-200"
+            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          >
+            {card.title}
+          </h3>
+        </Link>
 
         {/* Price label */}
         <p
@@ -166,9 +164,9 @@ function PricingCardItem({
         <div className="w-full h-px bg-white/5 mb-4" />
 
         {/* Highlights checklist */}
-        {card.highlights && card.highlights.length > 0 && (
+        {card.pricingHighlights && card.pricingHighlights.length > 0 && (
           <ul className="space-y-2 flex-1 mb-6">
-            {card.highlights.map((h, hi) => (
+            {card.pricingHighlights.map((h, hi) => (
               <li
                 key={hi}
                 className="flex items-start gap-2"
@@ -187,25 +185,23 @@ function PricingCardItem({
         )}
 
         {/* CTA button — links to service page's estimate form anchor */}
-        {card.service && (
-          <Link
-            href={`/services/${card.service.slug}#estimate-form`}
-            className={`group mt-auto flex items-center justify-center gap-2 font-bold px-5 py-3 rounded-sm text-xs uppercase tracking-widest transition-colors duration-200
-              ${
-                card.featured
-                  ? "bg-brand-accent text-brand-base hover:bg-white"
-                  : "border border-brand-accent/40 text-brand-accent hover:bg-brand-accent hover:text-brand-base"
-              }
-            `}
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
-          >
-            {card.ctaLabel ?? "Get a Quote"}
-            <ArrowRight
-              size={13}
-              className="group-hover:translate-x-0.5 transition-transform duration-200"
-            />
-          </Link>
-        )}
+        <Link
+          href={`/services/${card.slug}#estimate-form`}
+          className={`group mt-auto flex items-center justify-center gap-2 font-bold px-5 py-3 rounded-sm text-xs uppercase tracking-widest transition-colors duration-200
+            ${
+              card.pricingFeatured
+                ? "bg-brand-accent text-brand-base hover:bg-white"
+                : "border border-brand-accent/40 text-brand-accent hover:bg-brand-accent hover:text-brand-base"
+            }
+          `}
+          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+        >
+          {card.pricingCtaLabel ?? "Get a Quote"}
+          <ArrowRight
+            size={13}
+            className="group-hover:translate-x-0.5 transition-transform duration-200"
+          />
+        </Link>
       </div>
     </motion.div>
   );
@@ -414,12 +410,14 @@ function FaqAccordion({ items, title }: { items: PricingFaqItem[]; title?: strin
 
 export default function PricingPageClient({
   pricingData,
+  pricingServices,
   services,
 }: {
   pricingData: PricingPage | null;
+  pricingServices: PricingService[];
   services: Service[];
 }) {
-  const cards = pricingData?.pricingCards ?? [];
+  const cards = pricingServices;
   const hasFaq =
     !!pricingData?.faqItems && pricingData.faqItems.length > 0;
   const hasCards = cards.length > 0;
@@ -566,7 +564,7 @@ export default function PricingPageClient({
                 }`}
               >
                 {cards.map((card, i) => (
-                  <div key={card._key} ref={cardRefs.current[i]}>
+                  <div key={card._id} ref={cardRefs.current[i]}>
                     <PricingCardItem card={card} index={i} />
                   </div>
                 ))}
