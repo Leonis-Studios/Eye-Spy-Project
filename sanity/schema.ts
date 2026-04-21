@@ -6,6 +6,7 @@ import { teamMember } from "./schema/teamMember";
 import { serviceArea } from "./schema/serviceArea";
 import { service } from "./schema/service";
 import { servicePage } from "./schema/servicePage";
+import { pricingPage } from "./schema/pricingPage";
 
 export const schemaTypes = [
   siteSettings,
@@ -16,4 +17,5 @@ export const schemaTypes = [
   serviceArea,
   service,
   servicePage,
+  pricingPage,
 ];

@@ -91,3 +91,41 @@ export interface ServicePage {
   metaTitle?: string;
   metaDescription?: string;
 }
+
+// ─── PRICING PAGE ─────────────────────────────────────────────────────────────
+
+// Expanded service reference returned by the GROQ -> projection
+export interface PricingServiceRef {
+  _id: string;
+  title: string;
+  slug: string;
+  icon?: string;
+  shortDescription?: string;
+}
+
+export interface PricingCard {
+  _key: string; // Sanity auto-generates _key for array items
+  service: PricingServiceRef;
+  priceLabel: string;
+  priceNote?: string;
+  highlights?: string[];
+  ctaLabel?: string;
+  featured?: boolean;
+}
+
+export interface PricingFaqItem {
+  _key: string;
+  question: string;
+  answer: string;
+}
+
+export interface PricingPage {
+  pageTitle: string;
+  pageSubtitle?: string;
+  introText?: string;
+  pricingCards?: PricingCard[];
+  bottomCtaHeading?: string;
+  bottomCtaText?: string;
+  faqTitle?: string;
+  faqItems?: PricingFaqItem[];
+}

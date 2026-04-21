@@ -138,3 +138,39 @@ export const singleServicePageQuery = `
     metaDescription
   }
 `;
+
+// ─── PRICING PAGE ─────────────────────────────────────────────────────────────
+// Singleton — returns [0] directly, not wrapped in array.
+// service-> dereferences the reference and projects only the fields needed.
+// "slug": slug.current flattens the slug object to a plain string, consistent
+// with every other query in this file.
+export const pricingPageQuery = `
+  *[_type == "pricingPage"][0]{
+    pageTitle,
+    pageSubtitle,
+    introText,
+    pricingCards[]{
+      _key,
+      "service": service->{
+        _id,
+        title,
+        "slug": slug.current,
+        icon,
+        shortDescription
+      },
+      priceLabel,
+      priceNote,
+      highlights,
+      ctaLabel,
+      featured
+    },
+    bottomCtaHeading,
+    bottomCtaText,
+    faqTitle,
+    faqItems[]{
+      _key,
+      question,
+      answer
+    }
+  }
+`;

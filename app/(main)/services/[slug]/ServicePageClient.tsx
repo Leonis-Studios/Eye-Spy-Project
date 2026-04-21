@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
-import { ArrowLeft, CheckCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle, Tag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
@@ -111,13 +111,22 @@ export default function ServicePageClient({
           }}
         />
         <div className="max-w-4xl mx-auto px-6 md:px-16">
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm mb-10 transition-colors duration-200"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
-          >
-            <ArrowLeft size={16} /> Back to Services
-          </Link>
+          <div className="flex items-center gap-4 mb-10">
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm transition-colors duration-200"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              <ArrowLeft size={16} /> Back to Services
+            </Link>
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-2 text-brand-accent/70 hover:text-brand-accent text-sm transition-colors duration-200"
+              style={{ fontFamily: "'DM Sans', sans-serif" }}
+            >
+              <Tag size={14} /> View Pricing
+            </Link>
+          </div>
 
           {service.icon && (
             <motion.span
@@ -221,7 +230,7 @@ export default function ServicePageClient({
                 <motion.div
                   key={i}
                   variants={itemVariants}
-                  className="relative aspect-[4/3] rounded-sm overflow-hidden border border-white/5"
+                  className="relative aspect-4/3 rounded-sm overflow-hidden border border-white/5"
                 >
                   <Image
                     src={urlFor(img.asset).width(800).url()}
