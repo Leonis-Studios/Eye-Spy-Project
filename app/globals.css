@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:wght@400;500&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -65,7 +65,7 @@
 
 :root {
   /* ── Brand Colors (change these to update the entire site) ── */
-  --brand-accent: #EF6B4D;
+  --brand-accent: #ef6b4d;
   --brand-accent-light: #f08060;
   --brand-accent-lighter: #f4a080;
   --brand-bg-deep: #030912;
@@ -101,7 +101,7 @@
    *                    address, service type fields). Keep high-visibility.
    * ─────────────────────────────────────────────────────────────────────────── */
   --text-primary: #ffffff;
-  --text-secondary: #94a3b8;
+  --text-secondary: #bec9d5;
   --text-muted: #64748b;
   --text-subtle: #475569;
   --text-nav: #cbd5e1;
@@ -115,19 +115,19 @@
   --font-weight-extrabold: 850;
 
   /* ── Font Size Reference Scale ──────────────────────────── */
-  --font-size-2xs: 0.6875rem;    /* 11px */
-  --font-size-xs:  0.75rem;      /* 12px */
-  --font-size-sm:  0.875rem;     /* 14px */
-  --font-size-base: 1rem;        /* 16px */
-  --font-size-lg:  1.125rem;     /* 18px */
-  --font-size-xl:  1.25rem;      /* 20px */
-  --font-size-2xl: 1.5rem;       /* 24px */
-  --font-size-3xl: 1.875rem;     /* 30px */
-  --font-size-4xl: 2.25rem;      /* 36px */
-  --font-size-5xl: 3rem;         /* 48px */
-  --font-size-6xl: 3.75rem;      /* 60px */
-  --font-size-7xl: 4.5rem;       /* 72px */
-  --font-size-8xl: 6rem;         /* 96px */
+  --font-size-2xs: 0.6875rem; /* 11px */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+  --font-size-5xl: 3rem; /* 48px */
+  --font-size-6xl: 3.75rem; /* 60px */
+  --font-size-7xl: 4.5rem; /* 72px */
+  --font-size-8xl: 6rem; /* 96px */
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -170,7 +170,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.87 0.00 0);
+  --primary: oklch(0.87 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -200,10 +200,10 @@
 /* ── Slightly increase primary/secondary text sizes ─────── */
 /* Heading sizes (2xl–8xl) and tiny labels (xs) are unchanged */
 @theme {
-  --font-size-sm:   1rem;        /* 16px (was 15px) — nav, buttons, secondary labels */
-  --font-size-base: 1.125rem;    /* 18px (was 17px) — card descriptions, form text */
-  --font-size-lg:   1.25rem;     /* 20px (was 19px) — section descriptions, primary body */
-  --font-size-xl:   1.4375rem;   /* 23px (was 22px) — hero subheading, large body copy */
+  --font-size-sm: 1rem; /* 16px (was 15px) — nav, buttons, secondary labels */
+  --font-size-base: 1.125rem; /* 18px (was 17px) — card descriptions, form text */
+  --font-size-lg: 1.25rem; /* 20px (was 19px) — section descriptions, primary body */
+  --font-size-xl: 1.4375rem; /* 23px (was 22px) — hero subheading, large body copy */
 }
 
 @layer base {
@@ -212,7 +212,9 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-weight: var(--font-weight-medium); /* 500 — slightly heavier base for readability */
+    font-weight: var(
+      --font-weight-medium
+    ); /* 500 — slightly heavier base for readability */
   }
   html {
     @apply font-sans;
