@@ -9,44 +9,66 @@ import {
   Award,
   ArrowRight,
   Heart,
+  Star,
+  Wrench,
+  Eye,
+  Lock,
 } from "lucide-react";
-import { type SiteSettings, type TeamMember } from "@/app/lib/types";
+import { type SiteSettings, type TeamMember, type AboutPageData } from "@/app/lib/types";
 
-// ─── DATA ─────────────────────────────────────────────────────────────────────
-const values = [
+const iconMap: Record<string, React.ReactNode> = {
+  shieldCheck: <ShieldCheck size={20} />,
+  award: <Award size={20} />,
+  clock: <Clock size={20} />,
+  heart: <Heart size={20} />,
+  star: <Star size={20} />,
+  users: <Users size={20} />,
+  wrench: <Wrench size={20} />,
+  eye: <Eye size={20} />,
+  lock: <Lock size={20} />,
+};
+
+const defaultValues = [
   {
-    icon: <ShieldCheck size={20} />,
+    iconName: "shieldCheck",
     title: "Integrity First",
     description:
       "We recommend only what your property actually needs. No upselling, no unnecessary equipment.",
   },
   {
-    icon: <Award size={20} />,
+    iconName: "award",
     title: "Quality Workmanship",
     description:
       "Every installation is done to a professional standard we'd be proud to put our name on.",
   },
   {
-    icon: <Clock size={20} />,
+    iconName: "clock",
     title: "Respect Your Time",
     description:
       "We show up when we say we will, finish when we say we will, and clean up after ourselves.",
   },
   {
-    icon: <Heart size={20} />,
+    iconName: "heart",
     title: "Community Focused",
     description:
       "We're a local business serving our neighbors. Your safety is something we take personally.",
   },
 ];
 
-// ─── COMPONENT ────────────────────────────────────────────────────────────────
+const defaultStoryParagraphs = [
+  "{siteName} started in a garage with one van, one technician, and a handshake promise to always be straight with customers. That was 15 years ago.",
+  "Today we've grown to a full team serving hundreds of homeowners and businesses across the region — but the promise hasn't changed. We'll tell you exactly what you need, install it properly, and be there if anything ever goes wrong.",
+  "We're not a franchise. We're not a national chain. We're your neighbors, and we treat every property like it's our own.",
+];
+
 export default function AboutClient({
   settings,
   team,
+  aboutData,
 }: {
   settings: SiteSettings;
   team: TeamMember[];
+  aboutData: AboutPageData;
 }) {
   const storyRef = useRef<HTMLElement>(null);
   const valuesRef = useRef<HTMLElement>(null);
@@ -86,6 +108,16 @@ export default function AboutClient({
     },
   };
 
+  const values =
+    aboutData.values && aboutData.values.length > 0
+      ? aboutData.values
+      : defaultValues;
+
+  const storyParagraphs =
+    aboutData.storyParagraphs && aboutData.storyParagraphs.length > 0
+      ? aboutData.storyParagraphs
+      : defaultStoryParagraphs;
+
   return (
     <main className="bg-brand-base">
       {/* ── HERO BANNER ─────────────────────────────────────────────────────── */}
@@ -110,7 +142,7 @@ export default function AboutClient({
             className="text-brand-accent text-xs uppercase tracking-widest mb-6"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
-            Our Story
+            {aboutData.heroEyebrow ?? "Our Story"}
           </motion.p>
 
           <motion.h1
@@ -121,7 +153,7 @@ export default function AboutClient({
             className="text-5xl md:text-6xl font-bold text-white leading-tight mb-6"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
-            Security Done Right,
+            {aboutData.heroHeadingLine1 ?? "Security Done Right,"}
             <br />
             <span
               style={{
@@ -131,7 +163,7 @@ export default function AboutClient({
                 WebkitTextFillColor: "transparent",
               }}
             >
-              By People You Can Trust.
+              {aboutData.heroHeadingLine2 ?? "By People You Can Trust."}
             </span>
           </motion.h1>
 
@@ -143,9 +175,8 @@ export default function AboutClient({
             className="text-slate-400 text-lg max-w-2xl leading-relaxed"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            {settings.siteName} was built on a simple belief — every home and
-            business deserves honest, professional security without the hard
-            sell.
+            {aboutData.heroSubtitle ??
+              `${settings.siteName} was built on a simple belief — every home and business deserves honest, professional security without the hard sell.`}
           </motion.p>
         </div>
       </section>
@@ -158,52 +189,43 @@ export default function AboutClient({
         <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
-        {/* Two column layout — text on left, stats on right */}
         <motion.div
           initial="hidden"
           animate={storyInView ? "visible" : "hidden"}
           variants={containerVariants}
           className="max-w-6xl mx-auto px-6 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
         >
-          {/* Left — story text */}
           <motion.div variants={itemVariants}>
             <p
               className="text-brand-accent text-xs uppercase tracking-widest mb-4"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
-              How We Started
+              {aboutData.storyEyebrow ?? "How We Started"}
             </p>
             <h2
               className="text-4xl md:text-5xl font-bold text-white mb-6"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
-              15 Years of Protecting
-              <br />
-              What Matters Most
+              {aboutData.storyHeading ?? (
+                <>
+                  15 Years of Protecting
+                  <br />
+                  What Matters Most
+                </>
+              )}
             </h2>
             <div
               className="flex flex-col gap-4 text-slate-400 leading-relaxed"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
             >
-              <p>
-                {settings.siteName} started in a garage with one van, one
-                technician, and a handshake promise to always be straight with
-                customers. That was 15 years ago.
-              </p>
-              <p>
-                Today we've grown to a full team serving hundreds of homeowners
-                and businesses across the region — but the promise hasn't
-                changed. We'll tell you exactly what you need, install it
-                properly, and be there if anything ever goes wrong.
-              </p>
-              <p>
-                We're not a franchise. We're not a national chain. We're your
-                neighbors, and we treat every property like it's our own.
-              </p>
+              {storyParagraphs.map((para, i) => (
+                <p key={i}>
+                  {para.replace("{siteName}", settings.siteName)}
+                </p>
+              ))}
             </div>
           </motion.div>
 
-          {/* Right — stat blocks */}
           <motion.div
             variants={itemVariants}
             className="grid grid-cols-2 gap-4"
@@ -250,13 +272,13 @@ export default function AboutClient({
               className="text-brand-accent text-xs uppercase tracking-widest mb-4"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
-              What Drives Us
+              {aboutData.valuesEyebrow ?? "What Drives Us"}
             </p>
             <h2
               className="text-4xl md:text-5xl font-bold text-white"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
-              Our Core Values
+              {aboutData.valuesHeading ?? "Our Core Values"}
             </h2>
           </div>
 
@@ -264,7 +286,7 @@ export default function AboutClient({
             variants={containerVariants}
             initial="hidden"
             animate={valuesInView ? "visible" : "hidden"}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           >
             {values.map((value) => (
               <motion.div
@@ -273,7 +295,9 @@ export default function AboutClient({
                 className="group p-6 rounded-sm border border-white/5 hover:border-brand-accent/20 bg-brand-card hover:bg-brand-card/80 transition-all duration-300"
               >
                 <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-accent/10 text-brand-accent mb-4 group-hover:bg-brand-accent/20 transition-colors duration-300">
-                  {value.icon}
+                  {value.iconName
+                    ? (iconMap[value.iconName] ?? <ShieldCheck size={20} />)
+                    : <ShieldCheck size={20} />}
                 </span>
                 <h3
                   className="text-base font-bold text-white mb-2"
@@ -321,7 +345,7 @@ export default function AboutClient({
             variants={containerVariants}
             initial="hidden"
             animate={teamInView ? "visible" : "hidden"}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
           >
             {team.map((member) => (
               <motion.div
@@ -329,7 +353,6 @@ export default function AboutClient({
                 variants={itemVariants}
                 className="group p-8 rounded-sm border border-white/5 hover:border-brand-accent/20 bg-brand-card transition-all duration-300"
               >
-                {/* Avatar placeholder — replace with real photo using next/image */}
                 <div className="w-14 h-14 rounded-full bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center mb-5">
                   <Users size={22} className="text-brand-accent/60" />
                 </div>
@@ -376,27 +399,27 @@ export default function AboutClient({
             className="text-brand-accent text-xs uppercase tracking-widest mb-4"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
-            Ready to Get Started?
+            {aboutData.ctaEyebrow ?? "Ready to Get Started?"}
           </p>
           <h2
             className="text-4xl md:text-5xl font-bold text-white mb-6"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
-            Let's Protect Your Property
+            {aboutData.ctaHeading ?? "Let's Protect Your Property"}
           </h2>
           <p
             className="text-slate-400 text-lg max-w-xl mb-10 leading-relaxed"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            Get a no-obligation estimate from a team that will actually show up,
-            do the job right, and be there if you ever need us.
+            {aboutData.ctaBody ??
+              "Get a no-obligation estimate from a team that will actually show up, do the job right, and be there if you ever need us."}
           </p>
           <a
             href="/#estimate-form"
             className="group flex items-center gap-3 bg-brand-accent text-brand-base font-bold px-10 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
-            Get a Free Estimate
+            {aboutData.ctaButtonLabel ?? "Get a Free Estimate"}
             <ArrowRight
               size={16}
               className="group-hover:translate-x-1 transition-transform duration-200"

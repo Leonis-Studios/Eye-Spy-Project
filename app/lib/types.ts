@@ -1,3 +1,67 @@
+// ─── ABOUT PAGE ───────────────────────────────────────────────────────────────
+export interface AboutPageValue {
+  iconName?: string;
+  title: string;
+  description?: string;
+}
+
+export interface AboutPageData {
+  heroEyebrow?: string;
+  heroHeadingLine1?: string;
+  heroHeadingLine2?: string;
+  heroSubtitle?: string;
+  storyEyebrow?: string;
+  storyHeading?: string;
+  storyParagraphs?: string[];
+  valuesEyebrow?: string;
+  valuesHeading?: string;
+  values?: AboutPageValue[];
+  ctaEyebrow?: string;
+  ctaHeading?: string;
+  ctaBody?: string;
+  ctaButtonLabel?: string;
+}
+
+// ─── CONTACT PAGE ─────────────────────────────────────────────────────────────
+export interface ContactPageData {
+  heroEyebrow?: string;
+  heroHeadingLine1?: string;
+  heroHeadingLine2?: string;
+  heroSubtitle?: string;
+  formHeading?: string;
+  successHeading?: string;
+  successBody?: string;
+  infoHeading?: string;
+  serviceAreaLabel?: string;
+  serviceAreaNote?: string;
+}
+
+// ─── HOW IT WORKS ─────────────────────────────────────────────────────────────
+export interface HowItWorksStep {
+  step: string;
+  title: string;
+  description: string;
+}
+
+// ─── BENEFITS ─────────────────────────────────────────────────────────────────
+export interface BenefitItem {
+  iconName: string;
+  title: string;
+  description: string;
+}
+
+// ─── HOME PAGE ────────────────────────────────────────────────────────────────
+export interface HomePageData {
+  benefitsEyebrow?: string;
+  benefitsHeading?: string;
+  benefitsSubheading?: string;
+  benefits?: BenefitItem[];
+  howItWorksEyebrow?: string;
+  howItWorksHeading?: string;
+  howItWorksSubheading?: string;
+  howItWorksSteps?: HowItWorksStep[];
+}
+
 // ─── SITE SETTINGS ────────────────────────────────────────────────────────────
 export interface SiteSettings {
   siteName: string;

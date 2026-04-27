@@ -1,15 +1,9 @@
 // ─── HOW IT WORKS STEPS ───────────────────────────────────────────────────────
-// Single source of truth for the 3-step process.
-// Imported by:
-//   - HowItWorks.tsx (client component, for rendering)
-//   - app/(main)/page.tsx (server component, for HowTo JSON-LD schema)
-// Keep step titles and descriptions here in sync with any UI copy changes.
+// Fallback data used when Sanity homePage document has no howItWorksSteps set.
+// HowItWorks.tsx and page.tsx prefer Sanity data over these values.
+import { type HowItWorksStep } from "../lib/types";
 
-export interface HowItWorksStep {
-  step: string;
-  title: string;
-  description: string;
-}
+export { type HowItWorksStep };
 
 export const howItWorksSteps: HowItWorksStep[] = [
   {

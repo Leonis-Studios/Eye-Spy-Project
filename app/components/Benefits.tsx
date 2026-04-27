@@ -2,13 +2,19 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
-import { ShieldCheck, Clock, Wrench, HeadphonesIcon } from "lucide-react";
-
-interface Benefit {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}
+import {
+  ShieldCheck,
+  Clock,
+  Wrench,
+  HeadphonesIcon,
+  Star,
+  Wifi,
+  Lock,
+  Eye,
+  Zap,
+  Phone,
+} from "lucide-react";
+import { type BenefitItem } from "../lib/types";
 
 interface CablePath {
   d: string;
@@ -16,7 +22,57 @@ interface CablePath {
   termY: number;
 }
 
-export default function Benefits() {
+const ICON_MAP: Record<string, React.ReactNode> = {
+  shieldCheck: <ShieldCheck size={22} />,
+  clock: <Clock size={22} />,
+  wrench: <Wrench size={22} />,
+  headphones: <HeadphonesIcon size={22} />,
+  star: <Star size={22} />,
+  wifi: <Wifi size={22} />,
+  lock: <Lock size={22} />,
+  eye: <Eye size={22} />,
+  zap: <Zap size={22} />,
+  phone: <Phone size={22} />,
+};
+
+const FALLBACK_BENEFITS: BenefitItem[] = [
+  {
+    iconName: "shieldCheck",
+    title: "Secure & Reliable",
+    description: "Your property is protected with professional-grade security systems.",
+  },
+  {
+    iconName: "clock",
+    title: "Fast Installation",
+    description: "Most installations completed same or next day with minimal disruption.",
+  },
+  {
+    iconName: "wrench",
+    title: "Fully Supported",
+    description: "We handle setup, configuration, and ongoing maintenance so you never have to.",
+  },
+  {
+    iconName: "headphones",
+    title: "24/7 Support",
+    description: "Our dedicated team is always ready to assist you day or night.",
+  },
+];
+
+interface BenefitsProps {
+  benefits?: BenefitItem[];
+  eyebrow?: string;
+  heading?: string;
+  subheading?: string;
+}
+
+export default function Benefits({
+  benefits: propBenefits,
+  eyebrow = "Why We're Different",
+  heading = "Why choose Eye Spy?",
+  subheading = "Everything you need from a security company — done right, the first time.",
+}: BenefitsProps) {
+  const benefits = propBenefits?.length ? propBenefits : FALLBACK_BENEFITS;
+
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [cablePaths, setCablePaths] = useState<CablePath[]>([]);
@@ -24,32 +80,29 @@ export default function Benefits() {
 
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
-  // Measure card positions relative to section and compute cable paths
   useEffect(() => {
     if (!isInView || !sectionRef.current) return;
 
     const computePaths = () => {
       if (!sectionRef.current) return;
       const sectionRect = sectionRef.current.getBoundingClientRect();
-      const paths = cardRefs.current.map((card, i) => {
+      const paths = cardRefs.current.slice(0, benefits.length).map((card, i) => {
         if (!card) return null;
         const rect = card.getBoundingClientRect();
         const relTop   = rect.top   - sectionRect.top;
         const relLeft  = rect.left  - sectionRect.left;
         const relRight = rect.right - sectionRect.left;
         const cardMidY = relTop + rect.height / 2;
-        const isLeft   = i % 2 === 0; // 0,2 = left column; 1,3 = right column
-        const entryY   = cardMidY - 20; // slight offset above card center
+        const isLeft   = i % 2 === 0;
+        const entryY   = cardMidY - 20;
 
         if (isLeft) {
-          // Cable enters from left edge, runs right, drops to card mid, plugs in
           return {
             d: `M 0,${entryY} L ${relLeft - 20},${entryY} L ${relLeft - 20},${cardMidY} L ${relLeft},${cardMidY}`,
             termX: relLeft,
             termY: cardMidY,
           };
         } else {
-          // Cable enters from right edge, runs left, drops to card mid, plugs in
           const W = sectionRect.width;
           return {
             d: `M ${W},${entryY} L ${relRight + 20},${entryY} L ${relRight + 20},${cardMidY} L ${relRight},${cardMidY}`,
@@ -63,17 +116,15 @@ export default function Benefits() {
 
     computePaths();
     window.addEventListener("resize", computePaths);
-    return () => {
-      window.removeEventListener("resize", computePaths);
-    };
-  }, [isInView]);
+    return () => window.removeEventListener("resize", computePaths);
+  }, [isInView, benefits.length]);
 
   const containerVariants: Variants = {
     hidden: {},
     visible: {
       transition: {
         staggerChildren: 0.1,
-        delayChildren: prefersReducedMotion ? 0.1 : 1.3, // wait for cables to finish drawing
+        delayChildren: prefersReducedMotion ? 0.1 : 1.3,
       },
     },
   };
@@ -90,7 +141,6 @@ export default function Benefits() {
     },
   };
 
-  // Cable draw animation — pathLength 0→1 with per-cable stagger via custom prop
   const cableVariants: Variants = {
     hidden: { pathLength: 0, opacity: 0 },
     visible: (i: number) => ({
@@ -107,7 +157,6 @@ export default function Benefits() {
     }),
   };
 
-  // Port connector dot pops in after its cable finishes drawing
   const dotVariants: Variants = {
     hidden: { scale: 0, opacity: 0 },
     visible: (i: number) => ({
@@ -120,36 +169,19 @@ export default function Benefits() {
     }),
   };
 
-  const benefits: Benefit[] = [
-    {
-      icon: <ShieldCheck size={22} />,
-      title: "Secure & Reliable",
-      description:
-        "Your data is protected with enterprise-grade security measures.",
-    },
-    {
-      icon: <Clock size={22} />,
-      title: "Time-Efficient",
-      description:
-        "Save hours with our streamlined workflow and automation features.",
-    },
-    {
-      icon: <Wrench size={22} />,
-      title: "Easy to Use",
-      description: "Intuitive interface designed for seamless user experience.",
-    },
-    {
-      icon: <HeadphonesIcon size={22} />,
-      title: "24/7 Support",
-      description: "Our dedicated support team is always ready to assist you.",
-    },
-  ];
+  // Grid cols depend on count — Tailwind requires static strings
+  const gridClass =
+    benefits.length <= 2
+      ? "grid-cols-1 sm:grid-cols-2"
+      : benefits.length === 3
+      ? "grid-cols-1 sm:grid-cols-3"
+      : "grid-cols-1 sm:grid-cols-2";
 
   return (
     <section
       id="benefits"
       ref={sectionRef}
-      className="scroll-mt-20 relative bg-brand-surface py-24 overflow-hidden"
+      className="scroll-mt-20 relative bg-brand-surface py-16 md:py-24 overflow-hidden"
     >
       {/* Atmospheric glow */}
       <div
@@ -174,7 +206,6 @@ export default function Benefits() {
           >
             {cablePaths.map((cable, i) => (
               <React.Fragment key={i}>
-                {/* Glow halo — wide, low opacity, behind the main line */}
                 <motion.path
                   d={cable.d}
                   stroke="#EF6B4D"
@@ -187,7 +218,6 @@ export default function Benefits() {
                   initial="hidden"
                   animate={isInView ? "visible" : "hidden"}
                 />
-                {/* Main cable line */}
                 <motion.path
                   d={cable.d}
                   stroke="#EF6B4D"
@@ -200,7 +230,6 @@ export default function Benefits() {
                   initial="hidden"
                   animate={isInView ? "visible" : "hidden"}
                 />
-                {/* Port connector dot at cable terminus */}
                 <motion.circle
                   cx={cable.termX}
                   cy={cable.termY}
@@ -223,37 +252,35 @@ export default function Benefits() {
           className="text-brand-accent text-xs uppercase tracking-widest mb-4"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
-          Why We're Different
+          {eyebrow}
         </p>
         <h2
           className="text-4xl md:text-6xl font-bold text-text-primary"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
-          Why choose SecurTech?
+          {heading}
         </h2>
         <p
           className="text-text-secondary mt-4 text-lg max-w-2xl"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
-          Everything you need from a security company - done right, the first
-          time.
+          {subheading}
         </p>
+
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12"
+          className={`grid ${gridClass} gap-4 md:gap-6 mt-12 w-full`}
         >
           {benefits.map((benefit, index) => (
             <motion.div key={benefit.title} variants={itemVariants}>
               <div
-                ref={(el) => {
-                  cardRefs.current[index] = el;
-                }}
-                className="group p-8 rounded-sm border border-white/5 hover:border-brand-accent/20 bg-brand-card hover:bg-brand-card/80 transition-all duration-300 h-full"
+                ref={(el) => { cardRefs.current[index] = el; }}
+                className="group p-6 md:p-8 rounded-sm border border-white/5 hover:border-brand-accent/20 bg-brand-card hover:bg-brand-card/80 transition-all duration-300 h-full text-left"
               >
                 <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-accent/10 text-brand-accent mb-4 group-hover:bg-brand-accent/20 transition-colors duration-300">
-                  {benefit.icon}
+                  {ICON_MAP[benefit.iconName] ?? <ShieldCheck size={22} />}
                 </span>
                 <h3
                   className="text-xl font-bold text-text-primary mb-2"

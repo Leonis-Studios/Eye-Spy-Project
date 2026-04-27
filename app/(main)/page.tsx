@@ -12,17 +12,18 @@ import JsonLd from "../components/JsonLd";
 import { getSiteSettings } from "../lib/getSiteSettings";
 import { getServices } from "../lib/getServices";
 import { sanityFetch } from "../lib/sanity";
-import { testimonialsQuery, faqQuery } from "../lib/queries";
-import { type Testimonial, type FaqItem } from "../lib/types";
+import { testimonialsQuery, faqQuery, homePageQuery } from "../lib/queries";
+import { type Testimonial, type FaqItem, type HomePageData } from "../lib/types";
 import { howItWorksSteps } from "../config/howItWorks";
 import { siteConfig } from "../config/site";
 
 export default async function Home() {
-  const [settings, testimonials, faqItems, services] = await Promise.all([
+  const [settings, testimonials, faqItems, services, homePage] = await Promise.all([
     getSiteSettings(),
     sanityFetch<Testimonial[]>(testimonialsQuery),
     sanityFetch<FaqItem[]>(faqQuery),
     getServices(),
+    sanityFetch<HomePageData | null>(homePageQuery),
   ]);
 
   const faqPageSchema = faqItems.length > 0
@@ -40,12 +41,16 @@ export default async function Home() {
       }
     : null;
 
+  const activeSteps = homePage?.howItWorksSteps?.length
+    ? homePage.howItWorksSteps
+    : howItWorksSteps;
+
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
     name: "How to Get a Security System Installed",
-    description: "Our simple 3-step process to get you up and running quickly.",
-    step: howItWorksSteps.map((s, i) => ({
+    description: homePage?.howItWorksSubheading ?? "Our simple process to get you up and running quickly.",
+    step: activeSteps.map((s, i) => ({
       "@type": "HowToStep",
       position: i + 1,
       name: s.title,
@@ -65,11 +70,21 @@ export default async function Home() {
       <CableSeparator variant="patch-panel" topColor="#050d1a" bottomColor="#070f1e" />
       <SocialProof settings={settings} />
       <CableSeparator variant="switch" topColor="#070f1e" bottomColor="#070f1e" />
-      <Benefits />
+      <Benefits
+        benefits={homePage?.benefits}
+        eyebrow={homePage?.benefitsEyebrow}
+        heading={homePage?.benefitsHeading}
+        subheading={homePage?.benefitsSubheading}
+      />
       <CableSeparator variant="cable-tray" topColor="#070f1e" bottomColor="#070f1e" />
       <Services services={services} />
       <CableSeparator variant="router" topColor="#070f1e" bottomColor="#050d1a" />
-      <HowItWorks />
+      <HowItWorks
+        steps={homePage?.howItWorksSteps}
+        eyebrow={homePage?.howItWorksEyebrow}
+        heading={homePage?.howItWorksHeading}
+        subheading={homePage?.howItWorksSubheading}
+      />
       <CableSeparator variant="conduit" topColor="#050d1a" bottomColor="#070f1e" />
       <Testimonials testimonials={testimonials} />
       <CableSeparator variant="patch-panel" label="FEED-RISER" topColor="#070f1e" bottomColor="#050d1a" />

@@ -132,6 +132,69 @@ export const singleServicePageQuery = `
   }
 `;
 
+// ─── ABOUT PAGE ───────────────────────────────────────────────────────────────
+export const aboutPageQuery = `
+  *[_type == "aboutPage"][0]{
+    heroEyebrow,
+    heroHeadingLine1,
+    heroHeadingLine2,
+    heroSubtitle,
+    storyEyebrow,
+    storyHeading,
+    storyParagraphs,
+    valuesEyebrow,
+    valuesHeading,
+    values[]{
+      iconName,
+      title,
+      description
+    },
+    ctaEyebrow,
+    ctaHeading,
+    ctaBody,
+    ctaButtonLabel
+  }
+`;
+
+// ─── CONTACT PAGE ─────────────────────────────────────────────────────────────
+export const contactPageQuery = `
+  *[_type == "contactPage"][0]{
+    heroEyebrow,
+    heroHeadingLine1,
+    heroHeadingLine2,
+    heroSubtitle,
+    formHeading,
+    successHeading,
+    successBody,
+    infoHeading,
+    serviceAreaLabel,
+    serviceAreaNote
+  }
+`;
+
+// ─── HOME PAGE ────────────────────────────────────────────────────────────────
+// Singleton — returns the homePage document with Benefits + HowItWorks content.
+export const homePageQuery = `
+  *[_type == "homePage"][0]{
+    benefitsEyebrow,
+    benefitsHeading,
+    benefitsSubheading,
+    benefits[]{
+      iconName,
+      title,
+      description
+    },
+    howItWorksEyebrow,
+    howItWorksHeading,
+    howItWorksSubheading,
+    howItWorksSteps[]{
+      step,
+      title,
+      description
+    }
+  }
+`;
+
 // ─── PRICING PAGE ─────────────────────────────────────────────────────────────
 // Singleton — returns [0] directly, not wrapped in array.
 // service-> dereferences the reference and projects only the fields needed.

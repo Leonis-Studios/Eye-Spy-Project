@@ -1,67 +1,79 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { Fragment, useRef, useState, useEffect } from "react";
 import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
 import { howItWorksSteps } from "../config/howItWorks";
-import type { HowItWorksStep as Step } from "../config/howItWorks";
+import { type HowItWorksStep } from "../lib/types";
 
 interface JunctionPoint {
   x: number;
   y: number;
 }
 
-export default function HowItWorks() {
+interface HowItWorksProps {
+  steps?: HowItWorksStep[];
+  eyebrow?: string;
+  heading?: string;
+  subheading?: string;
+}
+
+export default function HowItWorks({
+  steps: propSteps,
+  eyebrow = "The Process",
+  heading = "How It Works",
+  subheading = "Our simple process to get you up and running quickly.",
+}: HowItWorksProps) {
+  const steps: HowItWorksStep[] = propSteps?.length ? propSteps : howItWorksSteps;
+
   const sectionRef = useRef<HTMLElement>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
   const containerDivRef = useRef<HTMLDivElement>(null);
-  const [connectionPath, setConnectionPath] = useState<string>("");
+  const [connectionPaths, setConnectionPaths] = useState<string[]>([]);
   const [junctionPoints, setJunctionPoints] = useState<JunctionPoint[]>([]);
   const prefersReducedMotion = useReducedMotion();
 
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
-  // Measure step card positions and compute a routed cable path between them
+  // Compute cable paths between consecutive cards on the same row
   useEffect(() => {
     if (!isInView || !containerDivRef.current) return;
-    const containerRect = containerDivRef.current.getBoundingClientRect();
-    const rects = stepRefs.current.map((el) =>
-      el ? el.getBoundingClientRect() : null
-    );
-    if (rects.some((r) => !r)) return;
 
-    const [r0, r1, r2] = rects as DOMRect[];
+    const compute = () => {
+      if (!containerDivRef.current) return;
+      const containerRect = containerDivRef.current.getBoundingClientRect();
+      const rects = stepRefs.current
+        .slice(0, steps.length)
+        .map((el) => (el ? el.getBoundingClientRect() : null));
+      if (rects.some((r) => !r)) return;
 
-    // Port connection points — right edge of card 0, left/right edges of card 1, left edge of card 2
-    // All coordinates relative to the container div
-    const p0x = r0.right  - containerRect.left; // exit of step 1
-    const p3x = r2.left   - containerRect.left; // entry of step 3
-    const midY = r0.top - containerRect.top + r0.height / 2; // vertical center of the port row
+      const newPaths: string[] = [];
+      const newJunctions: JunctionPoint[] = [];
 
-    // Cable routing: runs straight from step 1 → step 3 with a rectangular bump/dip
-    // through the middle section (cable slack / routing loop)
-    const bump = 18; // px downward detour in the middle third
-    const seg1x = r1.left  - containerRect.left; // start of mid-step zone
-    const seg2x = r1.right - containerRect.left; // end of mid-step zone
+      for (let i = 0; i < rects.length - 1; i++) {
+        const r0 = rects[i] as DOMRect;
+        const r1 = rects[i + 1] as DOMRect;
+        const midY0 = r0.top - containerRect.top + r0.height / 2;
+        const midY1 = r1.top - containerRect.top + r1.height / 2;
 
-    const path = [
-      `M ${p0x},${midY}`,
-      `L ${seg1x},${midY}`,
-      `L ${seg1x},${midY + bump}`,
-      `L ${seg2x},${midY + bump}`,
-      `L ${seg2x},${midY}`,
-      `L ${p3x},${midY}`,
-    ].join(" ");
+        // Only connect cards on the same row (same vertical center within threshold)
+        if (Math.abs(midY0 - midY1) < 30) {
+          const x0 = r0.right - containerRect.left;
+          const x1 = r1.left - containerRect.left;
+          const y = midY0;
+          newPaths.push(`M ${x0},${y} L ${x1},${y}`);
+          newJunctions.push({ x: x0, y });
+          newJunctions.push({ x: x1, y });
+        }
+      }
 
-    const junctions: JunctionPoint[] = [
-      { x: p0x,  y: midY },
-      { x: seg1x, y: midY },
-      { x: seg2x, y: midY },
-      { x: p3x,  y: midY },
-    ];
+      setConnectionPaths(newPaths);
+      setJunctionPoints(newJunctions);
+    };
 
-    setConnectionPath(path);
-    setJunctionPoints(junctions);
-  }, [isInView]);
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, [isInView, steps.length]);
 
   const containerVariants: Variants = {
     hidden: {},
@@ -85,7 +97,6 @@ export default function HowItWorks() {
     },
   };
 
-  // Cable draw — single continuous path
   const cableVariants: Variants = {
     hidden: { pathLength: 0, opacity: 0 },
     visible: {
@@ -93,7 +104,7 @@ export default function HowItWorks() {
       opacity: 1,
       transition: {
         pathLength: {
-          duration: prefersReducedMotion ? 0 : 0.9,
+          duration: prefersReducedMotion ? 0 : 0.8,
           delay: 0.3,
           ease: "easeInOut",
         },
@@ -102,7 +113,6 @@ export default function HowItWorks() {
     },
   };
 
-  // Junction dots pop in sequentially after the cable passes through each point
   const dotVariants: Variants = {
     hidden: { scale: 0, opacity: 0 },
     visible: (i: number) => ({
@@ -110,18 +120,24 @@ export default function HowItWorks() {
       opacity: 1,
       transition: {
         duration: 0.2,
-        delay: prefersReducedMotion ? 0 : 0.8 + i * 0.1,
+        delay: prefersReducedMotion ? 0 : 0.8 + i * 0.08,
       },
     }),
   };
 
-  const steps: Step[] = howItWorksSteps;
+  // Static grid class strings so Tailwind includes them in its output
+  const gridClass =
+    steps.length <= 3
+      ? "grid-cols-1 sm:grid-cols-3"
+      : steps.length === 4
+      ? "grid-cols-2 lg:grid-cols-4"
+      : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3";
 
   return (
     <section
       id="how-it-works"
       ref={sectionRef}
-      className="scroll-mt-20 relative bg-brand-base py-24 overflow-hidden"
+      className="scroll-mt-20 relative bg-brand-base py-16 md:py-24 overflow-hidden"
     >
       {/* Atmospheric glow */}
       <div
@@ -132,63 +148,74 @@ export default function HowItWorks() {
         }}
         aria-hidden
       />
+
       <div className="max-w-6xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
         <p
           className="text-brand-accent text-xs uppercase tracking-widest mb-4"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
-          The Process
+          {eyebrow}
         </p>
         <h2
           className="text-4xl md:text-6xl font-bold text-text-primary"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
-          How It Works
+          {heading}
         </h2>
         <p
           className="text-text-secondary mt-4 text-lg max-w-2xl"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
-          Our simple 3-step process to get you up and running quickly.
+          {subheading}
         </p>
 
-        {/* Step grid — position: relative so the cable SVG can sit inside it */}
-        <div ref={containerDivRef} className="relative mt-16 w-full">
+        {/* Step grid — position:relative for the cable SVG */}
+        <div ref={containerDivRef} className="relative mt-12 md:mt-16 w-full">
 
-          {/* Routed cable SVG between steps — desktop only, decorative */}
-          {connectionPath && (
+          {/* Routed cable SVG — desktop only, decorative */}
+          {connectionPaths.length > 0 && (
             <div
               className="hidden md:block absolute inset-0 pointer-events-none"
               aria-hidden="true"
             >
               <svg
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible" }}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  overflow: "visible",
+                }}
               >
-                {/* Glow halo */}
-                <motion.path
-                  d={connectionPath}
-                  stroke="#EF6B4D"
-                  strokeOpacity="0.12"
-                  strokeWidth="4"
-                  fill="none"
-                  strokeLinecap="square"
-                  variants={cableVariants}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                />
-                {/* Main cable line */}
-                <motion.path
-                  d={connectionPath}
-                  stroke="#EF6B4D"
-                  strokeOpacity="0.40"
-                  strokeWidth="1.5"
-                  fill="none"
-                  strokeLinecap="square"
-                  variants={cableVariants}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                />
-                {/* Junction dots at each routing point */}
+                {connectionPaths.map((path, i) => (
+                  <Fragment key={i}>
+                    {/* Glow halo */}
+                    <motion.path
+                      d={path}
+                      stroke="#EF6B4D"
+                      strokeOpacity="0.12"
+                      strokeWidth="4"
+                      fill="none"
+                      strokeLinecap="square"
+                      variants={cableVariants}
+                      initial="hidden"
+                      animate={isInView ? "visible" : "hidden"}
+                    />
+                    {/* Main cable line */}
+                    <motion.path
+                      d={path}
+                      stroke="#EF6B4D"
+                      strokeOpacity="0.40"
+                      strokeWidth="1.5"
+                      fill="none"
+                      strokeLinecap="square"
+                      variants={cableVariants}
+                      initial="hidden"
+                      animate={isInView ? "visible" : "hidden"}
+                    />
+                  </Fragment>
+                ))}
+                {/* Junction dots */}
                 {junctionPoints.map((pt, i) => (
                   <motion.circle
                     key={i}
@@ -211,7 +238,7 @@ export default function HowItWorks() {
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="grid grid-cols-1 md:grid-cols-3 gap-12"
+            className={`grid ${gridClass} gap-8 sm:gap-10 md:gap-12`}
           >
             {steps.map((step, index) => (
               <motion.div
@@ -221,9 +248,9 @@ export default function HowItWorks() {
               >
                 <div
                   ref={(el) => { stepRefs.current[index] = el; }}
-                  className="flex flex-col items-center text-center border-l-2 border-brand-accent/20 pl-4 md:border-l-0 md:pl-0"
+                  className="flex flex-col items-center text-center w-full border-l-2 border-brand-accent/20 pl-4 sm:border-l-0 sm:pl-0"
                 >
-                  {/* RJ45 port symbol — visual cabling identifier */}
+                  {/* RJ45 port symbol */}
                   <svg
                     width="28"
                     height="20"
@@ -245,22 +272,21 @@ export default function HowItWorks() {
                     ))}
                   </svg>
 
-                  {/* Cable label tag — P-touch aesthetic */}
+                  {/* Cable label tag */}
                   <div className="inline-flex items-center gap-1 mb-3 border border-brand-accent/40 bg-brand-accent/5 px-2 py-0.5 rounded-xs">
-                    <span
-                      className="text-brand-accent/80 font-mono text-[10px] tracking-widest uppercase"
-                    >
+                    <span className="text-brand-accent/80 font-mono text-[10px] tracking-widest uppercase">
                       PORT {step.step}
                     </span>
                   </div>
 
-                  {/* Ghost step number — reduced opacity for patch panel bg feel */}
+                  {/* Ghost step number */}
                   <span
-                    className="text-7xl font-bold text-brand-accent/15 mb-4 block"
+                    className="text-5xl sm:text-7xl font-bold text-brand-accent/15 mb-4 block leading-none"
                     style={{ fontFamily: "'Rajdhani', sans-serif" }}
                   >
                     {step.step}
                   </span>
+
                   <h3
                     className="text-lg font-bold text-text-primary mb-2"
                     style={{ fontFamily: "'Rajdhani', sans-serif" }}

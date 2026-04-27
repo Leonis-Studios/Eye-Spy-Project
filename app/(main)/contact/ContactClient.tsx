@@ -12,9 +12,8 @@ import {
 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { siteConfig } from "@/app/config/site";
-import { type SiteSettings } from "@/app/lib/types";
+import { type SiteSettings, type ContactPageData } from "@/app/lib/types";
 
-// ─── TYPES ────────────────────────────────────────────────────────────────────
 interface ContactForm {
   name: string;
   email: string;
@@ -25,11 +24,12 @@ interface ContactForm {
 
 type ContactErrors = Partial<Record<keyof ContactForm, string>>;
 
-// ─── COMPONENT ────────────────────────────────────────────────────────────────
 export default function ContactClient({
   settings,
+  contactData,
 }: {
   settings: SiteSettings;
+  contactData: ContactPageData;
 }) {
   const formRef = useRef<HTMLElement>(null);
   const infoRef = useRef<HTMLElement>(null);
@@ -50,6 +50,7 @@ export default function ContactClient({
     const s = searchParams.get("service");
     if (s) setFormData((prev) => ({ ...prev, service: s }));
   }, [searchParams]);
+
   const [errors, setErrors] = useState<ContactErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -122,7 +123,6 @@ export default function ContactClient({
   const inputClass = `w-full bg-brand-card border px-4 py-3 rounded-sm text-white text-sm outline-none transition-colors duration-200 placeholder:text-slate-600 focus:border-brand-accent/50`;
   const labelClass = `block text-xs uppercase tracking-widest text-slate-400 mb-2`;
 
-  // Contact info items — icon, label, value, and optional href
   const contactItems = [
     {
       icon: <Phone size={18} />,
@@ -150,6 +150,10 @@ export default function ContactClient({
     },
   ];
 
+  const successBody = contactData.successBody
+    ? contactData.successBody.replace("{name}", formData.name.split(" ")[0])
+    : `Thanks ${formData.name.split(" ")[0]} — we'll get back to you within 1 business day.`;
+
   return (
     <main className="bg-brand-base">
       {/* ── HERO BANNER ───────────────────────────────────────────────────── */}
@@ -174,7 +178,7 @@ export default function ContactClient({
             className="text-brand-accent text-xs uppercase tracking-widest mb-6"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
-            Get In Touch
+            {contactData.heroEyebrow ?? "Get In Touch"}
           </motion.p>
           <motion.h1
             custom={1}
@@ -184,7 +188,7 @@ export default function ContactClient({
             className="text-5xl md:text-6xl font-bold text-white leading-tight mb-6"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
-            We'd Love to
+            {contactData.heroHeadingLine1 ?? "We'd Love to"}
             <br />
             <span
               style={{
@@ -194,7 +198,7 @@ export default function ContactClient({
                 WebkitTextFillColor: "transparent",
               }}
             >
-              Hear From You.
+              {contactData.heroHeadingLine2 ?? "Hear From You."}
             </span>
           </motion.h1>
           <motion.p
@@ -205,8 +209,8 @@ export default function ContactClient({
             className="text-slate-400 text-lg max-w-xl leading-relaxed"
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
-            Have a question, want to schedule a site visit, or just want to talk
-            through your options? We're here.
+            {contactData.heroSubtitle ??
+              "Have a question, want to schedule a site visit, or just want to talk through your options? We're here."}
           </motion.p>
         </div>
       </section>
@@ -229,7 +233,7 @@ export default function ContactClient({
                 className="text-3xl font-bold text-white mb-8"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
-                Send Us a Message
+                {contactData.formHeading ?? "Send Us a Message"}
               </motion.h2>
 
               {isSubmitted ? (
@@ -243,14 +247,13 @@ export default function ContactClient({
                     className="text-2xl font-bold text-white"
                     style={{ fontFamily: "'Rajdhani', sans-serif" }}
                   >
-                    Message Sent!
+                    {contactData.successHeading ?? "Message Sent!"}
                   </h3>
                   <p
                     className="text-slate-400 leading-relaxed"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
-                    Thanks {formData.name.split(" ")[0]} — we'll get back to you
-                    within 1 business day.
+                    {successBody}
                   </p>
                 </motion.div>
               ) : (
@@ -436,7 +439,7 @@ export default function ContactClient({
                 className="text-3xl font-bold text-white mb-2"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
-                Contact Information
+                {contactData.infoHeading ?? "Contact Information"}
               </motion.h2>
 
               {contactItems.map((item) => (
@@ -475,7 +478,6 @@ export default function ContactClient({
                 </motion.div>
               ))}
 
-              {/* Service area note */}
               <motion.div
                 variants={itemVariants}
                 className="p-5 rounded-sm border border-brand-accent/10 bg-brand-accent/5 mt-2"
@@ -484,14 +486,15 @@ export default function ContactClient({
                   className="text-brand-accent text-xs uppercase tracking-widest mb-2"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
-                  Service Area
+                  {contactData.serviceAreaLabel ?? "Service Area"}
                 </p>
                 <p
                   className="text-slate-400 text-sm leading-relaxed"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  {settings.serviceArea}. Not sure if we cover your area? Give
-                  us a call and we'll let you know.
+                  {settings.serviceArea}.{" "}
+                  {contactData.serviceAreaNote ??
+                    "Not sure if we cover your area? Give us a call and we'll let you know."}
                 </p>
               </motion.div>
             </motion.div>
