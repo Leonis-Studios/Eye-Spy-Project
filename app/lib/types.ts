@@ -71,6 +71,8 @@ export interface SiteSettings {
   email: string;
   address: string;
   serviceArea: string;
+  siteUrl?: string;
+  reviewCount?: number;
   hours: {
     weekdays: string;
     saturday: string;
@@ -141,6 +143,31 @@ export interface ServiceArea {
   region: string;
   description: string;
   nearbyAreas: string[];
+  includesList?: string[];
+}
+
+// ─── SERVICE LANDING PAGE ─────────────────────────────────────────────────────
+export interface ServiceLandingPage {
+  title: string;
+  slug: string;
+  heroEyebrow?: string;
+  heroHeading: string;
+  heroHeadingAccent?: string;
+  heroSubheading?: string;
+  includesList?: string[];
+  formHeading?: string;
+  formSubheading?: string;
+  bottomCtaEyebrow?: string;
+  bottomCtaHeading?: string;
+  bottomCtaBody?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  linkedService?: {
+    title: string;
+    slug: string;
+    shortDescription?: string;
+    features?: string[];
+  };
 }
 
 // ─── SERVICE PAGE ─────────────────────────────────────────────────────────────

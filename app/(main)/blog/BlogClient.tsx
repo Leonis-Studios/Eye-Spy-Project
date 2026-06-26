@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import { ArrowRight, Clock, Tag, X } from "lucide-react";
 import { type BlogPost } from "@/app/lib/types";
+import { siteConfig } from "@/app/config/site";
 
 // All unique categories — used for the filter buttons
 
@@ -118,7 +119,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
             className="text-5xl md:text-6xl font-bold text-white leading-tight mb-6"
             style={{ fontFamily: "'Rajdhani', sans-serif" }}
           >
-            The SecurTech
+            The {siteConfig.name}
             <br />
             <span
               style={{
@@ -140,7 +141,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           >
             Practical security advice, buyer's guides, and industry insights
-            from the team at SecurTech.
+            from the team at {siteConfig.name}.
           </motion.p>
         </div>
       </section>

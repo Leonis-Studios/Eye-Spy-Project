@@ -5,6 +5,7 @@ import { faqItem } from "./schema/faqItem";
 import { teamMember } from "./schema/teamMember";
 import { serviceArea } from "./schema/serviceArea";
 import { servicePage } from "./schema/servicePage";
+import { serviceLandingPage } from "./schema/serviceLandingPage";
 import { pricingPage } from "./schema/pricingPage";
 import { homePage } from "./schema/homePage";
 import { aboutPage } from "./schema/aboutPage";
@@ -21,5 +22,6 @@ export const schemaTypes = [
   teamMember,
   serviceArea,
   servicePage,
+  serviceLandingPage,
   pricingPage,
 ];

@@ -7,6 +7,7 @@ import {
 } from "@/app/lib/queries";
 import { type ServicePage } from "@/app/lib/types";
 import { getServices } from "@/app/lib/getServices";
+import { getSiteSettings } from "@/app/lib/getSiteSettings";
 import { siteConfig } from "@/app/config/site";
 import JsonLd from "@/app/components/JsonLd";
 import ServicePageClient from "./ServicePageClient";
@@ -22,15 +23,16 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const service = await sanityFetch<ServicePage | null>(
-    singleServicePageQuery,
-    { slug }
-  );
+  const [service, settings] = await Promise.all([
+    sanityFetch<ServicePage | null>(singleServicePageQuery, { slug }),
+    getSiteSettings(),
+  ]);
 
-  if (!service) return { title: "Service Not Found | EyeSpy Cabling" };
+  const siteName = settings.siteName || siteConfig.name;
+  if (!service) return { title: `Service Not Found | ${siteName}` };
 
   return {
-    title: service.metaTitle ?? `${service.title} | EyeSpy Cabling`,
+    title: service.metaTitle ?? `${service.title} | ${siteName}`,
     description: service.metaDescription ?? service.shortDescription,
   };
 }
@@ -41,53 +43,62 @@ export default async function ServiceDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [service, services] = await Promise.all([
+  const [service, services, settings] = await Promise.all([
     sanityFetch<ServicePage | null>(singleServicePageQuery, { slug }),
     getServices(),
+    getSiteSettings(),
   ]);
 
   if (!service) notFound();
 
-  const serviceSchema = {
+  const siteUrl = settings.siteUrl || siteConfig.seo.url;
+  const ratingValue = settings.stats.rating.replace("★", "").trim();
+  const reviewCount = settings.reviewCount ?? 124;
+
+  const serviceSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "@id": `${siteConfig.seo.url}/services/${slug}#service`,
+    "@id": `${siteUrl}/services/${slug}#service`,
     name: service.title,
     description: service.metaDescription ?? service.shortDescription ?? service.title,
-    url: `${siteConfig.seo.url}/services/${slug}`,
+    url: `${siteUrl}/services/${slug}`,
     serviceType: service.title,
     provider: {
       "@type": "LocalBusiness",
-      "@id": `${siteConfig.seo.url}/#business`,
+      "@id": `${siteUrl}/#business`,
     },
     areaServed: {
       "@type": "City",
       name: siteConfig.addressCity,
     },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue,
+      reviewCount: String(reviewCount),
+      bestRating: "5",
+      worstRating: "1",
+    },
   };
+
+  if (service.priceLabel) {
+    serviceSchema.offers = {
+      "@type": "Offer",
+      name: service.priceLabel,
+      description: service.priceNote,
+      seller: {
+        "@type": "LocalBusiness",
+        "@id": `${siteUrl}/#business`,
+      },
+    };
+  }
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: siteConfig.seo.url,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Services",
-        item: `${siteConfig.seo.url}/services`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: service.title,
-        item: `${siteConfig.seo.url}/services/${slug}`,
-      },
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Services", item: `${siteUrl}/services` },
+      { "@type": "ListItem", position: 3, name: service.title, item: `${siteUrl}/services/${slug}` },
     ],
   };
 

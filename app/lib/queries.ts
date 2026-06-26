@@ -8,6 +8,8 @@ export const siteSettingsQuery = `
     email,
     address,
     serviceArea,
+    siteUrl,
+    reviewCount,
     hours,
     stats,
     social
@@ -90,8 +92,13 @@ export const allAreasQuery = `
     "slug": slug.current,
     region,
     description,
-    nearbyAreas
+    nearbyAreas,
+    includesList
   }
+`;
+
+export const allAreaSlugsQuery = `
+  *[_type == "serviceArea"]{ "slug": slug.current }
 `;
 
 export const singleAreaQuery = `
@@ -100,7 +107,38 @@ export const singleAreaQuery = `
     "slug": slug.current,
     region,
     description,
-    nearbyAreas
+    nearbyAreas,
+    includesList
+  }
+`;
+
+// ─── SERVICE LANDING PAGES ────────────────────────────────────────────────────
+export const allServiceLandingPageSlugsQuery = `
+  *[_type == "serviceLandingPage"]{ "slug": slug.current }
+`;
+
+export const singleServiceLandingPageQuery = `
+  *[_type == "serviceLandingPage" && slug.current == $slug][0]{
+    title,
+    "slug": slug.current,
+    heroEyebrow,
+    heroHeading,
+    heroHeadingAccent,
+    heroSubheading,
+    includesList,
+    formHeading,
+    formSubheading,
+    bottomCtaEyebrow,
+    bottomCtaHeading,
+    bottomCtaBody,
+    metaTitle,
+    metaDescription,
+    linkedService->{
+      title,
+      "slug": slug.current,
+      shortDescription,
+      features
+    }
   }
 `;
 

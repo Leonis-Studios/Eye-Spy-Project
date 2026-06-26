@@ -13,9 +13,9 @@ import {
   Users,
   MapPin,
 } from "lucide-react";
-import { siteConfig, FALLBACK_SERVICES } from "../../config/site";
-import { serviceAreas, type ServiceArea } from "../../config/areas";
-import { type SiteSettings, type Testimonial } from "../../lib/types";
+import { siteConfig } from "../../config/site";
+import { serviceAreas } from "../../config/areas";
+import { type SiteSettings, type Testimonial, type Service, type ServiceArea } from "../../lib/types";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -32,7 +32,7 @@ type FormErrors = Partial<Record<keyof FormData, string>>;
 
 // ─── STATIC DATA ──────────────────────────────────────────────────────────────
 
-const includes = [
+const DEFAULT_INCLUDES = [
   "Free on-site property survey",
   "Written quote with no hidden fees",
   "Same-week availability",
@@ -102,7 +102,7 @@ function LandingFooter({ settings }: { settings: SiteSettings }) {
 }
 
 // ─── ESTIMATE FORM ────────────────────────────────────────────────────────────
-function EstimateForm({ areaName }: { areaName: string }) {
+function EstimateForm({ areaName, services }: { areaName: string; services: Service[] }) {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phone: "",
@@ -286,7 +286,7 @@ function EstimateForm({ areaName }: { areaName: string }) {
           <option value="" disabled>
             Select a service...
           </option>
-          {FALLBACK_SERVICES.map((s) => (
+          {services.map((s) => (
             <option key={s._id} value={s.slug}>
               {s.title}
             </option>
@@ -342,11 +342,15 @@ export default function AreaLandingClient({
   settings,
   testimonials,
   areaData,
+  services,
 }: {
   settings: SiteSettings;
   testimonials: Testimonial[];
   areaData: ServiceArea | undefined;
+  services: Service[];
 }) {
+  const includes = areaData?.includesList?.length ? areaData.includesList : DEFAULT_INCLUDES;
+
   const trustBadges = [
     { icon: <BadgeCheck size={16} />, label: "Licensed & Insured" },
     { icon: <Clock size={16} />, label: `${settings.stats.years} Experience` },
@@ -541,7 +545,7 @@ export default function AreaLandingClient({
                   We'll respond within 1 business day.
                 </p>
               </div>
-              <EstimateForm areaName={areaData.name} />
+              <EstimateForm areaName={areaData.name} services={services} />
             </motion.div>
           </div>
         </section>
@@ -711,7 +715,7 @@ export default function AreaLandingClient({
               >
                 Or Request Your Free Estimate Online
               </h3>
-              <EstimateForm areaName={areaData.name} />
+              <EstimateForm areaName={areaData.name} services={services} />
             </div>
           </div>
         </section>

@@ -40,7 +40,7 @@ export const serviceAreas: ServiceArea[] = [
     name: "Westside",
     region: "West District",
     description:
-      "SecurTech provides licensed security system installation throughout the Westside. Free estimates with no obligation.",
+      "EyeSpy Cabling provides licensed security system installation throughout the Westside. Free estimates with no obligation.",
     nearbyAreas: ["Downtown", "South End", "Lakeside"],
   },
   {
@@ -48,7 +48,7 @@ export const serviceAreas: ServiceArea[] = [
     name: "Eastside",
     region: "East District",
     description:
-      "Eastside homeowners and businesses trust SecurTech for professional camera and alarm system installation.",
+      "Eastside homeowners and businesses trust EyeSpy Cabling for professional camera and alarm system installation.",
     nearbyAreas: ["North End", "Downtown", "Riverside"],
   },
   {

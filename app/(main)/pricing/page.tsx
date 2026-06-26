@@ -2,27 +2,73 @@ import type { Metadata } from "next";
 import { sanityFetch } from "@/app/lib/sanity";
 import { pricingPageQuery, pricingServicesQuery } from "@/app/lib/queries";
 import { getServices } from "@/app/lib/getServices";
+import { getSiteSettings } from "@/app/lib/getSiteSettings";
 import { type PricingPage, type PricingService } from "@/app/lib/types";
+import { siteConfig } from "@/app/config/site";
+import JsonLd from "@/app/components/JsonLd";
 import PricingPageClient from "./PricingPageClient";
 
-export const metadata: Metadata = {
-  title: "Pricing | EyeSpy Cabling",
-  description:
-    "Transparent pricing for CCTV, alarm systems, access control, and cabling. No hidden fees — get a free estimate today.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const [pricingData, settings] = await Promise.all([
+    sanityFetch<PricingPage | null>(pricingPageQuery),
+    getSiteSettings(),
+  ]);
+
+  const siteName = settings.siteName || siteConfig.name;
+  const title = pricingData?.pageTitle
+    ? `${pricingData.pageTitle} | ${siteName}`
+    : `Pricing | ${siteName}`;
+  const description =
+    pricingData?.pageSubtitle ??
+    `Transparent pricing for CCTV, alarm systems, access control, and cabling. No hidden fees — get a free estimate today.`;
+
+  return { title, description };
+}
 
 export default async function PricingPage() {
-  const [pricingData, pricingServices, services] = await Promise.all([
+  const [pricingData, pricingServices, services, settings] = await Promise.all([
     sanityFetch<PricingPage | null>(pricingPageQuery),
     sanityFetch<PricingService[]>(pricingServicesQuery),
     getServices(),
+    getSiteSettings(),
   ]);
 
+  const siteUrl = settings.siteUrl || siteConfig.seo.url;
+
+  const faqSchema =
+    pricingData?.faqItems && pricingData.faqItems.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: pricingData.faqItems.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer,
+            },
+          })),
+        }
+      : null;
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Pricing", item: `${siteUrl}/pricing` },
+    ],
+  };
+
   return (
-    <PricingPageClient
-      pricingData={pricingData}
-      pricingServices={pricingServices}
-      services={services}
-    />
+    <>
+      {faqSchema && <JsonLd schema={faqSchema} />}
+      <JsonLd schema={breadcrumbSchema} />
+      <PricingPageClient
+        pricingData={pricingData}
+        pricingServices={pricingServices}
+        services={services}
+      />
+    </>
   );
 }

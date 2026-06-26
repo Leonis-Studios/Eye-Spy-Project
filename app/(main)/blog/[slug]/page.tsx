@@ -16,10 +16,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await sanityFetch<BlogPost | null>(singlePostQuery, { slug });
 
-  if (!post) return { title: "Post Not Found | SecurTech" };
+  if (!post) return { title: `Post Not Found | ${siteConfig.name}` };
 
   return {
-    title: `${post.title} | SecurTech Blog`,
+    title: `${post.title} | ${siteConfig.name} Blog`,
     description: post.excerpt,
   };
 }

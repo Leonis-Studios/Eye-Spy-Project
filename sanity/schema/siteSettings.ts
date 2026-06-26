@@ -126,6 +126,20 @@ export const siteSettings = {
         },
       ],
     },
+    // ── SEO ───────────────────────────────────────────────────────────────────
+    {
+      name: "siteUrl",
+      title: "Site URL",
+      type: "url",
+      description: "Your canonical website URL. Example: https://www.eyespycabling.com — used in JSON-LD schema and SEO metadata.",
+      validation: (R: any) => R.required().error("Site URL is required"),
+    },
+    {
+      name: "reviewCount",
+      title: "Number of Reviews",
+      type: "number",
+      description: "Total number of customer reviews. Used in Google rich results. Update when your review count changes.",
+    },
     {
       name: "social",
       title: "Social Media",

@@ -12,8 +12,13 @@ import {
   Clock,
   Users,
 } from "lucide-react";
-import { siteConfig, FALLBACK_SERVICES } from "../../config/site";
-import { type SiteSettings, type Testimonial } from "../../lib/types";
+import { siteConfig } from "../../config/site";
+import {
+  type SiteSettings,
+  type Testimonial,
+  type Service,
+  type ServiceLandingPage,
+} from "../../lib/types";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,17 +33,15 @@ interface FormData {
 
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
-// ─── STATIC DATA ──────────────────────────────────────────────────────────────
-
-const includes = [
+// ─── DEFAULTS ─────────────────────────────────────────────────────────────────
+const DEFAULT_INCLUDES = [
   "Free on-site property survey",
   "Written quote with no hidden fees",
   "Same-week availability",
   "No obligation — ever",
 ];
 
-// ─── LANDING PAGE HEADER ──────────────────────────────────────────────────────
-// Intentionally minimal — no nav links, phone number only
+// ─── HEADER ───────────────────────────────────────────────────────────────────
 function LandingHeader({ settings }: { settings: SiteSettings }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-brand-base/95 backdrop-blur-sm border-b border-white/5">
@@ -66,8 +69,7 @@ function LandingHeader({ settings }: { settings: SiteSettings }) {
   );
 }
 
-// ─── LANDING PAGE FOOTER ──────────────────────────────────────────────────────
-// Minimal — logo, privacy policy, copyright only
+// ─── FOOTER ───────────────────────────────────────────────────────────────────
 function LandingFooter({ settings }: { settings: SiteSettings }) {
   return (
     <footer className="border-t border-white/5 py-6 bg-brand-deep">
@@ -102,21 +104,25 @@ function LandingFooter({ settings }: { settings: SiteSettings }) {
 }
 
 // ─── ESTIMATE FORM ────────────────────────────────────────────────────────────
-function EstimateForm() {
+function EstimateForm({
+  services,
+  defaultService,
+}: {
+  services: Service[];
+  defaultService?: string;
+}) {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phone: "",
     email: "",
     address: "",
-    serviceType: "",
+    serviceType: defaultService ?? "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof FormData]) {
@@ -130,8 +136,7 @@ function EstimateForm() {
     if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
     if (!formData.address.trim()) newErrors.address = "Address is required";
-    if (!formData.serviceType)
-      newErrors.serviceType = "Please select a service";
+    if (!formData.serviceType) newErrors.serviceType = "Please select a service";
     return newErrors;
   };
 
@@ -165,8 +170,7 @@ function EstimateForm() {
           className="text-slate-400 leading-relaxed"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
-          Thanks {formData.name.split(" ")[0]} — we&apos;ll be in touch within 1
-          business day to schedule your free estimate.
+          Thanks {formData.name.split(" ")[0]} — we&apos;ll be in touch within 1 business day.
         </p>
       </div>
     );
@@ -176,15 +180,11 @@ function EstimateForm() {
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label
-            htmlFor="lp-name"
-            className={labelClass}
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
-          >
+          <label htmlFor="slp-name" className={labelClass} style={{ fontFamily: "'Rajdhani', sans-serif" }}>
             Full Name
           </label>
           <input
-            id="lp-name"
+            id="slp-name"
             name="name"
             type="text"
             value={formData.name}
@@ -193,20 +193,14 @@ function EstimateForm() {
             className={`${inputClass} ${errors.name ? "border-red-500/50" : "border-white/5"}`}
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           />
-          {errors.name && (
-            <p className="text-red-400 text-xs mt-1">{errors.name}</p>
-          )}
+          {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
         </div>
         <div>
-          <label
-            htmlFor="lp-phone"
-            className={labelClass}
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
-          >
+          <label htmlFor="slp-phone" className={labelClass} style={{ fontFamily: "'Rajdhani', sans-serif" }}>
             Phone Number
           </label>
           <input
-            id="lp-phone"
+            id="slp-phone"
             name="phone"
             type="tel"
             value={formData.phone}
@@ -215,22 +209,16 @@ function EstimateForm() {
             className={`${inputClass} ${errors.phone ? "border-red-500/50" : "border-white/5"}`}
             style={{ fontFamily: "'DM Sans', sans-serif" }}
           />
-          {errors.phone && (
-            <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
-          )}
+          {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
         </div>
       </div>
 
       <div>
-        <label
-          htmlFor="lp-email"
-          className={labelClass}
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
-        >
+        <label htmlFor="slp-email" className={labelClass} style={{ fontFamily: "'Rajdhani', sans-serif" }}>
           Email Address
         </label>
         <input
-          id="lp-email"
+          id="slp-email"
           name="email"
           type="email"
           value={formData.email}
@@ -239,21 +227,15 @@ function EstimateForm() {
           className={`${inputClass} ${errors.email ? "border-red-500/50" : "border-white/5"}`}
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         />
-        {errors.email && (
-          <p className="text-red-400 text-xs mt-1">{errors.email}</p>
-        )}
+        {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
       </div>
 
       <div>
-        <label
-          htmlFor="lp-address"
-          className={labelClass}
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
-        >
+        <label htmlFor="slp-address" className={labelClass} style={{ fontFamily: "'Rajdhani', sans-serif" }}>
           Property Address
         </label>
         <input
-          id="lp-address"
+          id="slp-address"
           name="address"
           type="text"
           value={formData.address}
@@ -262,21 +244,15 @@ function EstimateForm() {
           className={`${inputClass} ${errors.address ? "border-red-500/50" : "border-white/5"}`}
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         />
-        {errors.address && (
-          <p className="text-red-400 text-xs mt-1">{errors.address}</p>
-        )}
+        {errors.address && <p className="text-red-400 text-xs mt-1">{errors.address}</p>}
       </div>
 
       <div>
-        <label
-          htmlFor="lp-service"
-          className={labelClass}
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
-        >
+        <label htmlFor="slp-service" className={labelClass} style={{ fontFamily: "'Rajdhani', sans-serif" }}>
           Service Needed
         </label>
         <select
-          id="lp-service"
+          id="slp-service"
           name="serviceType"
           value={formData.serviceType}
           onChange={handleChange}
@@ -286,15 +262,13 @@ function EstimateForm() {
           <option value="" disabled>
             Select a service...
           </option>
-          {FALLBACK_SERVICES.map((s) => (
+          {services.map((s) => (
             <option key={s._id} value={s.slug}>
               {s.title}
             </option>
           ))}
         </select>
-        {errors.serviceType && (
-          <p className="text-red-400 text-xs mt-1">{errors.serviceType}</p>
-        )}
+        {errors.serviceType && <p className="text-red-400 text-xs mt-1">{errors.serviceType}</p>}
       </div>
 
       <button
@@ -319,10 +293,7 @@ function EstimateForm() {
         ) : (
           <>
             Get My Free Estimate
-            <ArrowRight
-              size={16}
-              className="group-hover:translate-x-1 transition-transform duration-200"
-            />
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
           </>
         )}
       </button>
@@ -337,14 +308,37 @@ function EstimateForm() {
   );
 }
 
-// ─── PAGE ─────────────────────────────────────────────────────────────────────
-export default function SecuritySystemsClient({
+// ─── CLIENT COMPONENT ─────────────────────────────────────────────────────────
+export default function ServiceLandingClient({
+  page,
   settings,
   testimonials,
+  services,
 }: {
+  page: ServiceLandingPage;
   settings: SiteSettings;
   testimonials: Testimonial[];
+  services: Service[];
 }) {
+  const includes =
+    page.includesList?.length
+      ? page.includesList
+      : page.linkedService?.features?.length
+        ? page.linkedService.features
+        : DEFAULT_INCLUDES;
+
+  const heroSubheading = page.heroSubheading ?? page.linkedService?.shortDescription;
+  const defaultService = page.linkedService?.slug;
+
+  const eyebrow = page.heroEyebrow ?? `Licensed & Insured · ${settings.serviceArea}`;
+  const bottomCtaEyebrow = page.bottomCtaEyebrow ?? "Still Have Questions?";
+  const bottomCtaHeading = page.bottomCtaHeading ?? "Talk to Us First";
+  const bottomCtaBody =
+    page.bottomCtaBody ??
+    "Prefer to speak with someone before filling out a form? Give us a call and we'll answer any questions you have.";
+  const formHeading = page.formHeading ?? "Request Your Free Estimate";
+  const formSubheading = page.formSubheading ?? "We'll respond within 1 business day.";
+
   const trustBadges = [
     { icon: <BadgeCheck size={16} />, label: "Licensed & Insured" },
     { icon: <Clock size={16} />, label: `${settings.stats.years} Experience` },
@@ -370,10 +364,7 @@ export default function SecuritySystemsClient({
       <LandingHeader settings={settings} />
 
       <main className="bg-brand-base pt-16">
-        {/* ── HERO + FORM ───────────────────────────────────────────────── */}
-        {/* Two column layout — headline left, form right.
-            This keeps the form above the fold on desktop
-            which is critical for ad landing page conversion. */}
+        {/* ── HERO + FORM ─────────────────────────────────────────────── */}
         <section className="relative min-h-screen flex items-center overflow-hidden">
           <div
             className="pointer-events-none absolute inset-0"
@@ -386,9 +377,7 @@ export default function SecuritySystemsClient({
           <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
 
           <div className="relative max-w-6xl mx-auto px-6 md:px-16 py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
-            {/* Left — headline and trust signals */}
             <div className="flex flex-col gap-8">
-              {/* Eyebrow */}
               <motion.p
                 custom={0}
                 variants={fadeUp}
@@ -397,10 +386,9 @@ export default function SecuritySystemsClient({
                 className="text-brand-accent text-xs uppercase tracking-widest"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
-                Licensed & Insured · {settings.serviceArea}
+                {eyebrow}
               </motion.p>
 
-              {/* Headline — mirrors Google ad copy */}
               <motion.h1
                 custom={1}
                 variants={fadeUp}
@@ -409,35 +397,37 @@ export default function SecuritySystemsClient({
                 className="text-5xl md:text-6xl font-bold text-white leading-tight"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
-                Get a Free Security System Estimate
-                <br />
-                <span
-                  style={{
-                    background:
-                      "linear-gradient(90deg, var(--brand-accent) 0%, var(--brand-accent-light) 60%, var(--brand-accent-lighter) 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  Today.
-                </span>
+                {page.heroHeading}
+                {page.heroHeadingAccent && (
+                  <>
+                    <br />
+                    <span
+                      style={{
+                        background:
+                          "linear-gradient(90deg, var(--brand-accent) 0%, var(--brand-accent-light) 60%, var(--brand-accent-lighter) 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }}
+                    >
+                      {page.heroHeadingAccent}
+                    </span>
+                  </>
+                )}
               </motion.h1>
 
-              {/* Subheading */}
-              <motion.p
-                custom={2}
-                variants={fadeUp}
-                initial="hidden"
-                animate="visible"
-                className="text-slate-400 text-lg leading-relaxed max-w-lg"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
-              >
-                We'll survey your property, recommend exactly what you need, and
-                give you a written quote with no hidden fees. No pressure. No
-                obligation.
-              </motion.p>
+              {heroSubheading && (
+                <motion.p
+                  custom={2}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate="visible"
+                  className="text-slate-400 text-lg leading-relaxed max-w-lg"
+                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                >
+                  {heroSubheading}
+                </motion.p>
+              )}
 
-              {/* What's included list */}
               <motion.ul
                 custom={3}
                 variants={fadeUp}
@@ -447,10 +437,7 @@ export default function SecuritySystemsClient({
               >
                 {includes.map((item) => (
                   <li key={item} className="flex items-center gap-3">
-                    <CheckCircle
-                      size={16}
-                      className="text-brand-accent shrink-0"
-                    />
+                    <CheckCircle size={16} className="text-brand-accent shrink-0" />
                     <span
                       className="text-slate-300 text-sm"
                       style={{ fontFamily: "'DM Sans', sans-serif" }}
@@ -461,7 +448,6 @@ export default function SecuritySystemsClient({
                 ))}
               </motion.ul>
 
-              {/* Trust badges */}
               <motion.div
                 custom={4}
                 variants={fadeUp}
@@ -487,8 +473,6 @@ export default function SecuritySystemsClient({
             </div>
 
             {/* Right — form card */}
-            {/* The form is in a card with a visible border to make it
-                stand out from the background as its own distinct element */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -504,37 +488,31 @@ export default function SecuritySystemsClient({
                   className="text-2xl font-bold text-white mb-1"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
-                  Request Your Free Estimate
+                  {formHeading}
                 </h2>
                 <p
                   className="text-slate-500 text-sm"
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  We'll respond within 1 business day.
+                  {formSubheading}
                 </p>
               </div>
-              <EstimateForm />
+              <EstimateForm services={services} defaultService={defaultService} />
             </motion.div>
           </div>
         </section>
 
-        {/* ── TRUST BAR ─────────────────────────────────────────────────── */}
+        {/* ── STATS BAR ───────────────────────────────────────────────── */}
         <section className="relative bg-brand-surface py-12 overflow-hidden">
           <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
           <div className="max-w-6xl mx-auto px-6 md:px-16">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               {[
-                {
-                  value: settings.stats.installs,
-                  label: "Systems Installed",
-                },
+                { value: settings.stats.installs, label: "Systems Installed" },
                 { value: settings.stats.years, label: "Years Experience" },
                 { value: settings.stats.rating, label: "Google Rating" },
-                {
-                  value: settings.stats.satisfaction,
-                  label: "Satisfaction Rate",
-                },
+                { value: settings.stats.satisfaction, label: "Satisfaction Rate" },
               ].map((stat) => (
                 <div key={stat.label} className="flex flex-col gap-1">
                   <span
@@ -555,70 +533,65 @@ export default function SecuritySystemsClient({
           </div>
         </section>
 
-        {/* ── TESTIMONIALS ──────────────────────────────────────────────── */}
-        <section className="relative bg-brand-base py-20 overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
-
-          <div className="max-w-6xl mx-auto px-6 md:px-16">
-            <p
-              className="text-brand-accent text-xs uppercase tracking-widest text-center mb-10"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
-            >
-              What Customers Say
-            </p>
-            <div
-              className={
-                testimonials.length === 1
-                  ? "grid grid-cols-1 gap-6 max-w-lg mx-auto"
-                  : testimonials.length === 2
-                    ? "grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto"
-                    : "grid grid-cols-1 md:grid-cols-3 gap-6"
-              }
-            >
-              {testimonials.map((t) => (
-                <div
-                  key={t.name}
-                  className="p-6 rounded-sm border border-white/5 bg-brand-surface flex flex-col gap-4"
-                >
-                  {/* Stars */}
-                  <div className="flex gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        size={12}
-                        className="text-brand-accent fill-brand-accent"
-                      />
-                    ))}
-                  </div>
-                  <p
-                    className="text-slate-300 text-sm leading-relaxed flex-1"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+        {/* ── TESTIMONIALS ────────────────────────────────────────────── */}
+        {testimonials.length > 0 && (
+          <section className="relative bg-brand-base py-20 overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+            <div className="max-w-6xl mx-auto px-6 md:px-16">
+              <p
+                className="text-brand-accent text-xs uppercase tracking-widest text-center mb-10"
+                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              >
+                What Customers Say
+              </p>
+              <div
+                className={
+                  testimonials.length === 1
+                    ? "grid grid-cols-1 gap-6 max-w-lg mx-auto"
+                    : testimonials.length === 2
+                      ? "grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto"
+                      : "grid grid-cols-1 md:grid-cols-3 gap-6"
+                }
+              >
+                {testimonials.map((t) => (
+                  <div
+                    key={t.name}
+                    className="p-6 rounded-sm border border-white/5 bg-brand-surface flex flex-col gap-4"
                   >
-                    "{t.quote}"
-                  </p>
-                  <div>
+                    <div className="flex gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={12} className="text-brand-accent fill-brand-accent" />
+                      ))}
+                    </div>
                     <p
-                      className="text-white text-sm font-bold"
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
-                    >
-                      {t.name}
-                    </p>
-                    <p
-                      className="text-slate-500 text-xs"
+                      className="text-slate-300 text-sm leading-relaxed flex-1"
                       style={{ fontFamily: "'DM Sans', sans-serif" }}
                     >
-                      {t.location}
+                      &ldquo;{t.quote}&rdquo;
                     </p>
+                    <div>
+                      <p
+                        className="text-white text-sm font-bold"
+                        style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      >
+                        {t.name}
+                      </p>
+                      <p
+                        className="text-slate-500 text-xs"
+                        style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      >
+                        {t.location}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* ── BOTTOM CTA ────────────────────────────────────────────────── */}
-        {/* Repeat the form at the bottom for visitors who scrolled past the hero */}
+        {/* ── BOTTOM CTA ──────────────────────────────────────────────── */}
         <section className="relative bg-brand-surface py-20 overflow-hidden">
           <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
           <div className="absolute top-6 left-6 w-8 h-8 border-l border-t border-brand-accent/20" />
@@ -632,20 +605,19 @@ export default function SecuritySystemsClient({
                 className="text-brand-accent text-xs uppercase tracking-widest mb-4"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
-                Still Have Questions?
+                {bottomCtaEyebrow}
               </p>
               <h2
                 className="text-4xl font-bold text-white mb-4"
                 style={{ fontFamily: "'Rajdhani', sans-serif" }}
               >
-                Talk to Us First
+                {bottomCtaHeading}
               </h2>
               <p
                 className="text-slate-400 leading-relaxed"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
-                Prefer to speak with someone before filling out a form? Give us
-                a call and we'll answer any questions you have.
+                {bottomCtaBody}
               </p>
               <a
                 href={siteConfig.phoneHref}
@@ -664,7 +636,7 @@ export default function SecuritySystemsClient({
               >
                 Or Request Your Free Estimate Online
               </h3>
-              <EstimateForm />
+              <EstimateForm services={services} defaultService={defaultService} />
             </div>
           </div>
         </section>

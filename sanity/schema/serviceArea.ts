@@ -23,6 +23,13 @@ export const serviceArea = {
       type: "array",
       of: [{ type: "string" }],
     },
+    {
+      name: "includesList",
+      title: "Includes List",
+      type: "array",
+      description: "Checklist bullets shown in the hero section. Leave blank to use the site default.",
+      of: [{ type: "string" }],
+    },
   ],
   preview: {
     select: { title: "name", subtitle: "region" },

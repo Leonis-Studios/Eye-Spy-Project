@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
+import { siteConfig } from "@/app/config/site";
 
 export const metadata: Metadata = {
-  title: "About Us | SecurTech Security Systems",
-  description:
-    "Meet the SecurTech team. 15 years of professional security system installation for homes and businesses. Licensed, insured, and locally owned.",
+  title: `About Us | ${siteConfig.name}`,
+  description: `Meet the ${siteConfig.name} team. Professional security system installation for homes and businesses. Licensed, insured, and locally owned.`,
 };
 
-export default function AboutLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AboutLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

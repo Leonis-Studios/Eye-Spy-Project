@@ -2,48 +2,62 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { siteConfig } from "./config/site";
 import { getSiteSettings } from "./lib/getSiteSettings";
+import { getServices } from "./lib/getServices";
 import JsonLd from "./components/JsonLd";
 
-export const metadata: Metadata = {
-  title: siteConfig.seo.title,
-  description: siteConfig.seo.description,
-  keywords: siteConfig.seo.keywords,
-  openGraph: {
-    title: siteConfig.seo.title,
-    description: siteConfig.seo.description,
-    url: siteConfig.seo.url,
-    siteName: siteConfig.name,
-    type: "website",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.seo.title,
-    description: siteConfig.seo.description,
-  },
-  metadataBase: new URL(siteConfig.seo.url),
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const siteName = settings.siteName || siteConfig.name;
+  const description = settings.description || siteConfig.description;
+  const siteUrl = settings.siteUrl || siteConfig.seo.url;
+
+  return {
+    title: `${siteName} | Security System Installation`,
+    description,
+    keywords: siteConfig.seo.keywords,
+    openGraph: {
+      title: `${siteName} | Security System Installation`,
+      description,
+      url: siteUrl,
+      siteName,
+      type: "website",
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${siteName} | Security System Installation`,
+      description,
+    },
+    metadataBase: new URL(siteUrl),
+  };
+}
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settings = await getSiteSettings();
+  const [settings, services] = await Promise.all([
+    getSiteSettings(),
+    getServices(),
+  ]);
+
+  const siteUrl = settings.siteUrl || siteConfig.seo.url;
+  const reviewCount = settings.reviewCount ?? 124;
+  const ratingValue = settings.stats.rating.replace("★", "").trim();
 
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "SecurityService"],
-    "@id": `${siteConfig.seo.url}/#business`,
+    "@id": `${siteUrl}/#business`,
     name: settings.siteName,
-    alternateName: "SecurTech",
     description: settings.description,
-    url: siteConfig.seo.url,
+    url: siteUrl,
     logo: {
       "@type": "ImageObject",
-      url: `${siteConfig.seo.url}/logopng.png`,
+      url: `${siteUrl}/logopng.png`,
     },
-    image: `${siteConfig.seo.url}/logopng.png`,
+    image: `${siteUrl}/logopng.png`,
     telephone: settings.phone,
     email: settings.email,
     address: {
@@ -74,22 +88,22 @@ export default async function RootLayout({
     ],
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "124",
+      ratingValue,
+      reviewCount: String(reviewCount),
       bestRating: "5",
       worstRating: "1",
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Security System Installation Services",
-      itemListElement: siteConfig.services
-        .filter((s) => s.value !== "other")
+      itemListElement: services
+        .filter((s) => s.slug !== "other")
         .map((s) => ({
           "@type": "Offer",
           itemOffered: {
             "@type": "Service",
-            name: s.label,
-            url: `${siteConfig.seo.url}/services/${s.value}`,
+            name: s.title,
+            url: `${siteUrl}/services/${s.slug}`,
           },
         })),
     },
@@ -97,19 +111,18 @@ export default async function RootLayout({
       settings.social.facebook,
       settings.social.instagram,
       settings.social.google,
-    ],
+    ].filter(Boolean),
   };
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${siteConfig.seo.url}/#organization`,
+    "@id": `${siteUrl}/#organization`,
     name: settings.siteName,
-    alternateName: "SecurTech",
-    url: siteConfig.seo.url,
+    url: siteUrl,
     logo: {
       "@type": "ImageObject",
-      url: `${siteConfig.seo.url}/logopng.png`,
+      url: `${siteUrl}/logopng.png`,
     },
     contactPoint: {
       "@type": "ContactPoint",
@@ -121,7 +134,19 @@ export default async function RootLayout({
       settings.social.facebook,
       settings.social.instagram,
       settings.social.google,
-    ],
+    ].filter(Boolean),
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    url: siteUrl,
+    name: settings.siteName,
+    publisher: {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+    },
   };
 
   return (
@@ -129,6 +154,7 @@ export default async function RootLayout({
       <head>
         <JsonLd schema={localBusinessSchema} />
         <JsonLd schema={organizationSchema} />
+        <JsonLd schema={websiteSchema} />
       </head>
       <body className="antialiased">{children}</body>
     </html>
