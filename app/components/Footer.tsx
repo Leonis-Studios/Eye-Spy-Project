@@ -39,9 +39,9 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
               <Image
                 src={siteConfig.brand.logo}
                 alt={siteConfig.brand.logoAlt}
-                width={200}
-                height={60}
-                className="h-12 w-auto object-contain"
+                width={210}
+                height={64}
+                className="h-16 w-auto object-contain"
                 priority
               />
             </Link>

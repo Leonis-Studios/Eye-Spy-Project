@@ -37,9 +37,15 @@ import { type SiteSettings, type Service } from "../lib/types";
 export default function Hero({
   settings,
   services = [],
+  heroHeading = "Security Systems",
+  heroHeadingAccent = "Built to Protect.",
+  heroSubheading = "From cameras and access control to full alarm systems — we design, install, and support security solutions that give you real peace of mind.",
 }: {
   settings: SiteSettings;
   services?: Service[];
+  heroHeading?: string;
+  heroHeadingAccent?: string;
+  heroSubheading?: string;
 }) {
   // ─── REFS ──────────────────────────────────────────────────────────────────
   // useRef creates a reference to a real DOM element.
@@ -331,7 +337,7 @@ export default function Hero({
           className="text-5xl md:text-7xl font-bold text-text-primary leading-[1.06] tracking-tight mb-6"
           style={{ fontFamily: "'Rajdhani', sans-serif" }}
         >
-          Security Systems
+          {heroHeading}
           <br />
           {/* Gradient text technique:
               1. Set a gradient as the background of this span
@@ -348,7 +354,7 @@ export default function Hero({
               WebkitTextFillColor: "transparent",
             }}
           >
-            Built to Protect.
+            {heroHeadingAccent}
           </span>
         </motion.h1>
 
@@ -366,9 +372,7 @@ export default function Hero({
           className="text-text-secondary text-lg md:text-xl max-w-2xl leading-relaxed mb-10"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
-          From cameras and access control to full alarm systems — we design,
-          install, and support security solutions that give you real peace of
-          mind.
+          {heroSubheading}
         </motion.p>
 
         {/* ── CTA BUTTONS ─────────────────────────────────────────────────────

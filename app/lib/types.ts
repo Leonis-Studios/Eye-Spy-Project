@@ -20,6 +20,9 @@ export interface AboutPageData {
   ctaHeading?: string;
   ctaBody?: string;
   ctaButtonLabel?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: any;
 }
 
 // ─── CONTACT PAGE ─────────────────────────────────────────────────────────────
@@ -34,6 +37,9 @@ export interface ContactPageData {
   infoHeading?: string;
   serviceAreaLabel?: string;
   serviceAreaNote?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: any;
 }
 
 // ─── HOW IT WORKS ─────────────────────────────────────────────────────────────
@@ -52,6 +58,9 @@ export interface BenefitItem {
 
 // ─── HOME PAGE ────────────────────────────────────────────────────────────────
 export interface HomePageData {
+  heroHeading?: string;
+  heroHeadingAccent?: string;
+  heroSubheading?: string;
   benefitsEyebrow?: string;
   benefitsHeading?: string;
   benefitsSubheading?: string;
@@ -60,6 +69,9 @@ export interface HomePageData {
   howItWorksHeading?: string;
   howItWorksSubheading?: string;
   howItWorksSteps?: HowItWorksStep[];
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: any;
 }
 
 // ─── SITE SETTINGS ────────────────────────────────────────────────────────────
@@ -101,6 +113,7 @@ export interface BlogPost {
   date: string;
   featured: boolean;
   content?: any[];
+  ogImage?: any;
 }
 
 // ─── TESTIMONIAL ──────────────────────────────────────────────────────────────
@@ -144,6 +157,10 @@ export interface ServiceArea {
   description: string;
   nearbyAreas: string[];
   includesList?: string[];
+  formPhotos?: { asset: any; alt?: string }[];
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: any;
 }
 
 // ─── SERVICE LANDING PAGE ─────────────────────────────────────────────────────
@@ -160,8 +177,10 @@ export interface ServiceLandingPage {
   bottomCtaEyebrow?: string;
   bottomCtaHeading?: string;
   bottomCtaBody?: string;
+  formPhotos?: { asset: any; alt?: string }[];
   metaTitle?: string;
   metaDescription?: string;
+  ogImage?: any;
   linkedService?: {
     title: string;
     slug: string;
@@ -181,6 +200,7 @@ export interface ServicePage {
   features?: string[];
   metaTitle?: string;
   metaDescription?: string;
+  ogImage?: any;
   // Pricing fields — optional; only present when priceLabel is set
   priceLabel?: string;
   priceNote?: string;
@@ -222,4 +242,7 @@ export interface PricingPage {
   bottomCtaText?: string;
   faqTitle?: string;
   faqItems?: PricingFaqItem[];
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: any;
 }

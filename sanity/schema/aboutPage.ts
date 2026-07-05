@@ -8,6 +8,7 @@ export const aboutPage = {
     { name: "story", title: "📖 Our Story Section" },
     { name: "values", title: "💡 Core Values Section" },
     { name: "cta", title: "📣 CTA Section" },
+    { name: "seo", title: "🔍 SEO" },
   ],
   fields: [
     // ── Hero ──────────────────────────────────────────────────────────────────
@@ -157,6 +158,30 @@ export const aboutPage = {
       type: "string",
       fieldset: "cta",
       description: 'Example: "Get a Free Estimate"',
+    },
+
+    // ── SEO ───────────────────────────────────────────────────────────────────
+    {
+      name: "metaTitle",
+      title: "Meta Title",
+      type: "string",
+      fieldset: "seo",
+      description: "SEO title shown in browser tabs and search results.",
+    },
+    {
+      name: "metaDescription",
+      title: "Meta Description",
+      type: "string",
+      fieldset: "seo",
+      description: "SEO description shown in search results.",
+    },
+    {
+      name: "ogImage",
+      title: "Social Share Image",
+      type: "image",
+      fieldset: "seo",
+      options: { hotspot: true },
+      description: "Image shown when this page is shared on social media. Recommended size: 1200x630.",
     },
   ],
 

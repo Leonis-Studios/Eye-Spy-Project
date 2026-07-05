@@ -3,6 +3,7 @@ import "./globals.css";
 import { siteConfig } from "./config/site";
 import { getSiteSettings } from "./lib/getSiteSettings";
 import { getServices } from "./lib/getServices";
+import { buildMetadata } from "./lib/seo";
 import JsonLd from "./components/JsonLd";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,23 +12,18 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = settings.description || siteConfig.description;
   const siteUrl = settings.siteUrl || siteConfig.seo.url;
 
-  return {
+  const base = buildMetadata({
     title: `${siteName} | Security System Installation`,
     description,
+    path: "/",
+    siteUrl,
+    siteName,
+  });
+
+  return {
+    ...base,
+    openGraph: { ...base.openGraph, locale: "en_US" },
     keywords: siteConfig.seo.keywords,
-    openGraph: {
-      title: `${siteName} | Security System Installation`,
-      description,
-      url: siteUrl,
-      siteName,
-      type: "website",
-      locale: "en_US",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${siteName} | Security System Installation`,
-      description,
-    },
     metadataBase: new URL(siteUrl),
   };
 }

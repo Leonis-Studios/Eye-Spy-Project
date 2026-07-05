@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "../components/Hero";
 import SocialProof from "../components/SocialProof";
 import Benefits from "../components/Benefits";
@@ -16,6 +17,26 @@ import { testimonialsQuery, faqQuery, homePageQuery } from "../lib/queries";
 import { type Testimonial, type FaqItem, type HomePageData } from "../lib/types";
 import { howItWorksSteps } from "../config/howItWorks";
 import { siteConfig } from "../config/site";
+import { buildMetadata } from "../lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const [settings, homePage] = await Promise.all([
+    getSiteSettings(),
+    sanityFetch<HomePageData | null>(homePageQuery),
+  ]);
+
+  const siteName = settings.siteName || siteConfig.name;
+  const siteUrl = settings.siteUrl || siteConfig.seo.url;
+
+  return buildMetadata({
+    title: homePage?.metaTitle ?? `${siteName} | Security System Installation`,
+    description: homePage?.metaDescription ?? (settings.description || siteConfig.description),
+    path: "/",
+    siteUrl,
+    siteName,
+    ogImage: homePage?.ogImage,
+  });
+}
 
 export default async function Home() {
   const [settings, testimonials, faqItems, services, homePage] = await Promise.all([
@@ -66,7 +87,13 @@ export default async function Home() {
     <main className="bg-brand-base">
       {faqPageSchema && <JsonLd schema={faqPageSchema} />}
       <JsonLd schema={howToSchema} />
-      <Hero settings={settings} services={services} />
+      <Hero
+        settings={settings}
+        services={services}
+        heroHeading={homePage?.heroHeading}
+        heroHeadingAccent={homePage?.heroHeadingAccent}
+        heroSubheading={homePage?.heroSubheading}
+      />
       <CableSeparator variant="patch-panel" topColor="#050d1a" bottomColor="#070f1e" />
       <SocialProof settings={settings} />
       <CableSeparator variant="switch" topColor="#070f1e" bottomColor="#070f1e" />

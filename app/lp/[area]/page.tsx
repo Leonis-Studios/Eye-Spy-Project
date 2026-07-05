@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getSiteSettings } from "@/app/lib/getSiteSettings";
 import { sanityFetch } from "@/app/lib/sanity";
 import {
@@ -16,6 +17,7 @@ import {
   type Service,
 } from "@/app/lib/types";
 import { siteConfig } from "@/app/config/site";
+import { buildMetadata } from "@/app/lib/seo";
 import JsonLd from "@/app/components/JsonLd";
 import AreaLandingClient from "./AreaLandingClient";
 import ServiceLandingClient from "./ServiceLandingClient";
@@ -26,6 +28,48 @@ export async function generateStaticParams() {
     sanityFetch<{ slug: string }[]>(allAreaSlugsQuery),
   ]);
   return [...lpSlugs, ...areaSlugs].map(({ slug }) => ({ area: slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ area: string }>;
+}): Promise<Metadata> {
+  const { area } = await params;
+
+  const [settings, serviceLP, areaData] = await Promise.all([
+    getSiteSettings(),
+    sanityFetch<ServiceLandingPage | null>(singleServiceLandingPageQuery, { slug: area }),
+    sanityFetch<ServiceArea | null>(singleAreaQuery, { slug: area }),
+  ]);
+
+  const siteName = settings.siteName || siteConfig.name;
+  const siteUrl = settings.siteUrl || siteConfig.seo.url;
+  const path = `/lp/${area}`;
+
+  if (serviceLP) {
+    return buildMetadata({
+      title: serviceLP.metaTitle ?? `${serviceLP.heroHeading} | ${siteName}`,
+      description: serviceLP.metaDescription ?? serviceLP.heroSubheading,
+      path,
+      siteUrl,
+      siteName,
+      ogImage: serviceLP.ogImage,
+    });
+  }
+
+  if (areaData) {
+    return buildMetadata({
+      title: areaData.metaTitle ?? `Security Systems in ${areaData.name} | ${siteName}`,
+      description: areaData.metaDescription ?? areaData.description,
+      path,
+      siteUrl,
+      siteName,
+      ogImage: areaData.ogImage,
+    });
+  }
+
+  return { title: `Page Not Found | ${siteName}` };
 }
 
 export default async function LandingPage({

@@ -94,6 +94,28 @@ export const serviceLandingPage = {
       description: "Small text below the form heading.",
       initialValue: "We'll respond within 1 business day.",
     },
+    {
+      name: "formPhotos",
+      title: "Photos Above Form (Bottom Section)",
+      type: "array",
+      group: "form",
+      description:
+        "Optional photos shown in a carousel above the estimate form near the bottom of the page. Leave empty to hide this section.",
+      of: [
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            {
+              name: "alt",
+              title: "Image Description",
+              type: "string",
+              description: "Describe the image for accessibility and SEO.",
+            },
+          ],
+        },
+      ],
+    },
 
     // ── Bottom CTA ────────────────────────────────────────────────────────────
     {
@@ -133,6 +155,14 @@ export const serviceLandingPage = {
       type: "string",
       group: "seo",
       description: "Search result snippet. 150–160 characters recommended.",
+    },
+    {
+      name: "ogImage",
+      title: "Social Share Image",
+      type: "image",
+      group: "seo",
+      options: { hotspot: true },
+      description: "Image shown when this page is shared on social media. Recommended size: 1200x630.",
     },
   ],
   preview: {

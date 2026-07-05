@@ -38,7 +38,8 @@ export const singlePostQuery = `
     readTime,
     date,
     featured,
-    content
+    content,
+    ogImage
   }
 `;
 
@@ -108,7 +109,11 @@ export const singleAreaQuery = `
     region,
     description,
     nearbyAreas,
-    includesList
+    includesList,
+    formPhotos[]{ asset, alt },
+    metaTitle,
+    metaDescription,
+    ogImage
   }
 `;
 
@@ -131,8 +136,10 @@ export const singleServiceLandingPageQuery = `
     bottomCtaEyebrow,
     bottomCtaHeading,
     bottomCtaBody,
+    formPhotos[]{ asset, alt },
     metaTitle,
     metaDescription,
+    ogImage,
     linkedService->{
       title,
       "slug": slug.current,
@@ -166,7 +173,8 @@ export const singleServicePageQuery = `
     images[]{ asset, alt },
     features,
     metaTitle,
-    metaDescription
+    metaDescription,
+    ogImage
   }
 `;
 
@@ -190,7 +198,10 @@ export const aboutPageQuery = `
     ctaEyebrow,
     ctaHeading,
     ctaBody,
-    ctaButtonLabel
+    ctaButtonLabel,
+    metaTitle,
+    metaDescription,
+    ogImage
   }
 `;
 
@@ -206,7 +217,10 @@ export const contactPageQuery = `
     successBody,
     infoHeading,
     serviceAreaLabel,
-    serviceAreaNote
+    serviceAreaNote,
+    metaTitle,
+    metaDescription,
+    ogImage
   }
 `;
 
@@ -214,6 +228,9 @@ export const contactPageQuery = `
 // Singleton — returns the homePage document with Benefits + HowItWorks content.
 export const homePageQuery = `
   *[_type == "homePage"][0]{
+    heroHeading,
+    heroHeadingAccent,
+    heroSubheading,
     benefitsEyebrow,
     benefitsHeading,
     benefitsSubheading,
@@ -229,7 +246,10 @@ export const homePageQuery = `
       step,
       title,
       description
-    }
+    },
+    metaTitle,
+    metaDescription,
+    ogImage
   }
 `;
 
@@ -250,7 +270,10 @@ export const pricingPageQuery = `
       _key,
       question,
       answer
-    }
+    },
+    metaTitle,
+    metaDescription,
+    ogImage
   }
 `;
 

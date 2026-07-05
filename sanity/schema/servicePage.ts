@@ -101,6 +101,13 @@ export const servicePage = {
       description: "SEO description shown in search results. Defaults to the short description if left blank.",
     },
     {
+      name: "ogImage",
+      title: "Social Share Image",
+      type: "image",
+      options: { hotspot: true },
+      description: "Image shown when this page is shared on social media. Recommended size: 1200x630. Defaults to the first gallery image if left blank.",
+    },
+    {
       name: "order",
       title: "Sort Order",
       type: "number",

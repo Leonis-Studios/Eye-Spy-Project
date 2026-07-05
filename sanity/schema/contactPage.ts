@@ -7,6 +7,7 @@ export const contactPage = {
     { name: "hero", title: "🏠 Hero Section" },
     { name: "form", title: "📝 Form Section" },
     { name: "info", title: "📋 Contact Info Section" },
+    { name: "seo", title: "🔍 SEO" },
   ],
   fields: [
     // ── Hero ──────────────────────────────────────────────────────────────────
@@ -86,6 +87,30 @@ export const contactPage = {
       rows: 2,
       fieldset: "info",
       description: "Extra sentence after the service area. Example: \"Not sure if we cover your area? Give us a call.\"",
+    },
+
+    // ── SEO ───────────────────────────────────────────────────────────────────
+    {
+      name: "metaTitle",
+      title: "Meta Title",
+      type: "string",
+      fieldset: "seo",
+      description: "SEO title shown in browser tabs and search results.",
+    },
+    {
+      name: "metaDescription",
+      title: "Meta Description",
+      type: "string",
+      fieldset: "seo",
+      description: "SEO description shown in search results.",
+    },
+    {
+      name: "ogImage",
+      title: "Social Share Image",
+      type: "image",
+      fieldset: "seo",
+      options: { hotspot: true },
+      description: "Image shown when this page is shared on social media. Recommended size: 1200x630.",
     },
   ],
 

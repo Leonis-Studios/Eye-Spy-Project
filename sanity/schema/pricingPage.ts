@@ -86,6 +86,26 @@ export const pricingPage = {
         },
       ],
     },
+    // ── SEO ───────────────────────────────────────────────────────────────────
+    {
+      name: "metaTitle",
+      title: "Meta Title",
+      type: "string",
+      description: "SEO title shown in browser tabs and search results. Defaults to the page title if left blank.",
+    },
+    {
+      name: "metaDescription",
+      title: "Meta Description",
+      type: "string",
+      description: "SEO description shown in search results.",
+    },
+    {
+      name: "ogImage",
+      title: "Social Share Image",
+      type: "image",
+      options: { hotspot: true },
+      description: "Image shown when this page is shared on social media. Recommended size: 1200x630.",
+    },
   ],
 
   preview: {

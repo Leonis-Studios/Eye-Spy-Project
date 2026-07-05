@@ -18,6 +18,8 @@ import { serviceAreas } from "../../config/areas";
 import { type SiteSettings, type Testimonial, type Service, type ServiceArea } from "../../lib/types";
 import Image from "next/image";
 import Link from "next/link";
+import { urlFor } from "../../lib/sanity";
+import PhotoCarousel from "../../components/PhotoCarousel";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 interface FormData {
@@ -48,9 +50,9 @@ function LandingHeader({ settings }: { settings: SiteSettings }) {
           <Image
             src={siteConfig.brand.logo}
             alt={siteConfig.brand.logoAlt}
-            width={140}
-            height={40}
-            className="h-8 w-auto object-contain"
+            width={195}
+            height={56}
+            className="h-14 w-auto object-contain"
             priority
           />
         </Link>
@@ -708,6 +710,12 @@ export default function AreaLandingClient({
                 {settings.phone}
               </a>
             </div>
+            <PhotoCarousel
+              images={(areaData.formPhotos ?? []).map((img) => ({
+                url: urlFor(img.asset).width(1200).url(),
+                alt: img.alt,
+              }))}
+            />
             <div className="bg-brand-surface border border-white/10 rounded-sm p-8">
               <h3
                 className="text-xl font-bold text-white mb-6"

@@ -5,6 +5,7 @@ import { singlePostQuery, allPostsQuery } from "@/app/lib/queries";
 import { type BlogPost } from "@/app/lib/types";
 import { siteConfig } from "@/app/config/site";
 import { parseMonthYearToISO } from "@/app/lib/utils";
+import { buildMetadata } from "@/app/lib/seo";
 import JsonLd from "@/app/components/JsonLd";
 import BlogPostClient from "./BlogPostClient";
 
@@ -18,10 +19,14 @@ export async function generateMetadata({
 
   if (!post) return { title: `Post Not Found | ${siteConfig.name}` };
 
-  return {
+  return buildMetadata({
     title: `${post.title} | ${siteConfig.name} Blog`,
     description: post.excerpt,
-  };
+    path: `/blog/${slug}`,
+    siteUrl: siteConfig.seo.url,
+    siteName: siteConfig.name,
+    ogImage: post.ogImage,
+  });
 }
 
 export default async function BlogPostPage({

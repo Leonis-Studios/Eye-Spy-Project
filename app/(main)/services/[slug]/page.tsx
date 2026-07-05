@@ -9,6 +9,7 @@ import { type ServicePage } from "@/app/lib/types";
 import { getServices } from "@/app/lib/getServices";
 import { getSiteSettings } from "@/app/lib/getSiteSettings";
 import { siteConfig } from "@/app/config/site";
+import { buildMetadata } from "@/app/lib/seo";
 import JsonLd from "@/app/components/JsonLd";
 import ServicePageClient from "./ServicePageClient";
 
@@ -29,12 +30,17 @@ export async function generateMetadata({
   ]);
 
   const siteName = settings.siteName || siteConfig.name;
+  const siteUrl = settings.siteUrl || siteConfig.seo.url;
   if (!service) return { title: `Service Not Found | ${siteName}` };
 
-  return {
+  return buildMetadata({
     title: service.metaTitle ?? `${service.title} | ${siteName}`,
     description: service.metaDescription ?? service.shortDescription,
-  };
+    path: `/services/${slug}`,
+    siteUrl,
+    siteName,
+    ogImage: service.ogImage ?? service.images?.[0]?.asset,
+  });
 }
 
 export default async function ServiceDetailPage({

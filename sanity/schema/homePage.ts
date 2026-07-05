@@ -4,10 +4,40 @@ export const homePage = {
   type: "document",
   __experimental_actions: ["update", "publish"],
   fieldsets: [
+    { name: "hero", title: "🏠 Hero Section" },
     { name: "benefits", title: "✅ Benefits Section" },
     { name: "howItWorks", title: "🔧 How It Works Section" },
+    { name: "seo", title: "🔍 SEO" },
   ],
   fields: [
+    // ── Hero ─────────────────────────────────────────────────────────────────────
+    {
+      name: "heroHeading",
+      title: "Hero Heading",
+      type: "string",
+      fieldset: "hero",
+      initialValue: "Security Systems",
+      description: 'First line of the hero headline. Example: "Security Systems"',
+    },
+    {
+      name: "heroHeadingAccent",
+      title: "Hero Heading Accent (gradient line)",
+      type: "string",
+      fieldset: "hero",
+      initialValue: "Built to Protect.",
+      description: 'Second line, shown in the gradient accent color. Example: "Built to Protect."',
+    },
+    {
+      name: "heroSubheading",
+      title: "Hero Subheading",
+      type: "text",
+      rows: 3,
+      fieldset: "hero",
+      initialValue:
+        "From cameras and access control to full alarm systems — we design, install, and support security solutions that give you real peace of mind.",
+      description: "1-sentence paragraph shown below the hero headline.",
+    },
+
     // ── Benefits ────────────────────────────────────────────────────────────────
     {
       name: "benefitsEyebrow",
@@ -135,6 +165,30 @@ export const homePage = {
           },
         },
       ],
+    },
+
+    // ── SEO ───────────────────────────────────────────────────────────────────────
+    {
+      name: "metaTitle",
+      title: "Meta Title",
+      type: "string",
+      fieldset: "seo",
+      description: "SEO title shown in browser tabs and search results. Defaults to the site name if left blank.",
+    },
+    {
+      name: "metaDescription",
+      title: "Meta Description",
+      type: "string",
+      fieldset: "seo",
+      description: "SEO description shown in search results. Defaults to the site description if left blank.",
+    },
+    {
+      name: "ogImage",
+      title: "Social Share Image",
+      type: "image",
+      fieldset: "seo",
+      options: { hotspot: true },
+      description: "Image shown when this page is shared on social media. Recommended size: 1200x630.",
     },
   ],
 };

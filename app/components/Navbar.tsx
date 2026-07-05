@@ -66,9 +66,9 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
             <Image
               src={siteConfig.brand.logo}
               alt={siteConfig.brand.logoAlt}
-              width={200}
-              height={60}
-              className="h-14 w-auto object-contain"
+              width={260}
+              height={80}
+              className="h-20 w-auto object-contain"
               priority
             />
           </Link>

@@ -5,6 +5,7 @@ import { getServices } from "@/app/lib/getServices";
 import { getSiteSettings } from "@/app/lib/getSiteSettings";
 import { type PricingPage, type PricingService } from "@/app/lib/types";
 import { siteConfig } from "@/app/config/site";
+import { buildMetadata } from "@/app/lib/seo";
 import JsonLd from "@/app/components/JsonLd";
 import PricingPageClient from "./PricingPageClient";
 
@@ -15,14 +16,22 @@ export async function generateMetadata(): Promise<Metadata> {
   ]);
 
   const siteName = settings.siteName || siteConfig.name;
-  const title = pricingData?.pageTitle
-    ? `${pricingData.pageTitle} | ${siteName}`
-    : `Pricing | ${siteName}`;
+  const siteUrl = settings.siteUrl || siteConfig.seo.url;
+  const title = pricingData?.metaTitle
+    ?? (pricingData?.pageTitle ? `${pricingData.pageTitle} | ${siteName}` : `Pricing | ${siteName}`);
   const description =
+    pricingData?.metaDescription ??
     pricingData?.pageSubtitle ??
     `Transparent pricing for CCTV, alarm systems, access control, and cabling. No hidden fees — get a free estimate today.`;
 
-  return { title, description };
+  return buildMetadata({
+    title,
+    description,
+    path: "/pricing",
+    siteUrl,
+    siteName,
+    ogImage: pricingData?.ogImage,
+  });
 }
 
 export default async function PricingPage() {
