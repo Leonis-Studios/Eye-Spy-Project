@@ -632,10 +632,12 @@ export default function ServiceLandingClient({
             </div>
 
             <PhotoCarousel
-              images={(page.formPhotos ?? []).map((img) => ({
-                url: urlFor(img.asset).width(1200).url(),
-                alt: img.alt,
-              }))}
+              images={(page.formPhotos ?? [])
+                .filter((img) => img?.asset)
+                .map((img) => ({
+                  url: urlFor(img.asset).width(1200).url(),
+                  alt: img.alt,
+                }))}
             />
             <div className="bg-brand-base border border-white/10 rounded-sm p-8">
               <h3

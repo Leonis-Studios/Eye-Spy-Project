@@ -44,7 +44,8 @@ export default function ServicePageClient({
   const featuresInView = useInView(featuresRef, { once: true, amount: 0.2 });
   const galleryInView = useInView(galleryRef, { once: true, amount: 0.1 });
 
-  const hasImages = service.images && service.images.length > 0;
+  const galleryImages = service.images?.filter((img) => img?.asset) ?? [];
+  const hasImages = galleryImages.length > 0;
   const hasFeatures = service.features && service.features.length > 0;
   const hasLongDescription =
     service.longDescription && service.longDescription.length > 0;
@@ -226,7 +227,7 @@ export default function ServicePageClient({
               animate={galleryInView ? "visible" : "hidden"}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
             >
-              {service.images!.map((img, i) => (
+              {galleryImages.map((img, i) => (
                 <motion.div
                   key={i}
                   variants={itemVariants}

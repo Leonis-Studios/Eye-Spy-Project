@@ -711,10 +711,12 @@ export default function AreaLandingClient({
               </a>
             </div>
             <PhotoCarousel
-              images={(areaData.formPhotos ?? []).map((img) => ({
-                url: urlFor(img.asset).width(1200).url(),
-                alt: img.alt,
-              }))}
+              images={(areaData.formPhotos ?? [])
+                .filter((img) => img?.asset)
+                .map((img) => ({
+                  url: urlFor(img.asset).width(1200).url(),
+                  alt: img.alt,
+                }))}
             />
             <div className="bg-brand-surface border border-white/10 rounded-sm p-8">
               <h3

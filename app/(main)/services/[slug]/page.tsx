@@ -39,7 +39,7 @@ export async function generateMetadata({
     path: `/services/${slug}`,
     siteUrl,
     siteName,
-    ogImage: service.ogImage ?? service.images?.[0]?.asset,
+    ogImage: service.ogImage ?? (service.images?.[0]?.asset ? service.images[0].asset : undefined),
   });
 }
 

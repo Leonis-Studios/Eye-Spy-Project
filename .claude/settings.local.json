@@ -3,7 +3,9 @@
     "allow": [
       "Bash(xargs grep *)",
       "Bash(npx tsc *)",
-      "Bash(ls -la /c/next.js/project_sec/*.config.*)"
+      "Bash(ls -la /c/next.js/project_sec/*.config.*)",
+      "Bash(npm run *)",
+      "Bash(rm -rf .next)"
     ]
   }
 }
