@@ -13,6 +13,7 @@ interface FormData {
   address: string;
   serviceType: string;
   message: string;
+  website: string; // honeypot — humans leave this blank
 }
 
 type FormErrors = Partial<Record<keyof FormData, string>>;
@@ -34,11 +35,13 @@ export default function EstimateForm({
     address: "",
     serviceType: initialService,
     message: "",
+    website: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     const handleSelectService = (e: Event) => {
@@ -83,10 +86,26 @@ export default function EstimateForm({
       setErrors(validationErrors);
       return;
     }
+    setSubmitError(null);
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const res = await fetch("/api/estimate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error ?? "Submission failed");
+      }
+      setIsSubmitted(true);
+    } catch {
+      setSubmitError(
+        "Something went wrong — please try again or call us directly.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const sectionVariants: Variants = {
@@ -106,7 +125,7 @@ export default function EstimateForm({
     <label
       htmlFor={htmlFor}
       className="flex items-center gap-2 text-xs mb-2"
-      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+      style={{ fontFamily: "var(--font-rajdhani)" }}
     >
       <span className="font-mono text-brand-accent/60 tracking-widest uppercase text-[9px]">PORT /</span>
       <span className="uppercase tracking-widest text-text-secondary">{children}</span>
@@ -127,13 +146,13 @@ export default function EstimateForm({
           <CheckCircle className="text-brand-accent mb-6" size={48} />
           <h2
             className="text-4xl font-bold text-text-primary mb-4"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Request Received!
           </h2>
           <p
             className="text-text-secondary text-lg leading-relaxed"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             Thanks {formData.name.split(" ")[0]} — we'll review your request and
             reach out within 1 business day to schedule your free estimate.
@@ -174,13 +193,13 @@ export default function EstimateForm({
           </div>
           <h2
             className="text-4xl md:text-5xl font-bold text-text-primary mb-4"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Get a Free Estimate
           </h2>
           <p
             className="text-text-secondary text-lg max-w-xl"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             Fill out the form below and we'll get back to you within 1 business
             day.
@@ -192,6 +211,16 @@ export default function EstimateForm({
           noValidate
           className="flex flex-col gap-5"
         >
+          <input
+            type="text"
+            name="website"
+            value={formData.website}
+            onChange={handleChange}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="absolute left-[-9999px] w-px h-px overflow-hidden"
+          />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <PortLabel htmlFor="name">Full Name</PortLabel>
@@ -203,7 +232,7 @@ export default function EstimateForm({
                 onChange={handleChange}
                 placeholder="John Smith"
                 className={`${inputClass} ${errors.name ? "border-red-500/50" : "border-white/5"}`}
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-dm-sans)" }}
               />
               {errors.name && (
                 <p className="text-text-error text-xs mt-1">{errors.name}</p>
@@ -220,7 +249,7 @@ export default function EstimateForm({
                 onChange={handleChange}
                 placeholder="(555) 000-0000"
                 className={`${inputClass} ${errors.phone ? "border-red-500/50" : "border-white/5"}`}
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-dm-sans)" }}
               />
               {errors.phone && (
                 <p className="text-text-error text-xs mt-1">{errors.phone}</p>
@@ -238,7 +267,7 @@ export default function EstimateForm({
               onChange={handleChange}
               placeholder="john@example.com"
               className={`${inputClass} ${errors.email ? "border-red-500/50" : "border-white/5"}`}
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             />
             {errors.email && (
               <p className="text-text-error text-xs mt-1">{errors.email}</p>
@@ -255,7 +284,7 @@ export default function EstimateForm({
               onChange={handleChange}
               placeholder="123 Main St, City, State"
               className={`${inputClass} ${errors.address ? "border-red-500/50" : "border-white/5"}`}
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             />
             {errors.address && (
               <p className="text-text-error text-xs mt-1">{errors.address}</p>
@@ -270,7 +299,7 @@ export default function EstimateForm({
               value={formData.serviceType}
               onChange={handleChange}
               className={`${inputClass} ${errors.serviceType ? "border-red-500/50" : "border-white/5"}`}
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               <option value="" disabled>
                 Select a service...
@@ -301,15 +330,19 @@ export default function EstimateForm({
               placeholder="Tell us about your property, any specific concerns, or questions..."
               rows={4}
               className={`${inputClass} border-white/5 resize-none`}
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             />
           </div>
+
+          {submitError && (
+            <p className="text-text-error text-sm text-center">{submitError}</p>
+          )}
 
           <button
             type="submit"
             disabled={isSubmitting}
             className="group flex items-center justify-center gap-3 bg-brand-accent text-brand-base font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {isSubmitting ? (
               <span className="flex items-center gap-2">
@@ -337,7 +370,7 @@ export default function EstimateForm({
 
           <p
             className="text-text-subtle text-xs text-center"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             No spam. No commitment. We'll contact you to schedule a convenient
             time.

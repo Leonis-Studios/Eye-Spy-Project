@@ -1,10 +1,26 @@
 import type { Metadata } from "next";
+import { Rajdhani, DM_Sans } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { siteConfig } from "./config/site";
 import { getSiteSettings } from "./lib/getSiteSettings";
 import { getServices } from "./lib/getServices";
 import { buildMetadata } from "./lib/seo";
 import JsonLd from "./components/JsonLd";
+
+const rajdhani = Rajdhani({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-rajdhani",
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
@@ -146,13 +162,16 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${rajdhani.variable} ${dmSans.variable}`}>
       <head>
         <JsonLd schema={localBusinessSchema} />
         <JsonLd schema={organizationSchema} />
         <JsonLd schema={websiteSchema} />
       </head>
       <body className="antialiased">{children}</body>
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      )}
     </html>
   );
 }

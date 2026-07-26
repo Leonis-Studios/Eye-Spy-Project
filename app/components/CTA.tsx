@@ -137,7 +137,7 @@ export default function CTA({ settings }: { settings: SiteSettings }) {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="text-brand-accent text-xs uppercase tracking-widest mb-6"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           Get Started Today
         </motion.p>
@@ -148,7 +148,7 @@ export default function CTA({ settings }: { settings: SiteSettings }) {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="text-4xl md:text-6xl font-bold text-text-primary leading-tight mb-6"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           Ready to Secure
           <br />
@@ -170,7 +170,7 @@ export default function CTA({ settings }: { settings: SiteSettings }) {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="text-text-secondary text-lg max-w-xl leading-relaxed mb-10"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         >
           Get a no-obligation estimate from our team. We'll assess your property
           and recommend the right system for your needs and budget.
@@ -186,7 +186,7 @@ export default function CTA({ settings }: { settings: SiteSettings }) {
           <button
             onClick={scrollToForm}
             className="group flex items-center gap-3 bg-brand-accent text-brand-base font-bold px-10 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Get a Free Estimate
             <ArrowRight
@@ -197,7 +197,7 @@ export default function CTA({ settings }: { settings: SiteSettings }) {
           <a
             href={siteConfig.phoneHref}
             className="text-text-secondary hover:text-text-primary text-sm tracking-wide transition-colors duration-200"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             or call{" "}
             <span className="text-text-primary font-medium">{settings.phone}</span>

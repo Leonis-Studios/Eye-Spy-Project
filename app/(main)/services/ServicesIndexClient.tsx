@@ -53,7 +53,7 @@ export default function ServicesIndexClient({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             What We Offer
           </motion.p>
@@ -62,7 +62,7 @@ export default function ServicesIndexClient({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl md:text-7xl font-bold text-white"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Our{" "}
             <span
@@ -81,7 +81,7 @@ export default function ServicesIndexClient({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-slate-400 mt-6 text-lg max-w-2xl mx-auto"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             Professional security system installation for homes and businesses.
             Everything we install is built to last.
@@ -97,7 +97,7 @@ export default function ServicesIndexClient({
           {services.length === 0 ? (
             <p
               className="text-slate-400 text-center text-lg"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               Services coming soon.
             </p>
@@ -119,14 +119,14 @@ export default function ServicesIndexClient({
                     )}
                     <h2
                       className="text-xl font-bold text-white mb-3"
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
                     >
                       {service.title}
                     </h2>
                     {service.shortDescription && (
                       <p
                         className="text-slate-400 text-base leading-relaxed flex-1"
-                        style={{ fontFamily: "'DM Sans', sans-serif" }}
+                        style={{ fontFamily: "var(--font-dm-sans)" }}
                       >
                         {service.shortDescription}
                       </p>
@@ -134,7 +134,7 @@ export default function ServicesIndexClient({
                     <Link
                       href={`/services/${service.slug}`}
                       className="inline-flex items-center gap-2 mt-6 text-brand-accent text-sm font-medium hover:gap-3 transition-all duration-200"
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
                     >
                       Learn More <ArrowRight size={16} />
                     </Link>
@@ -155,7 +155,7 @@ export default function ServicesIndexClient({
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="text-3xl md:text-4xl font-bold text-white mb-4"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Not sure what you need?
           </motion.h2>
@@ -165,7 +165,7 @@ export default function ServicesIndexClient({
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-slate-400 text-lg mb-8"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             Get in touch for a free security consultation and we&apos;ll
             recommend the right solution.
@@ -179,7 +179,7 @@ export default function ServicesIndexClient({
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-8 py-4 bg-brand-accent text-white font-semibold rounded-sm hover:bg-brand-accent/90 transition-colors duration-200"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Get a Free Consultation <ArrowRight size={18} />
             </Link>

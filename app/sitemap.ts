@@ -1,16 +1,16 @@
 import { MetadataRoute } from "next";
-import { posts } from "./config/posts";
 import { siteConfig } from "./config/site";
 import { serviceAreas } from "./config/areas";
 import { sanityFetch } from "./lib/sanity";
-import { allServicePageSlugsQuery } from "./lib/queries";
+import { allServicePageSlugsQuery, allPostsQuery } from "./lib/queries";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.seo.url;
 
-  const servicePageSlugs = await sanityFetch<{ slug: string }[]>(
-    allServicePageSlugsQuery
-  );
+  const [servicePageSlugs, posts] = await Promise.all([
+    sanityFetch<{ slug: string }[]>(allServicePageSlugsQuery),
+    sanityFetch<{ slug: string }[]>(allPostsQuery),
+  ]);
 
   // Static pages
   const staticPages = [

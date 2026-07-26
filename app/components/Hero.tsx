@@ -315,7 +315,7 @@ export default function Hero({
           initial="hidden"
           animate="visible"
           className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-brand-accent/25 bg-brand-accent/5 text-brand-accent text-xs uppercase tracking-widest"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           {/* Pulsing dot — w-1.5 h-1.5 = 6x6px circle, animate-pulse is a
               Tailwind built-in that repeatedly fades opacity in and out. */}
@@ -335,7 +335,7 @@ export default function Hero({
           initial="hidden"
           animate="visible"
           className="text-5xl md:text-7xl font-bold text-text-primary leading-[1.06] tracking-tight mb-6"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           {heroHeading}
           <br />
@@ -370,7 +370,7 @@ export default function Hero({
           initial="hidden"
           animate="visible"
           className="text-text-secondary text-lg md:text-xl max-w-2xl leading-relaxed mb-10"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         >
           {heroSubheading}
         </motion.p>
@@ -395,7 +395,7 @@ export default function Hero({
           <button
             onClick={scrollToForm}
             className="group flex items-center gap-3 bg-brand-accent text-brand-base font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Get a Free Estimate
             {/* Arrow icon with group-hover micro-interaction.
@@ -414,7 +414,7 @@ export default function Hero({
           <a
             href={siteConfig.phoneHref}
             className="text-text-secondary hover:text-text-primary text-sm tracking-wide transition-colors duration-200"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             or call{" "}
             <span className="text-text-primary font-medium">{settings.phone}</span>
@@ -439,7 +439,7 @@ export default function Hero({
             >
               <span
                 className="text-sm text-brand-accent uppercase tracking-widest font-semibold"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 {service.title}
               </span>
@@ -472,7 +472,7 @@ export default function Hero({
       >
         <span
           className="text-[10px] uppercase tracking-widest"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           Scroll
         </span>

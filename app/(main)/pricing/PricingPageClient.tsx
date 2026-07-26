@@ -136,7 +136,7 @@ function PricingCardItem({
         <Link href={`/services/${card.slug}`}>
           <h3
             className="text-xl font-bold text-white mb-2 hover:text-brand-accent transition-colors duration-200"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {card.title}
           </h3>
@@ -145,7 +145,7 @@ function PricingCardItem({
         {/* Price label */}
         <p
           className="text-3xl font-bold text-brand-accent mb-1"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           {card.priceLabel}
         </p>
@@ -154,7 +154,7 @@ function PricingCardItem({
         {card.priceNote && (
           <p
             className="text-slate-500 text-xs mb-4"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             {card.priceNote}
           </p>
@@ -170,7 +170,7 @@ function PricingCardItem({
               <li
                 key={hi}
                 className="flex items-start gap-2"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-dm-sans)" }}
               >
                 <CheckCircle
                   size={14}
@@ -194,7 +194,7 @@ function PricingCardItem({
                 : "border border-brand-accent/40 text-brand-accent hover:bg-brand-accent hover:text-brand-base"
             }
           `}
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           {card.pricingCtaLabel ?? "Get a Quote"}
           <ArrowRight
@@ -338,7 +338,7 @@ function FaqAccordion({ items, title }: { items: PricingFaqItem[]; title?: strin
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
           className="text-brand-accent text-xs uppercase tracking-widest text-center mb-3"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           Questions & Answers
         </motion.p>
@@ -347,7 +347,7 @@ function FaqAccordion({ items, title }: { items: PricingFaqItem[]; title?: strin
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.08 }}
           className="text-3xl md:text-4xl font-bold text-white text-center mb-12"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           {title ?? "Pricing FAQs"}
         </motion.h2>
@@ -376,7 +376,7 @@ function FaqAccordion({ items, title }: { items: PricingFaqItem[]; title?: strin
                   </span>
                   <span
                     className="text-white font-semibold text-sm leading-snug group-hover:text-brand-accent transition-colors duration-200"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {item.question}
                   </span>
@@ -391,7 +391,7 @@ function FaqAccordion({ items, title }: { items: PricingFaqItem[]; title?: strin
                 <div className="px-5 pb-5 border-t border-white/5">
                   <p
                     className="text-slate-400 text-sm leading-relaxed pt-4"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     {item.answer}
                   </p>
@@ -457,7 +457,7 @@ export default function PricingPageClient({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Pricing
           </motion.p>
@@ -467,7 +467,7 @@ export default function PricingPageClient({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.08 }}
             className="text-5xl md:text-7xl font-bold text-white mb-6"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             <span
               style={{
@@ -487,7 +487,7 @@ export default function PricingPageClient({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.16 }}
               className="text-white/80 text-xl font-semibold mb-4"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               {pricingData.pageSubtitle}
             </motion.p>
@@ -499,7 +499,7 @@ export default function PricingPageClient({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.24 }}
               className="text-slate-400 text-lg leading-relaxed max-w-2xl mx-auto"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               {pricingData.introText}
             </motion.p>
@@ -526,7 +526,7 @@ export default function PricingPageClient({
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               className="text-brand-accent text-xs uppercase tracking-widest text-center mb-3"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Service Tiers
             </motion.p>
@@ -536,7 +536,7 @@ export default function PricingPageClient({
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.08 }}
               className="text-3xl md:text-4xl font-bold text-white text-center mb-16"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Choose Your Service
             </motion.h2>
@@ -578,7 +578,7 @@ export default function PricingPageClient({
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
               className="text-center text-slate-600 text-xs mt-10"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               All prices are estimates. Final pricing depends on site conditions and scope. Contact us for an exact quote.
             </motion.p>
@@ -604,20 +604,20 @@ export default function PricingPageClient({
         <div className="max-w-3xl mx-auto px-6 md:px-16 text-center mb-0 pt-12">
           <p
             className="text-brand-accent text-xs uppercase tracking-widest mb-3"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Ready to Get Started?
           </p>
           <h2
             className="text-3xl md:text-4xl font-bold text-white"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {pricingData?.bottomCtaHeading ?? "Get Your Free Estimate"}
           </h2>
           {pricingData?.bottomCtaText && (
             <p
               className="text-slate-400 mt-4 text-base leading-relaxed"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               {pricingData.bottomCtaText}
             </p>

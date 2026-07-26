@@ -140,7 +140,7 @@ export default function AboutClient({
             initial="hidden"
             animate="visible"
             className="text-brand-accent text-xs uppercase tracking-widest mb-6"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {aboutData.heroEyebrow ?? "Our Story"}
           </motion.p>
@@ -151,7 +151,7 @@ export default function AboutClient({
             initial="hidden"
             animate="visible"
             className="text-5xl md:text-6xl font-bold text-white leading-tight mb-6"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {aboutData.heroHeadingLine1 ?? "Security Done Right,"}
             <br />
@@ -173,7 +173,7 @@ export default function AboutClient({
             initial="hidden"
             animate="visible"
             className="text-slate-400 text-lg max-w-2xl leading-relaxed"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             {aboutData.heroSubtitle ??
               `${settings.siteName} was built on a simple belief — every home and business deserves honest, professional security without the hard sell.`}
@@ -198,13 +198,13 @@ export default function AboutClient({
           <motion.div variants={itemVariants}>
             <p
               className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               {aboutData.storyEyebrow ?? "How We Started"}
             </p>
             <h2
               className="text-4xl md:text-5xl font-bold text-white mb-6"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               {aboutData.storyHeading ?? (
                 <>
@@ -216,7 +216,7 @@ export default function AboutClient({
             </h2>
             <div
               className="flex flex-col gap-4 text-slate-400 leading-relaxed"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               {storyParagraphs.map((para, i) => (
                 <p key={i}>
@@ -242,13 +242,13 @@ export default function AboutClient({
               >
                 <span
                   className="text-4xl font-bold text-white"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {stat.value}
                 </span>
                 <span
                   className="text-xs text-slate-500 uppercase tracking-widest"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {stat.label}
                 </span>
@@ -270,13 +270,13 @@ export default function AboutClient({
           <div className="flex flex-col items-center text-center mb-14">
             <p
               className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               {aboutData.valuesEyebrow ?? "What Drives Us"}
             </p>
             <h2
               className="text-4xl md:text-5xl font-bold text-white"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               {aboutData.valuesHeading ?? "Our Core Values"}
             </h2>
@@ -301,13 +301,13 @@ export default function AboutClient({
                 </span>
                 <h3
                   className="text-base font-bold text-white mb-2"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {value.title}
                 </h3>
                 <p
                   className="text-slate-400 text-sm leading-relaxed"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
                 >
                   {value.description}
                 </p>
@@ -329,13 +329,13 @@ export default function AboutClient({
           <div className="flex flex-col items-center text-center mb-14">
             <p
               className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               The People Behind The Work
             </p>
             <h2
               className="text-4xl md:text-5xl font-bold text-white"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Meet The Team
             </h2>
@@ -358,25 +358,25 @@ export default function AboutClient({
                 </div>
                 <h3
                   className="text-lg font-bold text-white mb-1"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {member.name}
                 </h3>
                 <p
                   className="text-brand-accent text-xs uppercase tracking-widest mb-1"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {member.role}
                 </p>
                 <p
                   className="text-slate-600 text-xs mb-4"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
                 >
                   {member.years}
                 </p>
                 <p
                   className="text-slate-400 text-sm leading-relaxed"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
                 >
                   {member.bio}
                 </p>
@@ -397,19 +397,19 @@ export default function AboutClient({
         <div className="max-w-3xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
           <p
             className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {aboutData.ctaEyebrow ?? "Ready to Get Started?"}
           </p>
           <h2
             className="text-4xl md:text-5xl font-bold text-white mb-6"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {aboutData.ctaHeading ?? "Let's Protect Your Property"}
           </h2>
           <p
             className="text-slate-400 text-lg max-w-xl mb-10 leading-relaxed"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             {aboutData.ctaBody ??
               "Get a no-obligation estimate from a team that will actually show up, do the job right, and be there if you ever need us."}
@@ -417,7 +417,7 @@ export default function AboutClient({
           <a
             href="/#estimate-form"
             className="group flex items-center gap-3 bg-brand-accent text-brand-base font-bold px-10 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {aboutData.ctaButtonLabel ?? "Get a Free Estimate"}
             <ArrowRight

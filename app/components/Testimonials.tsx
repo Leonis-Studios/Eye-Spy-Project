@@ -78,7 +78,7 @@ export default function Testimonials({
 
         <p
           className="text-brand-accent text-xs uppercase tracking-widest mb-12"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           What Our Clients Say
         </p>
@@ -107,7 +107,7 @@ export default function Testimonials({
 
               <p
                 className="text-text-primary/80 text-xl md:text-2xl leading-relaxed max-w-2xl mb-8"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-dm-sans)" }}
               >
                 {testimonials[active].quote}
               </p>
@@ -124,13 +124,13 @@ export default function Testimonials({
 
               <p
                 className="text-text-primary font-semibold tracking-wide"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 {testimonials[active].name}
               </p>
               <p
                 className="text-text-muted text-sm mt-1"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-dm-sans)" }}
               >
                 {testimonials[active].location}
               </p>

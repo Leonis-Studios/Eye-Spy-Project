@@ -47,7 +47,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
             </Link>
             <p
               className="text-text-muted text-sm leading-relaxed mb-6"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               {settings.description}
             </p>
@@ -91,7 +91,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
           <div>
             <h3
               className="text-text-primary text-xs uppercase tracking-widest mb-6"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Navigation
             </h3>
@@ -101,7 +101,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                   <a
                     href={link.href}
                     className="text-text-muted hover:text-text-primary text-sm transition-colors duration-200"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     {link.label}
                   </a>
@@ -114,7 +114,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
           <div>
             <h3
               className="text-text-primary text-xs uppercase tracking-widest mb-6"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Services
             </h3>
@@ -124,7 +124,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                   <Link
                     href="/#services"
                     className="text-text-muted hover:text-text-primary text-sm transition-colors duration-200"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     {service.label}
                   </Link>
@@ -137,7 +137,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
           <div>
             <h3
               className="text-text-primary text-xs uppercase tracking-widest mb-6"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Contact
             </h3>
@@ -153,7 +153,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                   />
                   <span
                     className="text-sm"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     {settings.phone}
                   </span>
@@ -170,7 +170,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                   />
                   <span
                     className="text-sm"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     {settings.email}
                   </span>
@@ -184,7 +184,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
                   />
                   <span
                     className="text-sm leading-relaxed"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     {settings.address}
                   </span>
@@ -193,7 +193,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
               <li className="pt-2">
                 <div
                   className="text-text-subtle text-xs leading-relaxed"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
                 >
                   <p>{settings.hours.weekdays}</p>
                   <p>{settings.hours.saturday}</p>
@@ -210,14 +210,14 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
         <div className="max-w-7xl mx-auto px-6 md:px-16 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p
             className="text-text-subtle text-xs"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             © {currentYear} {settings.siteName}. All rights reserved.
           </p>
 
           <p
             className="text-text-subtle text-xs"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             {settings.serviceArea}
           </p>

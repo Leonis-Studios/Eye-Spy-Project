@@ -143,14 +143,14 @@ export default function SocialProof({ settings }: { settings: SiteSettings }) {
 
                 <span
                   className="text-3xl md:text-4xl font-bold text-text-primary"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {stat.value}
                 </span>
 
                 <span
                   className="text-xs text-text-muted uppercase tracking-widest text-center leading-tight"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {stat.label}
                 </span>
@@ -228,7 +228,7 @@ export default function SocialProof({ settings }: { settings: SiteSettings }) {
 
               <span
                 className="text-sm text-text-nav tracking-wider group-hover:text-text-primary transition-colors duration-300 whitespace-nowrap"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 {cert.label}
               </span>

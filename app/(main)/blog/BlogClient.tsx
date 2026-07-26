@@ -107,7 +107,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
             initial="hidden"
             animate="visible"
             className="text-brand-accent text-xs uppercase tracking-widest mb-6"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Security Insights
           </motion.p>
@@ -117,7 +117,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
             initial="hidden"
             animate="visible"
             className="text-5xl md:text-6xl font-bold text-white leading-tight mb-6"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             The {siteConfig.name}
             <br />
@@ -138,7 +138,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
             initial="hidden"
             animate="visible"
             className="text-slate-400 text-lg max-w-xl leading-relaxed"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             Practical security advice, buyer's guides, and industry insights
             from the team at {siteConfig.name}.
@@ -162,7 +162,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search articles..."
               className="w-full md:w-80 bg-brand-card border border-white/5 focus:border-brand-accent/50 px-4 py-3 rounded-sm text-white text-sm outline-none transition-colors duration-200 placeholder:text-slate-600"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             />
             {searchQuery && (
               <button
@@ -184,7 +184,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
                     ? "bg-brand-accent text-brand-base font-bold"
                     : "border border-white/10 text-slate-400 hover:border-brand-accent/30 hover:text-white"
                 }`}
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 {cat}
               </button>
@@ -210,26 +210,26 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
                   <div className="flex items-center gap-3 mb-4">
                     <span
                       className="px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-xs uppercase tracking-widest"
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
                     >
                       Featured
                     </span>
                     <span
                       className="px-3 py-1 rounded-full border border-white/10 text-slate-500 text-xs uppercase tracking-widest"
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
                     >
                       {posts[0].category}
                     </span>
                   </div>
                   <h2
                     className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-brand-accent transition-colors duration-200"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {posts[0].title}
                   </h2>
                   <p
                     className="text-slate-400 leading-relaxed mb-4 max-w-2xl"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     {posts[0].excerpt}
                   </p>
@@ -269,7 +269,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
                   <Tag size={11} className="text-brand-accent/60" />
                   <span
                     className="text-brand-accent/80 text-xs uppercase tracking-widest"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {post.category}
                   </span>
@@ -277,14 +277,14 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
 
                 <h3
                   className="text-lg font-bold text-white mb-3 group-hover:text-brand-accent transition-colors duration-200 leading-snug"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {post.title}
                 </h3>
 
                 <p
                   className="text-slate-400 text-sm leading-relaxed mb-6 flex-1"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
                 >
                   {post.excerpt}
                 </p>
@@ -302,7 +302,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
           {/* Result count */}
           <p
             className="text-slate-600 text-xs text-center mt-8"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             Showing {gridPosts.length} of{" "}
             {filteredPosts.filter((p) => !p.featured || !!searchQuery).length}{" "}
@@ -316,7 +316,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
               <button
                 onClick={() => setVisibleCount((prev) => prev + 6)}
                 className="border border-white/10 hover:border-brand-accent/30 text-slate-400 hover:text-white px-8 py-3 rounded-sm text-xs uppercase tracking-widest transition-all duration-200"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 Load More Articles
               </button>
@@ -328,13 +328,13 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
             <div className="flex flex-col items-center py-16 text-center">
               <p
                 className="text-slate-500 text-lg mb-2"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 No articles found
               </p>
               <p
                 className="text-slate-600 text-sm"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-dm-sans)" }}
               >
                 Try a different search term or category
               </p>

@@ -1,10 +1,31 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowLeft, Clock, Tag, ArrowRight } from "lucide-react";
-import { PortableText } from "@portabletext/react";
+import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { type BlogPost } from "@/app/lib/types";
+import { urlFor } from "@/app/lib/sanity";
+
+const portableTextComponents: PortableTextComponents = {
+  types: {
+    image: ({ value }) => {
+      if (!value?.asset) return null;
+      return (
+        <span className="block relative w-full aspect-video my-6 rounded-sm overflow-hidden">
+          <Image
+            src={urlFor(value).width(1200).auto("format").url()}
+            alt={value.alt || ""}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 768px"
+          />
+        </span>
+      );
+    },
+  },
+};
 
 export default function BlogPostClient({
   post,
@@ -36,7 +57,7 @@ export default function BlogPostClient({
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
             className="inline-flex items-center gap-2 text-slate-500 hover:text-white text-sm mb-10 transition-colors duration-200"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             <ArrowLeft size={14} /> Back to Blog
           </motion.a>
@@ -50,19 +71,19 @@ export default function BlogPostClient({
           >
             <span
               className="flex items-center gap-2 text-brand-accent text-xs uppercase tracking-widest"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               <Tag size={11} /> {post.category}
             </span>
             <span
               className="flex items-center gap-1.5 text-slate-600 text-xs"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               <Clock size={11} /> {post.readTime}
             </span>
             <span
               className="text-slate-600 text-xs"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               {post.date}
             </span>
@@ -78,7 +99,7 @@ export default function BlogPostClient({
               ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
             }}
             className="text-4xl md:text-5xl font-bold text-white leading-tight mb-6"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {post.title}
           </motion.h1>
@@ -89,7 +110,7 @@ export default function BlogPostClient({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-slate-400 text-lg leading-relaxed"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             {post.excerpt}
           </motion.p>
@@ -108,7 +129,7 @@ export default function BlogPostClient({
           // prose styles — applied inline since we're not using Tailwind Typography plugin
           className="max-w-3xl mx-auto px-6 md:px-16"
           style={{
-            fontFamily: "'DM Sans', sans-serif",
+            fontFamily: "var(--font-dm-sans)",
             color: "#94a3b8", // slate-400
             lineHeight: "1.8",
             fontSize: "1rem",
@@ -117,7 +138,7 @@ export default function BlogPostClient({
           {/* Override heading styles inside article body */}
           <style>{`
             .article-body h2 {
-              font-family: 'Rajdhani', sans-serif;
+              font-family: var(--font-rajdhani);
               font-size: 1.75rem;
               font-weight: 700;
               color: white;
@@ -133,7 +154,12 @@ export default function BlogPostClient({
             }
           `}</style>
           <div className="article-body">
-            {post.content && <PortableText value={post.content} />}
+            {post.content && (
+              <PortableText
+                value={post.content}
+                components={portableTextComponents}
+              />
+            )}
           </div>
         </motion.div>
       </section>
@@ -149,19 +175,19 @@ export default function BlogPostClient({
         <div className="max-w-2xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
           <p
             className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Ready to Take Action?
           </p>
           <h2
             className="text-3xl md:text-4xl font-bold text-white mb-4"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Get a Free Security Assessment
           </h2>
           <p
             className="text-slate-400 mb-8 leading-relaxed"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             Let our team walk your property and recommend exactly what you need
             — no pressure, no upsell.
@@ -169,7 +195,7 @@ export default function BlogPostClient({
           <a
             href="/#estimate-form"
             className="group flex items-center gap-3 bg-brand-accent text-brand-base font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Request Free Estimate
             <ArrowRight
@@ -187,7 +213,7 @@ export default function BlogPostClient({
           <div className="max-w-6xl mx-auto px-6 md:px-16">
             <h2
               className="text-2xl font-bold text-white mb-8"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Related Posts
             </h2>
@@ -200,19 +226,19 @@ export default function BlogPostClient({
                 >
                   <span
                     className="text-brand-accent/70 text-xs uppercase tracking-widest mb-3 block"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {related.category}
                   </span>
                   <h3
                     className="text-lg font-bold text-white group-hover:text-brand-accent transition-colors duration-200 mb-2"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {related.title}
                   </h3>
                   <p
                     className="text-slate-500 text-sm"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     {related.readTime} · {related.date}
                   </p>

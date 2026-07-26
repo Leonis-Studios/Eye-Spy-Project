@@ -20,6 +20,7 @@ interface ContactForm {
   phone: string;
   service: string;
   message: string;
+  website: string; // honeypot — humans leave this blank
 }
 
 type ContactErrors = Partial<Record<keyof ContactForm, string>>;
@@ -44,6 +45,7 @@ export default function ContactClient({
     phone: "",
     service: "",
     message: "",
+    website: "",
   });
 
   useEffect(() => {
@@ -54,6 +56,7 @@ export default function ContactClient({
   const [errors, setErrors] = useState<ContactErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -84,10 +87,26 @@ export default function ContactClient({
       setErrors(validationErrors);
       return;
     }
+    setSubmitError(null);
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error ?? "Submission failed");
+      }
+      setIsSubmitted(true);
+    } catch {
+      setSubmitError(
+        "Something went wrong — please try again or call us directly.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const fadeUp: Variants = {
@@ -176,7 +195,7 @@ export default function ContactClient({
             initial="hidden"
             animate="visible"
             className="text-brand-accent text-xs uppercase tracking-widest mb-6"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {contactData.heroEyebrow ?? "Get In Touch"}
           </motion.p>
@@ -186,7 +205,7 @@ export default function ContactClient({
             initial="hidden"
             animate="visible"
             className="text-5xl md:text-6xl font-bold text-white leading-tight mb-6"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {contactData.heroHeadingLine1 ?? "We'd Love to"}
             <br />
@@ -207,7 +226,7 @@ export default function ContactClient({
             initial="hidden"
             animate="visible"
             className="text-slate-400 text-lg max-w-xl leading-relaxed"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             {contactData.heroSubtitle ??
               "Have a question, want to schedule a site visit, or just want to talk through your options? We're here."}
@@ -231,7 +250,7 @@ export default function ContactClient({
               <motion.h2
                 variants={itemVariants}
                 className="text-3xl font-bold text-white mb-8"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 {contactData.formHeading ?? "Send Us a Message"}
               </motion.h2>
@@ -245,13 +264,13 @@ export default function ContactClient({
                   <CheckCircle className="text-brand-accent" size={40} />
                   <h3
                     className="text-2xl font-bold text-white"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {contactData.successHeading ?? "Message Sent!"}
                   </h3>
                   <p
                     className="text-slate-400 leading-relaxed"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     {successBody}
                   </p>
@@ -262,11 +281,21 @@ export default function ContactClient({
                   noValidate
                   className="flex flex-col gap-5"
                 >
+                  <input
+                    type="text"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="absolute left-[-9999px] w-px h-px overflow-hidden"
+                  />
                   <motion.div variants={itemVariants}>
                     <label
                       htmlFor="name"
                       className={labelClass}
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
                     >
                       Full Name
                     </label>
@@ -278,7 +307,7 @@ export default function ContactClient({
                       onChange={handleChange}
                       placeholder="John Smith"
                       className={`${inputClass} ${errors.name ? "border-red-500/50" : "border-white/5"}`}
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      style={{ fontFamily: "var(--font-dm-sans)" }}
                     />
                     {errors.name && (
                       <p className="text-red-400 text-xs mt-1">{errors.name}</p>
@@ -293,7 +322,7 @@ export default function ContactClient({
                       <label
                         htmlFor="email"
                         className={labelClass}
-                        style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                        style={{ fontFamily: "var(--font-rajdhani)" }}
                       >
                         Email
                       </label>
@@ -305,7 +334,7 @@ export default function ContactClient({
                         onChange={handleChange}
                         placeholder="john@example.com"
                         className={`${inputClass} ${errors.email ? "border-red-500/50" : "border-white/5"}`}
-                        style={{ fontFamily: "'DM Sans', sans-serif" }}
+                        style={{ fontFamily: "var(--font-dm-sans)" }}
                       />
                       {errors.email && (
                         <p className="text-red-400 text-xs mt-1">
@@ -317,7 +346,7 @@ export default function ContactClient({
                       <label
                         htmlFor="phone"
                         className={labelClass}
-                        style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                        style={{ fontFamily: "var(--font-rajdhani)" }}
                       >
                         Phone{" "}
                         <span className="text-slate-600 normal-case tracking-normal">
@@ -332,7 +361,7 @@ export default function ContactClient({
                         onChange={handleChange}
                         placeholder="(555) 000-0000"
                         className={`${inputClass} border-white/5`}
-                        style={{ fontFamily: "'DM Sans', sans-serif" }}
+                        style={{ fontFamily: "var(--font-dm-sans)" }}
                       />
                     </div>
                   </motion.div>
@@ -341,7 +370,7 @@ export default function ContactClient({
                     <label
                       htmlFor="service"
                       className={labelClass}
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
                     >
                       Service of Interest{" "}
                       <span className="text-slate-600 normal-case tracking-normal">
@@ -354,7 +383,7 @@ export default function ContactClient({
                       value={formData.service}
                       onChange={handleChange}
                       className={`${inputClass} border-white/5`}
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      style={{ fontFamily: "var(--font-dm-sans)" }}
                     >
                       <option value="">Select a service...</option>
                       {siteConfig.services.map((s) => (
@@ -369,7 +398,7 @@ export default function ContactClient({
                     <label
                       htmlFor="message"
                       className={labelClass}
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
                     >
                       Message
                     </label>
@@ -381,7 +410,7 @@ export default function ContactClient({
                       placeholder="What can we help you with?"
                       rows={5}
                       className={`${inputClass} ${errors.message ? "border-red-500/50" : "border-white/5"} resize-none`}
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      style={{ fontFamily: "var(--font-dm-sans)" }}
                     />
                     {errors.message && (
                       <p className="text-red-400 text-xs mt-1">
@@ -390,12 +419,21 @@ export default function ContactClient({
                     )}
                   </motion.div>
 
+                  {submitError && (
+                    <motion.p
+                      variants={itemVariants}
+                      className="text-red-400 text-sm text-center"
+                    >
+                      {submitError}
+                    </motion.p>
+                  )}
+
                   <motion.div variants={itemVariants}>
                     <button
                       type="submit"
                       disabled={isSubmitting}
                       className="group flex items-center gap-3 bg-brand-accent text-brand-base font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
                     >
                       {isSubmitting ? (
                         <span className="flex items-center gap-2">
@@ -437,7 +475,7 @@ export default function ContactClient({
               <motion.h2
                 variants={itemVariants}
                 className="text-3xl font-bold text-white mb-2"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 {contactData.infoHeading ?? "Contact Information"}
               </motion.h2>
@@ -454,7 +492,7 @@ export default function ContactClient({
                   <div>
                     <p
                       className="text-xs uppercase tracking-widest text-slate-500 mb-1"
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
                     >
                       {item.label}
                     </p>
@@ -462,14 +500,14 @@ export default function ContactClient({
                       <a
                         href={item.href}
                         className="text-white hover:text-brand-accent transition-colors duration-200 text-sm"
-                        style={{ fontFamily: "'DM Sans', sans-serif" }}
+                        style={{ fontFamily: "var(--font-dm-sans)" }}
                       >
                         {item.value}
                       </a>
                     ) : (
                       <p
                         className="text-white text-sm"
-                        style={{ fontFamily: "'DM Sans', sans-serif" }}
+                        style={{ fontFamily: "var(--font-dm-sans)" }}
                       >
                         {item.value}
                       </p>
@@ -484,13 +522,13 @@ export default function ContactClient({
               >
                 <p
                   className="text-brand-accent text-xs uppercase tracking-widest mb-2"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {contactData.serviceAreaLabel ?? "Service Area"}
                 </p>
                 <p
                   className="text-slate-400 text-sm leading-relaxed"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
                 >
                   {settings.serviceArea}.{" "}
                   {contactData.serviceAreaNote ??

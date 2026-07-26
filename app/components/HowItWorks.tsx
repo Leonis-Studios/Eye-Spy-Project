@@ -152,19 +152,19 @@ export default function HowItWorks({
       <div className="max-w-6xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
         <p
           className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           {eyebrow}
         </p>
         <h2
           className="text-4xl md:text-6xl font-bold text-text-primary"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           {heading}
         </h2>
         <p
           className="text-text-secondary mt-4 text-lg max-w-2xl"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         >
           {subheading}
         </p>
@@ -282,20 +282,20 @@ export default function HowItWorks({
                   {/* Ghost step number */}
                   <span
                     className="text-5xl sm:text-7xl font-bold text-brand-accent/15 mb-4 block leading-none"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {step.step}
                   </span>
 
                   <h3
                     className="text-lg font-bold text-text-primary mb-2"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {step.title}
                   </h3>
                   <p
                     className="text-text-secondary text-sm leading-relaxed"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     {step.description}
                   </p>

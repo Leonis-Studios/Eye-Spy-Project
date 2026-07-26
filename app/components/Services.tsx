@@ -190,13 +190,13 @@ export default function Services({ services }: { services: Service[] }) {
 
         <h2
           className="text-4xl md:text-6xl font-bold text-text-primary"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           Our Services
         </h2>
         <p
           className="text-text-secondary mt-4 text-lg max-w-2xl"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         >
           Everything we install, built to last.
         </p>
@@ -232,7 +232,7 @@ export default function Services({ services }: { services: Service[] }) {
                 <Link
                   href={`/services/${service.slug}`}
                   className="inline-block text-brand-accent text-xs uppercase tracking-widest bg-brand-accent/10 px-2.5 py-0.5 rounded-sm mb-4 hover:underline hover:opacity-80 transition-opacity duration-200"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {service.title}
                 </Link>
@@ -243,13 +243,13 @@ export default function Services({ services }: { services: Service[] }) {
                 )}
                 <h3
                   className="text-xl font-bold text-text-primary mb-2"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {service.title}
                 </h3>
                 <p
                   className="text-text-secondary text-base leading-relaxed"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
                 >
                   {service.shortDescription}
                 </p>

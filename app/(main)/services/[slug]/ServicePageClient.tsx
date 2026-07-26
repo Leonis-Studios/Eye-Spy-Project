@@ -53,7 +53,7 @@ export default function ServicePageClient({
     <main className="min-h-screen bg-brand-base">
       <style>{`
         .service-body h2 {
-          font-family: 'Rajdhani', sans-serif;
+          font-family: var(--font-rajdhani);
           font-size: 1.75rem;
           font-weight: 700;
           color: #ffffff;
@@ -61,7 +61,7 @@ export default function ServicePageClient({
           margin-bottom: 1rem;
         }
         .service-body h3 {
-          font-family: 'Rajdhani', sans-serif;
+          font-family: var(--font-rajdhani);
           font-size: 1.35rem;
           font-weight: 600;
           color: #e2e8f0;
@@ -69,7 +69,7 @@ export default function ServicePageClient({
           margin-bottom: 0.75rem;
         }
         .service-body p {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-dm-sans);
           color: #94a3b8;
           line-height: 1.8;
           margin-bottom: 1.25rem;
@@ -85,7 +85,7 @@ export default function ServicePageClient({
           list-style: disc;
           padding-left: 1.5rem;
           color: #94a3b8;
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-dm-sans);
           line-height: 1.8;
           margin-bottom: 1.25rem;
         }
@@ -93,7 +93,7 @@ export default function ServicePageClient({
           list-style: decimal;
           padding-left: 1.5rem;
           color: #94a3b8;
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-dm-sans);
           line-height: 1.8;
           margin-bottom: 1.25rem;
         }
@@ -115,14 +115,14 @@ export default function ServicePageClient({
             <Link
               href="/services"
               className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm transition-colors duration-200"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               <ArrowLeft size={16} /> Back to Services
             </Link>
             <Link
               href="/pricing"
               className="inline-flex items-center gap-2 text-brand-accent/70 hover:text-brand-accent text-sm transition-colors duration-200"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               <Tag size={14} /> View Pricing
             </Link>
@@ -144,7 +144,7 @@ export default function ServicePageClient({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
             className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Our Services
           </motion.p>
@@ -154,7 +154,7 @@ export default function ServicePageClient({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.1 }}
             className="text-5xl md:text-7xl font-bold text-white mb-6"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             <span
               style={{
@@ -174,7 +174,7 @@ export default function ServicePageClient({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.18 }}
               className="text-slate-400 text-lg leading-relaxed max-w-2xl"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               {service.shortDescription}
             </motion.p>
@@ -205,7 +205,7 @@ export default function ServicePageClient({
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               className="text-brand-accent text-xs uppercase tracking-widest text-center mb-3"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Gallery
             </motion.p>
@@ -215,7 +215,7 @@ export default function ServicePageClient({
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.08 }}
               className="text-3xl md:text-4xl font-bold text-white text-center mb-12"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Our Work
             </motion.h2>
@@ -257,7 +257,7 @@ export default function ServicePageClient({
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               className="text-brand-accent text-xs uppercase tracking-widest text-center mb-3"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               What&apos;s Included
             </motion.p>
@@ -267,7 +267,7 @@ export default function ServicePageClient({
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.08 }}
               className="text-3xl md:text-4xl font-bold text-white text-center mb-10"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Key Features
             </motion.h2>
@@ -290,7 +290,7 @@ export default function ServicePageClient({
                   />
                   <span
                     className="text-slate-300 text-base leading-relaxed"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     {feature}
                   </span>
@@ -307,13 +307,13 @@ export default function ServicePageClient({
         <div className="max-w-3xl mx-auto px-6 md:px-16 text-center mb-0">
           <p
             className="text-brand-accent text-xs uppercase tracking-widest mb-3"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Ready to Get Started?
           </p>
           <h2
             className="text-3xl md:text-4xl font-bold text-white"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Get a Quote for {service.title}
           </h2>

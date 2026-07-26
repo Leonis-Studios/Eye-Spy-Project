@@ -64,7 +64,7 @@ export default function FAQ({ items }: { items: FaqItem[] }) {
           </div>
           <h2
             className="text-4xl md:text-5xl font-bold text-text-primary"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Frequently Asked
           </h2>
@@ -101,7 +101,7 @@ export default function FAQ({ items }: { items: FaqItem[] }) {
                       ? "text-text-primary"
                       : "text-text-nav group-hover:text-text-primary"
                   }`}
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {faq.question}
                 </span>
@@ -134,7 +134,7 @@ export default function FAQ({ items }: { items: FaqItem[] }) {
                     {/* Left border on answer — patch panel aesthetic */}
                     <p
                       className="text-text-secondary text-base leading-relaxed pb-5 pl-4 sm:pl-12 border-l-2 border-brand-accent/35"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      style={{ fontFamily: "var(--font-dm-sans)" }}
                     >
                       {faq.answer}
                     </p>

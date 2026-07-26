@@ -250,19 +250,19 @@ export default function Benefits({
       <div className="max-w-6xl mx-auto px-6 md:px-16 flex flex-col items-center text-center">
         <p
           className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           {eyebrow}
         </p>
         <h2
           className="text-4xl md:text-6xl font-bold text-text-primary"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           {heading}
         </h2>
         <p
           className="text-text-secondary mt-4 text-lg max-w-2xl"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         >
           {subheading}
         </p>
@@ -284,13 +284,13 @@ export default function Benefits({
                 </span>
                 <h3
                   className="text-xl font-bold text-text-primary mb-2"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {benefit.title}
                 </h3>
                 <p
                   className="text-text-secondary text-base leading-relaxed"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
                 >
                   {benefit.description}
                 </p>

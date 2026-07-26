@@ -61,7 +61,7 @@ function LandingHeader({ settings }: { settings: SiteSettings }) {
         <a
           href={siteConfig.phoneHref}
           className="flex items-center gap-2 text-white font-bold text-sm hover:text-brand-accent transition-colors duration-200"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           <Phone size={14} className="text-brand-accent" />
           {settings.phone}
@@ -80,7 +80,7 @@ function LandingFooter({ settings }: { settings: SiteSettings }) {
           <ShieldCheck className="text-brand-accent" size={16} strokeWidth={2.2} />
           <span
             className="text-white text-xs font-semibold tracking-widest uppercase"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {settings.siteName}
           </span>
@@ -89,13 +89,13 @@ function LandingFooter({ settings }: { settings: SiteSettings }) {
           <a
             href="/privacy"
             className="text-slate-600 text-xs hover:text-white transition-colors duration-200"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             Privacy Policy
           </a>
           <span
             className="text-slate-600 text-xs"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             © {new Date().getFullYear()} {settings.siteName}. All rights reserved.
           </span>
@@ -164,13 +164,13 @@ function EstimateForm({
         <CheckCircle className="text-brand-accent" size={44} />
         <h3
           className="text-2xl font-bold text-white"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           Request Received!
         </h3>
         <p
           className="text-slate-400 leading-relaxed"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         >
           Thanks {formData.name.split(" ")[0]} — we&apos;ll be in touch within 1 business day.
         </p>
@@ -182,7 +182,7 @@ function EstimateForm({
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="slp-name" className={labelClass} style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+          <label htmlFor="slp-name" className={labelClass} style={{ fontFamily: "var(--font-rajdhani)" }}>
             Full Name
           </label>
           <input
@@ -193,12 +193,12 @@ function EstimateForm({
             onChange={handleChange}
             placeholder="John Smith"
             className={`${inputClass} ${errors.name ? "border-red-500/50" : "border-white/5"}`}
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           />
           {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
         </div>
         <div>
-          <label htmlFor="slp-phone" className={labelClass} style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+          <label htmlFor="slp-phone" className={labelClass} style={{ fontFamily: "var(--font-rajdhani)" }}>
             Phone Number
           </label>
           <input
@@ -209,14 +209,14 @@ function EstimateForm({
             onChange={handleChange}
             placeholder="(555) 000-0000"
             className={`${inputClass} ${errors.phone ? "border-red-500/50" : "border-white/5"}`}
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           />
           {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
         </div>
       </div>
 
       <div>
-        <label htmlFor="slp-email" className={labelClass} style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+        <label htmlFor="slp-email" className={labelClass} style={{ fontFamily: "var(--font-rajdhani)" }}>
           Email Address
         </label>
         <input
@@ -227,13 +227,13 @@ function EstimateForm({
           onChange={handleChange}
           placeholder="john@example.com"
           className={`${inputClass} ${errors.email ? "border-red-500/50" : "border-white/5"}`}
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         />
         {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
       </div>
 
       <div>
-        <label htmlFor="slp-address" className={labelClass} style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+        <label htmlFor="slp-address" className={labelClass} style={{ fontFamily: "var(--font-rajdhani)" }}>
           Property Address
         </label>
         <input
@@ -244,13 +244,13 @@ function EstimateForm({
           onChange={handleChange}
           placeholder="123 Main St, City, State"
           className={`${inputClass} ${errors.address ? "border-red-500/50" : "border-white/5"}`}
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         />
         {errors.address && <p className="text-red-400 text-xs mt-1">{errors.address}</p>}
       </div>
 
       <div>
-        <label htmlFor="slp-service" className={labelClass} style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+        <label htmlFor="slp-service" className={labelClass} style={{ fontFamily: "var(--font-rajdhani)" }}>
           Service Needed
         </label>
         <select
@@ -259,7 +259,7 @@ function EstimateForm({
           value={formData.serviceType}
           onChange={handleChange}
           className={`${inputClass} ${errors.serviceType ? "border-red-500/50" : "border-white/5"}`}
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         >
           <option value="" disabled>
             Select a service...
@@ -277,7 +277,7 @@ function EstimateForm({
         type="submit"
         disabled={isSubmitting}
         className="group flex items-center justify-center gap-3 bg-brand-accent text-brand-base font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-        style={{ fontFamily: "'Rajdhani', sans-serif" }}
+        style={{ fontFamily: "var(--font-rajdhani)" }}
       >
         {isSubmitting ? (
           <span className="flex items-center gap-2">
@@ -302,7 +302,7 @@ function EstimateForm({
 
       <p
         className="text-slate-600 text-xs text-center"
-        style={{ fontFamily: "'DM Sans', sans-serif" }}
+        style={{ fontFamily: "var(--font-dm-sans)" }}
       >
         No spam. No commitment. Response within 1 business day.
       </p>
@@ -386,7 +386,7 @@ export default function ServiceLandingClient({
                 initial="hidden"
                 animate="visible"
                 className="text-brand-accent text-xs uppercase tracking-widest"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 {eyebrow}
               </motion.p>
@@ -397,7 +397,7 @@ export default function ServiceLandingClient({
                 initial="hidden"
                 animate="visible"
                 className="text-5xl md:text-6xl font-bold text-white leading-tight"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 {page.heroHeading}
                 {page.heroHeadingAccent && (
@@ -424,7 +424,7 @@ export default function ServiceLandingClient({
                   initial="hidden"
                   animate="visible"
                   className="text-slate-400 text-lg leading-relaxed max-w-lg"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
                 >
                   {heroSubheading}
                 </motion.p>
@@ -442,7 +442,7 @@ export default function ServiceLandingClient({
                     <CheckCircle size={16} className="text-brand-accent shrink-0" />
                     <span
                       className="text-slate-300 text-sm"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      style={{ fontFamily: "var(--font-dm-sans)" }}
                     >
                       {item}
                     </span>
@@ -465,7 +465,7 @@ export default function ServiceLandingClient({
                     <span className="text-brand-accent">{badge.icon}</span>
                     <span
                       className="text-slate-300 text-xs"
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
                     >
                       {badge.label}
                     </span>
@@ -488,13 +488,13 @@ export default function ServiceLandingClient({
               <div className="mb-6">
                 <h2
                   className="text-2xl font-bold text-white mb-1"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {formHeading}
                 </h2>
                 <p
                   className="text-slate-500 text-sm"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
                 >
                   {formSubheading}
                 </p>
@@ -519,13 +519,13 @@ export default function ServiceLandingClient({
                 <div key={stat.label} className="flex flex-col gap-1">
                   <span
                     className="text-3xl font-bold text-white"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {stat.value}
                   </span>
                   <span
                     className="text-xs uppercase tracking-widest text-slate-500"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {stat.label}
                   </span>
@@ -543,7 +543,7 @@ export default function ServiceLandingClient({
             <div className="max-w-6xl mx-auto px-6 md:px-16">
               <p
                 className="text-brand-accent text-xs uppercase tracking-widest text-center mb-10"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 What Customers Say
               </p>
@@ -568,20 +568,20 @@ export default function ServiceLandingClient({
                     </div>
                     <p
                       className="text-slate-300 text-sm leading-relaxed flex-1"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      style={{ fontFamily: "var(--font-dm-sans)" }}
                     >
                       &ldquo;{t.quote}&rdquo;
                     </p>
                     <div>
                       <p
                         className="text-white text-sm font-bold"
-                        style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                        style={{ fontFamily: "var(--font-rajdhani)" }}
                       >
                         {t.name}
                       </p>
                       <p
                         className="text-slate-500 text-xs"
-                        style={{ fontFamily: "'DM Sans', sans-serif" }}
+                        style={{ fontFamily: "var(--font-dm-sans)" }}
                       >
                         {t.location}
                       </p>
@@ -605,26 +605,26 @@ export default function ServiceLandingClient({
             <div className="text-center mb-10">
               <p
                 className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 {bottomCtaEyebrow}
               </p>
               <h2
                 className="text-4xl font-bold text-white mb-4"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 {bottomCtaHeading}
               </h2>
               <p
                 className="text-slate-400 leading-relaxed"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-dm-sans)" }}
               >
                 {bottomCtaBody}
               </p>
               <a
                 href={siteConfig.phoneHref}
                 className="inline-flex items-center gap-2 mt-6 text-brand-accent font-bold text-lg hover:text-white transition-colors duration-200"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 <Phone size={18} />
                 {settings.phone}
@@ -640,7 +640,7 @@ export default function ServiceLandingClient({
             <div className="bg-brand-base border border-white/10 rounded-sm p-8">
               <h3
                 className="text-xl font-bold text-white mb-6"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 Or Request Your Free Estimate Online
               </h3>

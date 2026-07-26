@@ -59,7 +59,7 @@ function LandingHeader({ settings }: { settings: SiteSettings }) {
         <a
           href={siteConfig.phoneHref}
           className="flex items-center gap-2 text-white font-bold text-sm hover:text-brand-accent transition-colors duration-200"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           <Phone size={14} className="text-brand-accent" />
           {settings.phone}
@@ -78,7 +78,7 @@ function LandingFooter({ settings }: { settings: SiteSettings }) {
           <ShieldCheck className="text-brand-accent" size={16} strokeWidth={2.2} />
           <span
             className="text-white text-xs font-semibold tracking-widest uppercase"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             {settings.siteName}
           </span>
@@ -87,13 +87,13 @@ function LandingFooter({ settings }: { settings: SiteSettings }) {
           <a
             href="/privacy"
             className="text-slate-600 text-xs hover:text-white transition-colors duration-200"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             Privacy Policy
           </a>
           <span
             className="text-slate-600 text-xs"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             © {new Date().getFullYear()} {settings.siteName}. All rights reserved.
           </span>
@@ -159,13 +159,13 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
         <CheckCircle className="text-brand-accent" size={44} />
         <h3
           className="text-2xl font-bold text-white"
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           Request Received!
         </h3>
         <p
           className="text-slate-400 leading-relaxed"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         >
           Thanks {formData.name.split(" ")[0]} — we'll be in touch within 1
           business day to schedule your free estimate in {areaName}.
@@ -181,7 +181,7 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
           <label
             htmlFor="area-name"
             className={labelClass}
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Full Name
           </label>
@@ -193,7 +193,7 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
             onChange={handleChange}
             placeholder="John Smith"
             className={`${inputClass} ${errors.name ? "border-red-500/50" : "border-white/5"}`}
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           />
           {errors.name && (
             <p className="text-red-400 text-xs mt-1">{errors.name}</p>
@@ -203,7 +203,7 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
           <label
             htmlFor="area-phone"
             className={labelClass}
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Phone Number
           </label>
@@ -215,7 +215,7 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
             onChange={handleChange}
             placeholder="(555) 000-0000"
             className={`${inputClass} ${errors.phone ? "border-red-500/50" : "border-white/5"}`}
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           />
           {errors.phone && (
             <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
@@ -227,7 +227,7 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
         <label
           htmlFor="area-email"
           className={labelClass}
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           Email Address
         </label>
@@ -239,7 +239,7 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
           onChange={handleChange}
           placeholder="john@example.com"
           className={`${inputClass} ${errors.email ? "border-red-500/50" : "border-white/5"}`}
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         />
         {errors.email && (
           <p className="text-red-400 text-xs mt-1">{errors.email}</p>
@@ -250,7 +250,7 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
         <label
           htmlFor="area-address"
           className={labelClass}
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           Property Address
         </label>
@@ -262,7 +262,7 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
           onChange={handleChange}
           placeholder={`Your address in ${areaName}`}
           className={`${inputClass} ${errors.address ? "border-red-500/50" : "border-white/5"}`}
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         />
         {errors.address && (
           <p className="text-red-400 text-xs mt-1">{errors.address}</p>
@@ -273,7 +273,7 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
         <label
           htmlFor="area-service"
           className={labelClass}
-          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+          style={{ fontFamily: "var(--font-rajdhani)" }}
         >
           Service Needed
         </label>
@@ -283,7 +283,7 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
           value={formData.serviceType}
           onChange={handleChange}
           className={`${inputClass} ${errors.serviceType ? "border-red-500/50" : "border-white/5"}`}
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
+          style={{ fontFamily: "var(--font-dm-sans)" }}
         >
           <option value="" disabled>
             Select a service...
@@ -303,7 +303,7 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
         type="submit"
         disabled={isSubmitting}
         className="group flex items-center justify-center gap-3 bg-brand-accent text-brand-base font-bold px-8 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-        style={{ fontFamily: "'Rajdhani', sans-serif" }}
+        style={{ fontFamily: "var(--font-rajdhani)" }}
       >
         {isSubmitting ? (
           <span className="flex items-center gap-2">
@@ -331,7 +331,7 @@ function EstimateForm({ areaName, services }: { areaName: string; services: Serv
 
       <p
         className="text-slate-600 text-xs text-center"
-        style={{ fontFamily: "'DM Sans', sans-serif" }}
+        style={{ fontFamily: "var(--font-dm-sans)" }}
       >
         No spam. No commitment. Response within 1 business day.
       </p>
@@ -381,13 +381,13 @@ export default function AreaLandingClient({
           <div className="text-center px-6">
             <h1
               className="text-4xl font-bold text-white mb-4"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Area Not Found
             </h1>
             <p
               className="text-slate-400 mb-8"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               We couldn't find that service area. View all areas we serve below.
             </p>
@@ -397,7 +397,7 @@ export default function AreaLandingClient({
                   key={a.slug}
                   href={`/lp/${a.slug}`}
                   className="px-4 py-2 border border-white/10 text-slate-400 hover:text-white hover:border-brand-accent/30 rounded-sm text-sm transition-all duration-200"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {a.name}
                 </a>
@@ -436,7 +436,7 @@ export default function AreaLandingClient({
                 initial="hidden"
                 animate="visible"
                 className="flex items-center gap-2 text-brand-accent text-xs uppercase tracking-widest"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 <MapPin size={12} />
                 {areaData.region} · Licensed & Insured
@@ -448,7 +448,7 @@ export default function AreaLandingClient({
                 initial="hidden"
                 animate="visible"
                 className="text-5xl md:text-6xl font-bold text-white leading-tight"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 Security Systems for {areaData.name}
                 <br />
@@ -470,7 +470,7 @@ export default function AreaLandingClient({
                 initial="hidden"
                 animate="visible"
                 className="text-slate-400 text-lg leading-relaxed max-w-lg"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-dm-sans)" }}
               >
                 {areaData.description}
               </motion.p>
@@ -490,7 +490,7 @@ export default function AreaLandingClient({
                     />
                     <span
                       className="text-slate-300 text-sm"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      style={{ fontFamily: "var(--font-dm-sans)" }}
                     >
                       {item}
                     </span>
@@ -513,7 +513,7 @@ export default function AreaLandingClient({
                     <span className="text-brand-accent">{badge.icon}</span>
                     <span
                       className="text-slate-300 text-xs"
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
                     >
                       {badge.label}
                     </span>
@@ -536,13 +536,13 @@ export default function AreaLandingClient({
               <div className="mb-6">
                 <h2
                   className="text-2xl font-bold text-white mb-1"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   Free Estimate in {areaData.name}
                 </h2>
                 <p
                   className="text-slate-500 text-sm"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ fontFamily: "var(--font-dm-sans)" }}
                 >
                   We'll respond within 1 business day.
                 </p>
@@ -567,13 +567,13 @@ export default function AreaLandingClient({
                 <div key={stat.label} className="flex flex-col gap-1">
                   <span
                     className="text-3xl font-bold text-white"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {stat.value}
                   </span>
                   <span
                     className="text-xs uppercase tracking-widest text-slate-500"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {stat.label}
                   </span>
@@ -590,7 +590,7 @@ export default function AreaLandingClient({
           <div className="max-w-6xl mx-auto px-6 md:px-16">
             <p
               className="text-brand-accent text-xs uppercase tracking-widest text-center mb-10"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               What {areaData.name} Customers Say
             </p>
@@ -619,20 +619,20 @@ export default function AreaLandingClient({
                   </div>
                   <p
                     className="text-slate-300 text-sm leading-relaxed flex-1"
-                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     "{t.quote}"
                   </p>
                   <div>
                     <p
                       className="text-white text-sm font-bold"
-                      style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
                     >
                       {t.name}
                     </p>
                     <p
                       className="text-slate-500 text-xs"
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                      style={{ fontFamily: "var(--font-dm-sans)" }}
                     >
                       {t.location}
                     </p>
@@ -650,7 +650,7 @@ export default function AreaLandingClient({
           <div className="max-w-6xl mx-auto px-6 md:px-16 flex flex-col items-center text-center gap-6">
             <p
               className="text-brand-accent text-xs uppercase tracking-widest"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               We Also Serve
             </p>
@@ -662,7 +662,7 @@ export default function AreaLandingClient({
                     key={nearby}
                     href={`/lp/${nearbyArea.slug}`}
                     className="flex items-center gap-2 px-4 py-2 border border-white/10 text-slate-400 hover:text-white hover:border-brand-accent/30 rounded-sm text-sm transition-all duration-200"
-                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     <MapPin size={12} className="text-brand-accent" />
                     {nearby}
@@ -684,19 +684,19 @@ export default function AreaLandingClient({
             <div className="text-center mb-10">
               <p
                 className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 Prefer to Talk First?
               </p>
               <h2
                 className="text-4xl font-bold text-white mb-4"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 Call Us Directly
               </h2>
               <p
                 className="text-slate-400 leading-relaxed"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-dm-sans)" }}
               >
                 Have questions about security systems in {areaData.name}? Give
                 us a call and we'll answer everything.
@@ -704,7 +704,7 @@ export default function AreaLandingClient({
               <a
                 href={siteConfig.phoneHref}
                 className="inline-flex items-center gap-2 mt-6 text-brand-accent font-bold text-lg hover:text-white transition-colors duration-200"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 <Phone size={18} />
                 {settings.phone}
@@ -719,7 +719,7 @@ export default function AreaLandingClient({
             <div className="bg-brand-surface border border-white/10 rounded-sm p-8">
               <h3
                 className="text-xl font-bold text-white mb-6"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 Or Request Your Free Estimate Online
               </h3>

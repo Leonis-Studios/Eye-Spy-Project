@@ -80,7 +80,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
                 key={link.label}
                 href={link.href}
                 className="text-text-nav hover:text-text-primary text-sm uppercase tracking-widest transition-colors duration-200"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 {link.label}
               </a>
@@ -92,14 +92,14 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
             <a
               href={siteConfig.phoneHref}
               className="text-text-nav hover:text-text-primary text-sm transition-colors duration-200"
-              style={{ fontFamily: "'DM Sans', sans-serif" }}
+              style={{ fontFamily: "var(--font-dm-sans)" }}
             >
               {settings.phone}
             </a>
             <button
               onClick={scrollToForm}
               className="group flex items-center gap-2 bg-brand-accent text-brand-base font-bold px-5 py-2.5 rounded-sm text-xs uppercase tracking-widest hover:bg-white transition-colors duration-200"
-              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+              style={{ fontFamily: "var(--font-rajdhani)" }}
             >
               Free Estimate
               <ArrowRight
@@ -147,7 +147,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.06 }}
                   className="text-text-nav hover:text-text-primary text-2xl font-bold py-3 border-b border-white/5 transition-colors duration-200"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {link.label}
                 </motion.a>
@@ -159,7 +159,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
               <button
                 onClick={scrollToForm}
                 className="group flex items-center justify-center gap-2 bg-brand-accent text-brand-base font-bold px-6 py-4 rounded-sm text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                style={{ fontFamily: "var(--font-rajdhani)" }}
               >
                 Get a Free Estimate
                 <ArrowRight
@@ -170,7 +170,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
               <a
                 href={siteConfig.phoneHref}
                 className="text-center text-text-nav hover:text-text-primary text-sm transition-colors duration-200"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-dm-sans)" }}
               >
                 or call {settings.phone}
               </a>

@@ -148,7 +148,7 @@ We will respond to all privacy-related inquiries within 30 days.`,
             initial="hidden"
             animate="visible"
             className="text-brand-accent text-xs uppercase tracking-widest mb-4"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Legal
           </motion.p>
@@ -158,7 +158,7 @@ We will respond to all privacy-related inquiries within 30 days.`,
             initial="hidden"
             animate="visible"
             className="text-5xl md:text-6xl font-bold text-white mb-4"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            style={{ fontFamily: "var(--font-rajdhani)" }}
           >
             Privacy Policy
           </motion.h1>
@@ -168,7 +168,7 @@ We will respond to all privacy-related inquiries within 30 days.`,
             initial="hidden"
             animate="visible"
             className="text-slate-500 text-sm"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             Last updated: {lastUpdated}
           </motion.p>
@@ -178,7 +178,7 @@ We will respond to all privacy-related inquiries within 30 days.`,
             initial="hidden"
             animate="visible"
             className="text-slate-400 mt-4 leading-relaxed"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             {settings.siteName} ("we", "us", or "our") is committed to protecting
             your personal information. This Privacy Policy explains how we
@@ -212,13 +212,13 @@ We will respond to all privacy-related inquiries within 30 days.`,
               <div className="flex items-start gap-4">
                 <span
                   className="text-brand-accent/40 text-xs font-bold mt-1 shrink-0"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h2
                   className="text-xl font-bold text-white"
-                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                  style={{ fontFamily: "var(--font-rajdhani)" }}
                 >
                   {section.title}
                 </h2>
@@ -230,7 +230,7 @@ We will respond to all privacy-related inquiries within 30 days.`,
               {/* Content — whitespace-pre-line preserves line breaks in the strings */}
               <p
                 className="text-slate-400 leading-relaxed whitespace-pre-line"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                style={{ fontFamily: "var(--font-dm-sans)" }}
               >
                 {section.content}
               </p>
@@ -245,7 +245,7 @@ We will respond to all privacy-related inquiries within 30 days.`,
         <div className="max-w-3xl mx-auto px-6 md:px-16">
           <p
             className="text-slate-600 text-xs leading-relaxed"
-            style={{ fontFamily: "'DM Sans', sans-serif" }}
+            style={{ fontFamily: "var(--font-dm-sans)" }}
           >
             <strong className="text-slate-500">Legal Disclaimer:</strong> This
             Privacy Policy is provided for informational purposes and represents
