@@ -35,8 +35,8 @@ export const siteConfig = {
   // ─── CONTACT ─────────────────────────────────────────────────────────────
   phone: "(555) 000-0000",
   phoneHref: "tel:+15550000000", // used in href attributes
-  email: "info@securtech.com",
-  emailHref: "mailto:info@securtech.com",
+  email: "services@eyespycabling.com",
+  emailHref: "mailto:services@eyespycabling.com",
 
   // ─── LOCATION ────────────────────────────────────────────────────────────
   address: "123 Main St, City, State 00000",
@@ -88,9 +88,9 @@ export const siteConfig = {
 
   // ─── SOCIAL ──────────────────────────────────────────────────────────────
   social: {
-    facebook: "https://facebook.com/securtech",
-    instagram: "https://instagram.com/securtech",
-    google: "https://g.page/securtech",
+    facebook: "https://facebook.com/eyespycabling",
+    instagram: "https://instagram.com/eyespycabling",
+    google: "https://g.page/eyespycabling",
   },
 
   // ─── SEO ─────────────────────────────────────────────────────────────────
@@ -101,6 +101,6 @@ export const siteConfig = {
       "Licensed security system installation for homes and businesses in [City]. Cameras, alarms, access control. Get a free estimate today.",
     keywords:
       "security system installation, CCTV cameras, alarm systems, access control, [City]",
-    url: "https://www.securtech.com",
+    url: "https://www.eyespycabling.com",
   },
 };
