@@ -213,12 +213,12 @@ function PricingCardItem({
 
 function CableOverlay({
   cardRefs,
-  sectionRef,
+  containerRef,
   isInView,
   cardCount,
 }: {
   cardRefs: React.RefObject<HTMLDivElement | null>[];
-  sectionRef: React.RefObject<HTMLDivElement | null>;
+  containerRef: React.RefObject<HTMLDivElement | null>;
   isInView: boolean;
   cardCount: number;
 }) {
@@ -226,20 +226,20 @@ function CableOverlay({
   const [dims, setDims] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    if (!isInView || !sectionRef.current) return;
+    if (!isInView || !containerRef.current) return;
 
-    const section = sectionRef.current;
-    const sectionRect = section.getBoundingClientRect();
-    const svgWidth = sectionRect.width;
-    const svgHeight = sectionRect.height;
+    const container = containerRef.current;
+    const containerRect = container.getBoundingClientRect();
+    const svgWidth = containerRect.width;
+    const svgHeight = containerRect.height;
 
     const newPaths: string[] = [];
 
     cardRefs.forEach((ref) => {
       if (!ref.current) return;
       const cardRect = ref.current.getBoundingClientRect();
-      const cx = cardRect.left - sectionRect.left + cardRect.width / 2;
-      const cy = cardRect.top - sectionRect.top;
+      const cx = cardRect.left - containerRect.left + cardRect.width / 2;
+      const cy = cardRect.top - containerRect.top;
       // Right-angle path: drop from top, horizontal run to card mid-x, then down
       const startY = 0;
       const midY = Math.max(cy - 32, 20);
@@ -249,7 +249,7 @@ function CableOverlay({
 
     setPaths(newPaths);
     setDims({ width: svgWidth, height: svgHeight });
-  }, [isInView, cardRefs, sectionRef, cardCount]);
+  }, [isInView, cardRefs, containerRef, cardCount]);
 
   if (paths.length === 0) return null;
 
@@ -431,6 +431,7 @@ export default function PricingPageClient({
   );
 
   const cardsInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const cableOverlayRef = useRef<HTMLDivElement>(null);
 
   // Rebuild card refs if card count changes
   if (cardRefs.current.length !== cards.length) {
@@ -542,10 +543,10 @@ export default function PricingPageClient({
             </motion.h2>
 
             {/* Cable overlay — desktop only, positioned relative to the grid */}
-            <div className="relative">
+            <div className="relative" ref={cableOverlayRef}>
               <CableOverlay
                 cardRefs={cardRefs.current}
-                sectionRef={sectionRef}
+                containerRef={cableOverlayRef}
                 isInView={cardsInView}
                 cardCount={cards.length}
               />
@@ -597,11 +598,11 @@ export default function PricingPageClient({
       )}
 
       {/* ── Bottom CTA + Estimate Form ───────────────────────────────────────── */}
-      <div className={`${hasFaq ? "bg-brand-surface" : "bg-brand-base"} pt-12`}>
+      <div className={`relative ${hasFaq ? "bg-brand-surface" : "bg-brand-base"} pt-16`}>
         {hasFaq && (
-          <div className="h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-brand-accent/15 to-transparent" />
         )}
-        <div className="max-w-3xl mx-auto px-6 md:px-16 text-center mb-0 pt-12">
+        <div className="max-w-3xl mx-auto px-6 md:px-16 text-center mb-8">
           <p
             className="text-brand-accent text-xs uppercase tracking-widest mb-3"
             style={{ fontFamily: "var(--font-rajdhani)" }}

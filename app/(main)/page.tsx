@@ -12,9 +12,10 @@ import CableSeparator from "../components/CableSeparator";
 import JsonLd from "../components/JsonLd";
 import { getSiteSettings } from "../lib/getSiteSettings";
 import { getServices } from "../lib/getServices";
+import { getHomePage } from "../lib/getHomePage";
 import { sanityFetch } from "../lib/sanity";
-import { testimonialsQuery, faqQuery, homePageQuery } from "../lib/queries";
-import { type Testimonial, type FaqItem, type HomePageData } from "../lib/types";
+import { testimonialsQuery, faqQuery } from "../lib/queries";
+import { type Testimonial, type FaqItem } from "../lib/types";
 import { howItWorksSteps } from "../config/howItWorks";
 import { siteConfig } from "../config/site";
 import { buildMetadata } from "../lib/seo";
@@ -22,7 +23,7 @@ import { buildMetadata } from "../lib/seo";
 export async function generateMetadata(): Promise<Metadata> {
   const [settings, homePage] = await Promise.all([
     getSiteSettings(),
-    sanityFetch<HomePageData | null>(homePageQuery),
+    getHomePage(),
   ]);
 
   const siteName = settings.siteName || siteConfig.name;
@@ -44,7 +45,7 @@ export default async function Home() {
     sanityFetch<Testimonial[]>(testimonialsQuery),
     sanityFetch<FaqItem[]>(faqQuery),
     getServices(),
-    sanityFetch<HomePageData | null>(homePageQuery),
+    getHomePage(),
   ]);
 
   const faqPageSchema = faqItems.length > 0

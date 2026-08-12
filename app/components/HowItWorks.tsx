@@ -27,6 +27,7 @@ export default function HowItWorks({
 
   const sectionRef = useRef<HTMLElement>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const headerRefs = useRef<(HTMLDivElement | null)[]>([]);
   const containerDivRef = useRef<HTMLDivElement>(null);
   const [connectionPaths, setConnectionPaths] = useState<string[]>([]);
   const [junctionPoints, setJunctionPoints] = useState<JunctionPoint[]>([]);
@@ -44,7 +45,13 @@ export default function HowItWorks({
       const rects = stepRefs.current
         .slice(0, steps.length)
         .map((el) => (el ? el.getBoundingClientRect() : null));
-      if (rects.some((r) => !r)) return;
+      // Anchor the cable's vertical position to the port-icon header block,
+      // which is the same height on every card regardless of title/description
+      // length — keeps wires in sync instead of drifting with text length.
+      const headerRects = headerRefs.current
+        .slice(0, steps.length)
+        .map((el) => (el ? el.getBoundingClientRect() : null));
+      if (rects.some((r) => !r) || headerRects.some((r) => !r)) return;
 
       const newPaths: string[] = [];
       const newJunctions: JunctionPoint[] = [];
@@ -52,8 +59,10 @@ export default function HowItWorks({
       for (let i = 0; i < rects.length - 1; i++) {
         const r0 = rects[i] as DOMRect;
         const r1 = rects[i + 1] as DOMRect;
-        const midY0 = r0.top - containerRect.top + r0.height / 2;
-        const midY1 = r1.top - containerRect.top + r1.height / 2;
+        const h0 = headerRects[i] as DOMRect;
+        const h1 = headerRects[i + 1] as DOMRect;
+        const midY0 = h0.top - containerRect.top + h0.height / 2;
+        const midY1 = h1.top - containerRect.top + h1.height / 2;
 
         // Only connect cards on the same row (same vertical center within threshold)
         if (Math.abs(midY0 - midY1) < 30) {
@@ -250,51 +259,58 @@ export default function HowItWorks({
                   ref={(el) => { stepRefs.current[index] = el; }}
                   className="flex flex-col items-center text-center w-full border-l-2 border-brand-accent/20 pl-4 sm:border-l-0 sm:pl-0"
                 >
-                  {/* RJ45 port symbol */}
-                  <svg
-                    width="28"
-                    height="20"
-                    viewBox="0 0 28 20"
-                    fill="none"
-                    aria-hidden="true"
-                    className="mx-auto mb-3"
+                  {/* Port-icon header block — fixed height across all cards, so the
+                      cable connectors above always line up regardless of text length */}
+                  <div
+                    ref={(el) => { headerRefs.current[index] = el; }}
+                    className="flex flex-col items-center"
                   >
-                    <rect
-                      x="1" y="1" width="26" height="18" rx="1"
-                      stroke="#EF6B4D" strokeOpacity="0.6" strokeWidth="1"
-                    />
-                    {[4, 6.5, 9, 11.5, 14, 16.5, 19, 21.5].map((x, i) => (
-                      <line
-                        key={i}
-                        x1={x} y1="5" x2={x} y2="15"
-                        stroke="#EF6B4D" strokeOpacity="0.7" strokeWidth="0.8"
+                    {/* RJ45 port symbol */}
+                    <svg
+                      width="28"
+                      height="20"
+                      viewBox="0 0 28 20"
+                      fill="none"
+                      aria-hidden="true"
+                      className="mx-auto mb-3"
+                    >
+                      <rect
+                        x="1" y="1" width="26" height="18" rx="1"
+                        stroke="#EF6B4D" strokeOpacity="0.6" strokeWidth="1"
                       />
-                    ))}
-                  </svg>
+                      {[4, 6.5, 9, 11.5, 14, 16.5, 19, 21.5].map((x, i) => (
+                        <line
+                          key={i}
+                          x1={x} y1="5" x2={x} y2="15"
+                          stroke="#EF6B4D" strokeOpacity="0.7" strokeWidth="0.8"
+                        />
+                      ))}
+                    </svg>
 
-                  {/* Cable label tag */}
-                  <div className="inline-flex items-center gap-1 mb-3 border border-brand-accent/40 bg-brand-accent/5 px-2 py-0.5 rounded-xs">
-                    <span className="text-brand-accent/80 font-mono text-[10px] tracking-widest uppercase">
-                      PORT {step.step}
+                    {/* Cable label tag */}
+                    <div className="inline-flex items-center gap-1 mb-3 border border-brand-accent/40 bg-brand-accent/5 px-2 py-0.5 rounded-xs">
+                      <span className="text-brand-accent/80 font-mono text-[10px] tracking-widest uppercase">
+                        PORT {step.step}
+                      </span>
+                    </div>
+
+                    {/* Ghost step number */}
+                    <span
+                      className="text-5xl sm:text-7xl font-bold text-brand-accent/15 mb-4 block leading-none"
+                      style={{ fontFamily: "var(--font-rajdhani)" }}
+                    >
+                      {step.step}
                     </span>
                   </div>
 
-                  {/* Ghost step number */}
-                  <span
-                    className="text-5xl sm:text-7xl font-bold text-brand-accent/15 mb-4 block leading-none"
-                    style={{ fontFamily: "var(--font-rajdhani)" }}
-                  >
-                    {step.step}
-                  </span>
-
                   <h3
-                    className="text-lg font-bold text-text-primary mb-2"
+                    className="text-lg font-bold text-text-primary mb-2 min-h-[3.5rem] flex items-center justify-center"
                     style={{ fontFamily: "var(--font-rajdhani)" }}
                   >
                     {step.title}
                   </h3>
                   <p
-                    className="text-text-secondary text-sm leading-relaxed"
+                    className="text-text-secondary text-sm leading-relaxed min-h-[4.5rem]"
                     style={{ fontFamily: "var(--font-dm-sans)" }}
                   >
                     {step.description}

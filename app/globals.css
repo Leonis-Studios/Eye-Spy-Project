@@ -197,12 +197,18 @@
 }
 
 /* ── Slightly increase primary/secondary text sizes ─────── */
-/* Heading sizes (2xl–8xl) and tiny labels (xs) are unchanged */
+/* Heading sizes (2xl–8xl) and tiny labels (xs) are unchanged.
+   NOTE: these must be --text-*, Tailwind v4's real font-size theme
+   namespace — a prior pass used --font-size-* here, which Tailwind
+   doesn't recognize, so text-sm/base/lg/xl silently stayed at their
+   stock sizes despite this block existing. Line-heights don't need a
+   matching override: Tailwind's defaults are unitless ratios, so they
+   scale proportionally with the new sizes automatically. */
 @theme {
-  --font-size-sm: 1rem; /* 16px (was 15px) — nav, buttons, secondary labels */
-  --font-size-base: 1.125rem; /* 18px (was 17px) — card descriptions, form text */
-  --font-size-lg: 1.25rem; /* 20px (was 19px) — section descriptions, primary body */
-  --font-size-xl: 1.4375rem; /* 23px (was 22px) — hero subheading, large body copy */
+  --text-sm: 1rem; /* 16px (was 14px) — nav, buttons, secondary labels */
+  --text-base: 1.125rem; /* 18px (was 16px) — card descriptions, form text */
+  --text-lg: 1.25rem; /* 20px (was 18px) — section descriptions, primary body */
+  --text-xl: 1.4375rem; /* 23px (was 20px) — hero subheading, large body copy */
 }
 
 @layer base {

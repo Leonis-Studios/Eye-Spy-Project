@@ -215,12 +215,28 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
             © {currentYear} {settings.siteName}. All rights reserved.
           </p>
 
-          <p
-            className="text-text-subtle text-xs"
-            style={{ fontFamily: "var(--font-dm-sans)" }}
-          >
-            {settings.serviceArea}
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <p
+              className="text-text-subtle text-xs"
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+            >
+              {settings.serviceArea}
+            </p>
+
+            <span className="inline-flex items-center gap-2 border border-brand-accent/25 bg-brand-accent/5 px-2.5 py-1 rounded-xs">
+              {/* Connector LED — same pulse language as the hero's "Licensed & Insured" badge */}
+              <span className="relative flex items-center justify-center w-1.5 h-1.5 shrink-0" aria-hidden>
+                <span className="absolute inset-0 rounded-full bg-brand-accent motion-safe:animate-ping opacity-60" />
+                <span className="relative w-1.5 h-1.5 rounded-full bg-brand-accent" />
+              </span>
+              <span
+                className="text-[10px] tracking-widest uppercase text-text-subtle"
+                style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" }}
+              >
+                Powered by <span className="text-brand-accent/90">Leonis Studios</span>
+              </span>
+            </span>
+          </div>
         </div>
       </div>
     </footer>
