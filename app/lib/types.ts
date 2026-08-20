@@ -103,6 +103,14 @@ export interface SiteSettings {
   };
 }
 
+// ─── AUTHOR ───────────────────────────────────────────────────────────────────
+export interface Author {
+  name: string;
+  role?: string;
+  bio?: string;
+  photo?: any;
+}
+
 // ─── BLOG ─────────────────────────────────────────────────────────────────────
 export interface BlogPost {
   slug: string;
@@ -114,6 +122,9 @@ export interface BlogPost {
   featured: boolean;
   content?: any[];
   ogImage?: any;
+  author?: Author;
+  publishedAt?: string;
+  _updatedAt?: string;
 }
 
 // ─── TESTIMONIAL ──────────────────────────────────────────────────────────────

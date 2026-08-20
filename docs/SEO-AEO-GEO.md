@@ -39,7 +39,7 @@ Key techniques:
 | `/services/[slug]` | `Service`, `BreadcrumbList` | `/services/[slug]#service` |
 | `/blog/[slug]` | `Article`, `BreadcrumbList` | `/blog/[slug]#article` |
 | `/lp/[area]` | `LocalBusiness` + `SecurityService`, `BreadcrumbList` | `/lp/[area]#business` |
-| `/pricing` | _(planned — add FAQPage for pricing FAQs)_ | — |
+| `/pricing` | `FAQPage` (from `pricingPage.faqItems`), `BreadcrumbList` | — |
 | `/about` | _(planned — add Person schemas for team members)_ | — |
 
 ---
@@ -171,8 +171,8 @@ Use these as copy-paste starting points for new pages. Replace `[DYNAMIC: ...]` 
   "@id": "https://www.securtech.com/blog/[slug]#article",
   "headline": "[DYNAMIC: post.title]",
   "description": "[DYNAMIC: post.excerpt]",
-  "datePublished": "[DYNAMIC: parseMonthYearToISO(post.date)]",
-  "dateModified": "[DYNAMIC: parseMonthYearToISO(post.date)]",
+  "datePublished": "[DYNAMIC: post.publishedAt ?? parseMonthYearToISO(post.date)]",
+  "dateModified": "[DYNAMIC: post._updatedAt ?? post.publishedAt ?? parseMonthYearToISO(post.date)]",
   "url": "https://www.securtech.com/blog/[slug]",
   "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.securtech.com/blog/[slug]" },
   "articleSection": "[DYNAMIC: post.category]",
@@ -185,6 +185,16 @@ Use these as copy-paste starting points for new pages. Replace `[DYNAMIC: ...]` 
   }
 }
 ```
+
+**Author variant** — when `blogPost.author` is set (a reference to an `author` document), use a `Person` instead of the Organization fallback:
+
+```json
+{
+  "author": { "@type": "Person", "name": "[DYNAMIC: post.author.name]" }
+}
+```
+
+`publisher` always stays the Organization, regardless of which `author` variant is used.
 
 ### 3.8 LocalBusiness — area variant (`/lp/[area]`)
 
@@ -257,6 +267,23 @@ return (
 );
 ```
 
+For `BreadcrumbList`, don't hand-build the object — use `buildBreadcrumbSchema()` from `app/lib/breadcrumb.ts`:
+
+```tsx
+import { buildBreadcrumbSchema } from "@/app/lib/breadcrumb";
+
+const breadcrumbSchema = buildBreadcrumbSchema(
+  [
+    { name: "Home", path: "" },
+    { name: "Services", path: "/services" },
+    { name: service.title, path: `/services/${slug}` },
+  ],
+  siteUrl,
+);
+```
+
+`path` is relative to `siteUrl`; use `""` for the homepage crumb. `position` is assigned automatically from the array order.
+
 ### `@id` convention
 
 - Always use **absolute URLs + fragment**: `https://www.securtech.com/services/cameras#service`
@@ -267,6 +294,16 @@ return (
 ### Address fields
 
 Never hardcode address values in schemas. Always use `siteConfig.addressStreet`, `siteConfig.addressCity`, `siteConfig.addressRegion`, `siteConfig.addressPostal`. Update those values in `app/config/site.ts` when the business address changes.
+
+### The `seo` object and `noindex`
+
+Every publicly-routable document type (`aboutPage`, `contactPage`, `homePage`, `pricingPage`, `serviceArea`, `serviceLandingPage`, `servicePage`, `blogPost`) has an optional `seo` field (`sanity/schema/objects/seo.ts`) with `title`, `description`, `ogImage`, `canonical`, and `noindex`. All are optional — every consumer falls back to page-specific content (title, excerpt/shortDescription, etc.) when left blank in Studio.
+
+Turning on `seo.noindex` for a document:
+- Sets `robots: { index: false, follow: true }` in that page's `generateMetadata` (via `buildMetadata()` in `app/lib/seo.ts`)
+- Excludes the page from `app/sitemap.ts`
+
+`seo.canonical` overrides the default canonical URL (`siteUrl + path`) in `alternates.canonical` — leave it blank unless the content is duplicated elsewhere and needs to point search engines at a different preferred URL.
 
 ---
 
@@ -327,7 +364,11 @@ After any schema change, validate before deploying:
    ```
    Then right-click → View Source on any page and search for `application/ld+json` to verify all schemas are present in the HTML.
 
-4. **Sitemap check** — Visit `/sitemap.xml` and confirm all expected URLs appear including `/pricing` and `/lp/[area]` entries.
+4. **Sitemap check** — Visit `/sitemap.xml` and confirm all expected URLs appear including `/pricing` and `/lp/[area]` entries, each with a `<lastmod>` sourced from Sanity's `_updatedAt` (Sanity-backed singleton and dynamic pages only — `/blog` and `/services` are index pages with no backing document, so they have no `<lastmod>`). Pages with `seo.noindex` turned on must NOT appear.
+
+5. **robots.txt check** — Visit `/robots.txt` and confirm `/studio` and `/api` are disallowed under the `*` rule, and that GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, PerplexityBot, Google-Extended, and Bytespider each have an explicit `Allow: /` rule.
+
+6. **llms.txt check** — Visit `/llms.txt` (served by `app/llms.txt/route.ts`, `revalidate = 3600`) and confirm the Services and Content sections list live Sanity data — add a test `servicePage` or `blogPost` and confirm it appears after the next revalidation without any code change.
 
 ---
 
@@ -336,8 +377,13 @@ After any schema change, validate before deploying:
 | Schema field | Sanity source | Notes |
 |-------------|---------------|-------|
 | `FAQPage.mainEntity` | `faqItem` documents | Empty array = FAQPage schema not rendered (guarded in `page.tsx`) |
-| `Article.datePublished` | `blogPost.date` | Must be `"Month YYYY"` format in Sanity; `parseMonthYearToISO()` converts it |
+| `Article.datePublished` | `blogPost.publishedAt`, falls back to `blogPost.date` | `publishedAt` (datetime) is preferred; `parseMonthYearToISO()` converts the legacy `"Month YYYY"` string for older posts that predate the `publishedAt` field |
+| `Article.dateModified` | `blogPost._updatedAt` (Sanity system field), falls back to `publishedAt`/`date` | No explicit `updatedAt` field — Sanity's built-in `_updatedAt` drives freshness signals |
 | `Article.headline` | `blogPost.title` | — |
+| `Article.author` | `blogPost.author` (reference to `author` document) | `Person` when set, else falls back to the Organization (see §3.7 Author variant) |
+| `generateMetadata` title/description/ogImage | `<type>.seo.title` / `.description` / `.ogImage` | Every publicly-routable type; falls back to page-specific content when blank (see "The `seo` object and `noindex`" above) |
+| `alternates.canonical` | `<type>.seo.canonical` | Falls back to `siteUrl + path` when blank |
+| Excluded from `sitemap.ts` | `<type>.seo.noindex` | See "The `seo` object and `noindex`" above |
 | `LocalBusiness area.name` | `serviceArea.name` | Falls back to URL slug if Sanity returns null |
 | `LocalBusiness.telephone` | `siteSettings.phone` | Falls back to `siteConfig.phone` via `getSiteSettings()` |
 | `hasOfferCatalog` | `siteConfig.services` | Hardcoded — update if service slugs change in Sanity |

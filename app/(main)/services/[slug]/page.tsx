@@ -10,6 +10,7 @@ import { getServices } from "@/app/lib/getServices";
 import { getSiteSettings } from "@/app/lib/getSiteSettings";
 import { siteConfig } from "@/app/config/site";
 import { buildMetadata } from "@/app/lib/seo";
+import { buildBreadcrumbSchema } from "@/app/lib/breadcrumb";
 import JsonLd from "@/app/components/JsonLd";
 import ServicePageClient from "./ServicePageClient";
 
@@ -98,15 +99,14 @@ export default async function ServiceDetailPage({
     };
   }
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "Services", item: `${siteUrl}/services` },
-      { "@type": "ListItem", position: 3, name: service.title, item: `${siteUrl}/services/${slug}` },
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: "Home", path: "" },
+      { name: "Services", path: "/services" },
+      { name: service.title, path: `/services/${slug}` },
     ],
-  };
+    siteUrl,
+  );
 
   return (
     <>

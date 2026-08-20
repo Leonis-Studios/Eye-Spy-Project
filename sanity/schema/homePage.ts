@@ -190,5 +190,12 @@ export const homePage = {
       options: { hotspot: true },
       description: "Image shown when this page is shared on social media. Recommended size: 1200x630.",
     },
+    {
+      name: "seo",
+      title: "Advanced SEO",
+      type: "seo",
+      fieldset: "seo",
+      description: "Advanced SEO overrides (canonical URL, hide from search). Meta Title/Description/Image above are used unless set here.",
+    },
   ],
 };

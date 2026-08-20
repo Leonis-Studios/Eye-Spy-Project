@@ -1,24 +1,15 @@
 "use client";
 
-import { useRef, useState } from "react";
-import {
-  motion,
-  useInView,
-  type Variants,
-  AnimatePresence,
-} from "framer-motion";
-import { Plus, Minus } from "lucide-react";
+import { useRef } from "react";
+import { motion, useInView, type Variants } from "framer-motion";
 import { type FaqItem } from "../lib/types";
+import { AccordionRow, useAccordion } from "./Accordion";
 
 export default function FAQ({ items }: { items: FaqItem[] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const toggle = (i: number) => {
-    setOpenIndex((prev) => (prev === i ? null : i));
-  };
+  const { openIndex, toggle } = useAccordion();
 
   const containerVariants: Variants = {
     hidden: {},
@@ -78,69 +69,15 @@ export default function FAQ({ items }: { items: FaqItem[] }) {
           className="flex flex-col"
         >
           {items.map((faq, i) => (
-            <motion.div
-              key={faq.question}
-              variants={itemVariants}
-              className={`border-b ${i === items.length - 1 ? "border-transparent" : "border-white/5"}`}
-            >
-              <button
-                onClick={() => toggle(i)}
-                className="w-full flex items-center gap-4 py-5 text-left group"
-              >
-                {/* Port identifier — Q-XX label on the left of each row */}
-                <span
-                  className="font-mono text-[9px] tracking-widest text-brand-accent/60 uppercase shrink-0 hidden sm:block w-8"
-                  aria-hidden="true"
-                >
-                  Q-{String(i + 1).padStart(2, "0")}
-                </span>
-
-                <span
-                  className={`flex-1 text-base font-medium transition-colors duration-200 pr-4 ${
-                    openIndex === i
-                      ? "text-text-primary"
-                      : "text-text-nav group-hover:text-text-primary"
-                  }`}
-                  style={{ fontFamily: "var(--font-rajdhani)" }}
-                >
-                  {faq.question}
-                </span>
-
-                {/* Toggle icon — port connection indicator styling */}
-                <span
-                  className={`shrink-0 flex items-center justify-center w-6 h-6 border transition-colors duration-200 ${
-                    openIndex === i
-                      ? "border-brand-accent/40 text-brand-accent"
-                      : "border-white/10 text-text-muted group-hover:border-brand-accent/25 group-hover:text-text-nav"
-                  }`}
-                  style={{ borderRadius: 0 }}
-                >
-                  {openIndex === i ? <Minus size={12} /> : <Plus size={12} />}
-                </span>
-              </button>
-
-              <AnimatePresence initial={false}>
-                {openIndex === i && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{
-                      duration: 0.3,
-                      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-                    }}
-                    className="overflow-hidden"
-                  >
-                    {/* Left border on answer — patch panel aesthetic */}
-                    <p
-                      className="text-text-secondary text-base leading-relaxed pb-5 pl-4 sm:pl-12 border-l-2 border-brand-accent/35"
-                      style={{ fontFamily: "var(--font-dm-sans)" }}
-                    >
-                      {faq.answer}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+            <motion.div key={faq.question} variants={itemVariants}>
+              <AccordionRow
+                index={i}
+                question={faq.question}
+                answer={faq.answer}
+                isOpen={openIndex === i}
+                onToggle={() => toggle(i)}
+                isLast={i === items.length - 1}
+              />
             </motion.div>
           ))}
         </motion.div>

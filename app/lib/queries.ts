@@ -1,3 +1,12 @@
+// ─── SITEMAP ──────────────────────────────────────────────────────────────────
+// _updatedAt for the singleton pages, used for sitemap lastModified.
+export const sitemapSingletonsQuery = `{
+  "home": *[_type == "homePage"][0]{ _updatedAt },
+  "about": *[_type == "aboutPage"][0]{ _updatedAt },
+  "contact": *[_type == "contactPage"][0]{ _updatedAt },
+  "pricing": *[_type == "pricingPage"][0]{ _updatedAt }
+}`;
+
 // ─── SITE SETTINGS ───────────────────────────────────────────────────────────
 export const siteSettingsQuery = `
   *[_type == "siteSettings"][0]{
@@ -25,7 +34,9 @@ export const allPostsQuery = `
     category,
     readTime,
     date,
-    featured
+    featured,
+    _updatedAt,
+    "noindex": seo.noindex
   }
 `;
 
@@ -39,7 +50,10 @@ export const singlePostQuery = `
     date,
     featured,
     content,
-    ogImage
+    ogImage,
+    publishedAt,
+    _updatedAt,
+    author->{ name, role, bio, photo }
   }
 `;
 
@@ -99,7 +113,7 @@ export const allAreasQuery = `
 `;
 
 export const allAreaSlugsQuery = `
-  *[_type == "serviceArea"]{ "slug": slug.current }
+  *[_type == "serviceArea"]{ "slug": slug.current, _updatedAt, "noindex": seo.noindex }
 `;
 
 export const singleAreaQuery = `
@@ -119,7 +133,7 @@ export const singleAreaQuery = `
 
 // ─── SERVICE LANDING PAGES ────────────────────────────────────────────────────
 export const allServiceLandingPageSlugsQuery = `
-  *[_type == "serviceLandingPage"]{ "slug": slug.current }
+  *[_type == "serviceLandingPage"]{ "slug": slug.current, _updatedAt, "noindex": seo.noindex }
 `;
 
 export const singleServiceLandingPageQuery = `
@@ -151,7 +165,7 @@ export const singleServiceLandingPageQuery = `
 
 // ─── SERVICE PAGES ────────────────────────────────────────────────────────────
 export const allServicePageSlugsQuery = `
-  *[_type == "servicePage"]{ "slug": slug.current }
+  *[_type == "servicePage"]{ "slug": slug.current, _updatedAt, "noindex": seo.noindex }
 `;
 
 export const allServicePagesQuery = `

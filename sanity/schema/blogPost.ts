@@ -114,6 +114,25 @@ export const blogPost = {
       options: { hotspot: true },
       description: "Image shown when this post is shared on social media. Recommended size: 1200x630. Defaults to the first content image if left blank.",
     },
+    {
+      name: "author",
+      title: "Author",
+      type: "reference",
+      to: [{ type: "author" }],
+      description: "Who wrote this post. Leave blank to attribute the post to the business.",
+    },
+    {
+      name: "publishedAt",
+      title: "Published Date",
+      type: "datetime",
+      description: "Exact publish date/time, used for SEO and sorting. Leave blank to keep using the Publication Date text above.",
+    },
+    {
+      name: "seo",
+      title: "SEO",
+      type: "seo",
+      description: "Advanced SEO overrides (title, description, canonical URL, hide from search). Defaults to the post title/excerpt if left blank.",
+    },
   ],
   preview: {
     select: { title: "title", subtitle: "category" },

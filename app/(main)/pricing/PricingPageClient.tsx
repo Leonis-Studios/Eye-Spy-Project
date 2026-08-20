@@ -2,9 +2,10 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
-import { CheckCircle, ArrowRight, Plus, Minus } from "lucide-react";
+import { CheckCircle, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import EstimateForm from "@/app/components/EstimateForm";
+import { AccordionRow, useAccordion } from "@/app/components/Accordion";
 import {
   type PricingPage,
   type PricingService,
@@ -325,7 +326,7 @@ function CableOverlay({
 // ─── FAQ ACCORDION ────────────────────────────────────────────────────────────
 
 function FaqAccordion({ items, title }: { items: PricingFaqItem[]; title?: string }) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { openIndex, toggle } = useAccordion();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
@@ -359,44 +360,15 @@ function FaqAccordion({ items, title }: { items: PricingFaqItem[]; title?: strin
           className="space-y-3"
         >
           {items.map((item, i) => (
-            <motion.div
-              key={item._key}
-              variants={itemVariants}
-              className="border border-white/5 rounded-sm overflow-hidden"
-            >
-              {/* Question row */}
-              <button
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left group hover:bg-brand-accent/5 transition-colors duration-200"
-              >
-                {/* Port tag */}
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <span className="shrink-0 font-mono text-[9px] tracking-widest uppercase text-brand-accent/60 border border-brand-accent/30 px-1.5 py-0.5 rounded-sm">
-                    Q-{String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span
-                    className="text-white font-semibold text-sm leading-snug group-hover:text-brand-accent transition-colors duration-200"
-                    style={{ fontFamily: "var(--font-rajdhani)" }}
-                  >
-                    {item.question}
-                  </span>
-                </div>
-                <span className="shrink-0 text-brand-accent/60">
-                  {openIndex === i ? <Minus size={16} /> : <Plus size={16} />}
-                </span>
-              </button>
-
-              {/* Answer */}
-              {openIndex === i && (
-                <div className="px-5 pb-5 border-t border-white/5">
-                  <p
-                    className="text-slate-400 text-sm leading-relaxed pt-4"
-                    style={{ fontFamily: "var(--font-dm-sans)" }}
-                  >
-                    {item.answer}
-                  </p>
-                </div>
-              )}
+            <motion.div key={item._key} variants={itemVariants}>
+              <AccordionRow
+                index={i}
+                question={item.question}
+                answer={item.answer}
+                isOpen={openIndex === i}
+                onToggle={() => toggle(i)}
+                variant="pricing"
+              />
             </motion.div>
           ))}
         </motion.div>

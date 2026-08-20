@@ -1,7 +1,9 @@
+import type { Thing, WithContext } from "schema-dts";
+
 // Server component — do NOT add "use client".
 // All JSON-LD injection must happen in server components (page.tsx / layout.tsx).
 interface JsonLdProps {
-  schema: Record<string, unknown>;
+  schema: WithContext<Thing> | Record<string, unknown>;
 }
 
 export default function JsonLd({ schema }: JsonLdProps) {

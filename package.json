@@ -9,7 +9,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.12",
@@ -42,6 +43,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "prettier": "^3.8.1",
+    "schema-dts": "^2.0.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

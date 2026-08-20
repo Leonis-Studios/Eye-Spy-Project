@@ -1,4 +1,6 @@
+import { seo } from "./schema/objects/seo";
 import { siteSettings } from "./schema/siteSettings";
+import { author } from "./schema/author";
 import { blogPost } from "./schema/blogPost";
 import { testimonial } from "./schema/testimonial";
 import { faqItem } from "./schema/faqItem";
@@ -12,10 +14,12 @@ import { aboutPage } from "./schema/aboutPage";
 import { contactPage } from "./schema/contactPage";
 
 export const schemaTypes = [
+  seo,
   siteSettings,
   homePage,
   aboutPage,
   contactPage,
+  author,
   blogPost,
   testimonial,
   faqItem,

@@ -18,6 +18,7 @@ import {
 } from "@/app/lib/types";
 import { siteConfig } from "@/app/config/site";
 import { buildMetadata } from "@/app/lib/seo";
+import { buildBreadcrumbSchema } from "@/app/lib/breadcrumb";
 import JsonLd from "@/app/components/JsonLd";
 import AreaLandingClient from "./AreaLandingClient";
 import ServiceLandingClient from "./ServiceLandingClient";
@@ -134,19 +135,13 @@ export default async function LandingPage({
       sameAs: [settings.social.facebook, settings.social.instagram, settings.social.google],
     };
 
-    const breadcrumbSchema = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.seo.url },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: `Security Systems in ${areaData.name}`,
-          item: `${siteConfig.seo.url}/lp/${area}`,
-        },
+    const breadcrumbSchema = buildBreadcrumbSchema(
+      [
+        { name: "Home", path: "" },
+        { name: `Security Systems in ${areaData.name}`, path: `/lp/${area}` },
       ],
-    };
+      siteConfig.seo.url,
+    );
 
     return (
       <>

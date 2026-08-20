@@ -6,6 +6,7 @@ import { getSiteSettings } from "@/app/lib/getSiteSettings";
 import { type PricingPage, type PricingService } from "@/app/lib/types";
 import { siteConfig } from "@/app/config/site";
 import { buildMetadata } from "@/app/lib/seo";
+import { buildBreadcrumbSchema } from "@/app/lib/breadcrumb";
 import JsonLd from "@/app/components/JsonLd";
 import PricingPageClient from "./PricingPageClient";
 
@@ -60,14 +61,13 @@ export default async function PricingPage() {
         }
       : null;
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "Pricing", item: `${siteUrl}/pricing` },
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: "Home", path: "" },
+      { name: "Pricing", path: "/pricing" },
     ],
-  };
+    siteUrl,
+  );
 
   return (
     <>

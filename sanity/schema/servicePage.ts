@@ -108,6 +108,12 @@ export const servicePage = {
       description: "Image shown when this page is shared on social media. Recommended size: 1200x630. Defaults to the first gallery image if left blank.",
     },
     {
+      name: "seo",
+      title: "SEO",
+      type: "seo",
+      description: "Advanced SEO overrides (canonical URL, hide from search). Title/Description/Image above are used unless set here.",
+    },
+    {
       name: "order",
       title: "Sort Order",
       type: "number",
